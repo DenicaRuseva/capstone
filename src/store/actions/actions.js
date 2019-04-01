@@ -15,9 +15,17 @@ const fetchProductsFaill = (error) => {
     };
 };
 
-const fetchProductsSuccess = () => {
+const fetchProductsSuccess = (products) => {
+    console.log(products);
+    return dispatch => {
+        dispatch(setProducts(products));
+    };
+};
+
+const setProducts = (products) => {
     return {
-        type: actionTypes.FETCH_PRODUCTS_SUCCESS
+        type: actionTypes.SET_PRODUCTS,
+        products: products
     };
 };
 
@@ -25,8 +33,10 @@ const fetchProductsSuccess = () => {
 export const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchProductsStart());
-        const products = axios.get('https://webmppcapstone.blob.core.windows.net/data/itemsdata.json');
-        console.log(products);
+        const products = axios.get('https://webmppcapstone.blob.core.windows.net/data/itemsdata.json')
+        .then(res => dispatch(fetchProductsSuccess(res.data)))
+        .catch( error => dispatch(fetchProductsFaill(error)));
+        
     };
 
 };
