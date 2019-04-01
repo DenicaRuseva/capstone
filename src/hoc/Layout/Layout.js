@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 
+
 class Layout extends Component {
 
     componentDidMount(){
@@ -12,9 +13,9 @@ class Layout extends Component {
         return(
             <div>
                 <div>header</div>
-                <div>carusel</div>
-                <div>shop</div>
-                <div>footer</div>
+                <main>
+                    {this.props.children}
+                </main>
             </div>
         )
     };
