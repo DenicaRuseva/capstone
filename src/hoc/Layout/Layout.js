@@ -10,12 +10,14 @@ class Layout extends Component {
     }
 
     render(){
+        console.log('in render layout');
         return(
             <div>
                 <div>header</div>
                 <main>
                     {this.props.children}
                 </main>
+                <div>footer</div>
             </div>
         )
     };
@@ -27,4 +29,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect( null, mapDispatchToProps)(Layout);
+export default connect(null, mapDispatchToProps)(Layout);

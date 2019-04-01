@@ -18,14 +18,27 @@ const fetchProductsFaill = (error) => {
 const fetchProductsSuccess = (products) => {
     console.log(products);
     return dispatch => {
-        dispatch(setProducts(products));
+        dispatch(setProductsObjectAndCarouselProducts(products));
     };
 };
 
-const setProducts = (products) => {
+const setProductsObjectAndCarouselProducts = (products) => {
+    const carouselProducts = Object.keys(products).map(key => {
+        return Object.keys(products[key].subcategories).map( newKey => {
+            return [...Array(products[key].subcategories[newKey].items.length)].map((_, i) => {
+                return products[key].subcategories[newKey].items[i]
+            });
+        })
+    }).reduce((arr, el) => {
+            return arr.concat(el);
+        }, []).reduce((arr, el) => {
+            return arr.concat(el);
+        }, []).sort((a, b) => b.rating - a.rating);
+    console.log(carouselProducts);
     return {
-        type: actionTypes.SET_PRODUCTS,
-        products: products
+        type: actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS,
+        products: products,
+        carouselProducts: carouselProducts.slice(0, 5)
     };
 };
 
