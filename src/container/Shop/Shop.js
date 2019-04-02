@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ShopSideBar from '../../components/ShopSideBar/ShopSideBar';
+import { connect } from 'react-redux';
 
 class Shop extends Component {
 
@@ -9,14 +10,26 @@ class Shop extends Component {
 
     render(){
         console.log('in render shop');
-        console.log(this.props);
+        const shop = this.props.loading ? <div>spinner</div> : 
+            (
+                <div>
+                    <ShopSideBar categories={this.props.categoriesAndSubcat}/>
+                    <div>img gallery</div>
+                </div>
+            )
         return (
-            <div>
-                <ShopSideBar categories={['a', 'b', 'c', 'd']}/>
-                <div>img gallery</div>
-            </div>
+            <div>{shop}</div>
         )
     };
 };
 
-export default Shop;
+const mapStateToProps = state => {
+    return {
+        loading: state.loadingShop,
+        allProducts: state.allProducts,
+        categoriesAndSubcat: state.categoriesAndSubcat,
+        subcategories: state.subcategories
+    }
+}
+
+export default connect(mapStateToProps)(Shop);

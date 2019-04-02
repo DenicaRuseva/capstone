@@ -4,12 +4,16 @@ import * as actionTypes from '../actions/actionsTypes';
 const initialState = {
     productsObject: [],
     carouselProducts: [],
-    loading: false,
+    allProducts: [],
+    categoriesAndSubcat: [],
+    subcategories: [],
+    loadingCarousel: true,
+    loadingShop: true,
     error: false
 };
 
 
-const fetchProductsStart = (state) => {
+const fetchProductsStart = (state) => { //May be not needed???
     return {
         ...state,
         loading: true
@@ -25,26 +29,46 @@ const fetchProductsFaill = (state, action) => {
     };
 };
 
-const setProducts = (state, action) => {
+const setProductsObjectAndCarouselProducts = (state, action) => {
     return {
         ...state,
         productsObject: [
             ...state.productsObject,
-            ...action.products
+            ...action.productsObject
         ],
         carouselProducts: [
             ...state.carouselProducts,
             ...action.carouselProducts
         ],
-        loading: false
+        loadingCarousel: false
     }
-}
+};
+
+const setShopProducts = (state, action) => {
+    return {
+        ...state,
+        allProducts: [
+            ...state.allProducts,
+            ...action.allProducts
+        ],
+        categoriesAndSubcat: [
+            ...state.categoriesAndSubcat,
+            ...action.categoriesAndSubcat
+        ],
+        subcategories: [
+            ...state.subcategories,
+            ...action.subcategories
+        ],
+        loadingShop: false
+    };
+};
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.FETCH_PRODUCTS_START: return fetchProductsStart(state);
         case actionTypes.FETCH_PRODUCTS_FAILL: return fetchProductsFaill(state, action);
-        case actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS: return setProducts(state, action);
+        case actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS: return setProductsObjectAndCarouselProducts(state, action);
+        case actionTypes.SET_SHOP_PRODUCTS: return setShopProducts(state, action);
         default: return state;
     };
 

@@ -18,27 +18,65 @@ const fetchProductsFaill = (error) => {
 const fetchProductsSuccess = (products) => {
     console.log(products);
     return dispatch => {
-        dispatch(setProductsObjectAndCarouselProducts(products));
+        dispatch(setState(products));
     };
 };
 
-const setProductsObjectAndCarouselProducts = (products) => {
-    const carouselProducts = Object.keys(products).map(key => {
-        return Object.keys(products[key].subcategories).map( newKey => {
-            return [...Array(products[key].subcategories[newKey].items.length)].map((_, i) => {
-                return products[key].subcategories[newKey].items[i]
+const setState = (products) => {
+    return dispatch => {
+        const allProducts = Object.keys(products).map(key => {
+            return Object.keys(products[key].subcategories).map( newKey => {
+                return [...products[key].subcategories[newKey].items];
             });
-        })
-    }).reduce((arr, el) => {
-            return arr.concat(el);
-        }, []).reduce((arr, el) => {
-            return arr.concat(el);
-        }, []).sort((a, b) => b.rating - a.rating);
-    console.log(carouselProducts);
+        }).reduce((arr, el) => {
+                return arr.concat(el);
+            }, []).reduce((arr, el) => {
+                return arr.concat(el);
+            }, []);
+        const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
+        console.log(carouselProducts);
+        dispatch(setCarouselProductsAndProductsObject(products, carouselProducts));
+        const categoriesAndSubcat = Object.keys(products).map(key => {
+            return {
+                category: products[key].category,
+                subcategories: [...Array(products[key].subcategories.length)].map((_, i) => {
+                return products[key].subcategories[i].name
+                })
+            };
+        });
+        const subcategories = Object.keys(products).map(key => {
+            return Object.keys(products[key].subcategories).map(newKey => {
+                return {
+                    name: products[key].subcategories[newKey].name,
+                    items:  [...products[key].subcategories[newKey].items]
+                };
+            });
+        });
+        console.log(allProducts);
+        console.log(categoriesAndSubcat);
+        console.log(subcategories);
+        dispatch(setShopProducts(allProducts, categoriesAndSubcat, subcategories));
+
+
+    };
+    
+   
+};
+
+const setShopProducts = (allProducts, categoriesAndSubcat, subcategories) => {
+    return {
+        type: actionTypes.SET_SHOP_PRODUCTS,
+        allProducts: allProducts,
+        categoriesAndSubcat: categoriesAndSubcat,
+        subcategories: subcategories
+    };
+};
+
+const setCarouselProductsAndProductsObject = (productsObject, carouselProducts) => {
     return {
         type: actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS,
-        products: products,
-        carouselProducts: carouselProducts.slice(0, 5)
+        productsObject: productsObject,
+        carouselProducts: carouselProducts
     };
 };
 

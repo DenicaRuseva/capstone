@@ -3,7 +3,7 @@ import CategoryButton from './CategoryButton/CattegoryButton';
 
 const shopSideBar = (props) => {
     const categories = props.categories.map( (category, i) => {
-        return <CategoryButton key={i} clicked={() => alert('click')}>{category}</CategoryButton>
+        return <CategoryButton key={i} clicked={() => alert('click')}>{category.category}</CategoryButton>
     });
 
     return (
