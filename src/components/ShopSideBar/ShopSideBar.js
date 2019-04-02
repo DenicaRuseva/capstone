@@ -2,12 +2,16 @@ import React from 'react';
 import CategoryButton from './CategoryButton/CattegoryButton';
 
 const shopSideBar = (props) => {
-    const categories = props.categories.map( (category, i) => {
-        return <CategoryButton key={i} clicked={() => alert('click')}>{category.category}</CategoryButton>
+    console.log(props.categoriesAndSubcat);
+    const categoriesAndSubcat = props.categoriesAndSubcat.map( (key, i) => {
+        return <CategoryButton 
+            key={key+i}
+            categoryAndSubcat = {props.categoriesAndSubcat[i]} 
+            clicked={() => alert('click')}/>
     });
 
     return (
-        <div>{categories}</div>
+        <div>{categoriesAndSubcat}</div>
     );
 
 

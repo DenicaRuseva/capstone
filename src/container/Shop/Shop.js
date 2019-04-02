@@ -10,10 +10,12 @@ class Shop extends Component {
 
     render(){
         console.log('in render shop');
+        console.log(this.props.categoriesAndSubcat);
         const shop = this.props.loading ? <div>spinner</div> : 
             (
                 <div>
-                    <ShopSideBar categories={this.props.categoriesAndSubcat}/>
+                    <ShopSideBar 
+                        categoriesAndSubcat={this.props.categoriesAndSubcat}/>
                     <div>img gallery</div>
                 </div>
             )
