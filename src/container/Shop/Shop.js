@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import ShopSideBar from '../../components/ShopSideBar/ShopSideBar';
+import ShopSideBar  from '../../components/ShopSideBar/ShopSideBar';
+import ShopGallery from '../../components/ShopGallery/ShopGallery';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+
+// const ShopSideBar = require('../../components/ShopSideBar/ShopSideBar').default;
+// const ShopGallery = require('../../components/ShopGallery/ShopGallery').default;
+
 
 class Shop extends Component {
 
@@ -10,13 +16,12 @@ class Shop extends Component {
 
     render(){
         console.log('in render shop');
-        console.log(this.props.categoriesAndSubcat);
+        console.log(this.props);
         const shop = this.props.loading ? <div>spinner</div> : 
             (
                 <div>
-                    <ShopSideBar 
-                        categoriesAndSubcat={this.props.categoriesAndSubcat}/>
-                    <div>img gallery</div>
+                    <ShopSideBar categoriesAndSubcat={this.props.categoriesAndSubcat} match={this.props.match}/>
+                    <ShopGallery productsToShow={this.props.allProducts} match={this.props.match}/>
                 </div>
             )
         return (

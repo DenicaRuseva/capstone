@@ -1,13 +1,30 @@
 import React from 'react';
+import { NavLink, Route } from 'react-router-dom';
+
+
 
 const categoryButton = (props) => {
-    console.log(props.categoryAndSubcat);
+    console.log(props);
+
     const subcategories = props.categoryAndSubcat.subcategories.map((subcat, i) => {
-        return <li key={subcat+i}>{subcat}</li>
+        return (
+            <Route key={subcat+i} path={`/shop/${props.categoryAndSubcat.category}/`}
+            render={ () => (<li>
+            <NavLink 
+                to={`/shop/${props.categoryAndSubcat.category}/${subcat}`}>
+                {subcat}
+            </NavLink>
+            </li>)}/>
+            
+        );
     });
     return (
         <ul>
-            <li>{props.categoryAndSubcat.category}
+            <li>
+                <NavLink 
+                to={`/shop/${props.categoryAndSubcat.category}`}>
+                    {props.categoryAndSubcat.category}
+                </NavLink>
                 <ul>{subcategories}</ul>
             </li>
         </ul>

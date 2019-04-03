@@ -24,7 +24,7 @@ class Carousel extends Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.loading,
+        loading: state.loadingCarousel,
         carouselProducts: state.carouselProducts
     };
 };

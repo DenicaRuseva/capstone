@@ -1,21 +1,31 @@
 import React from 'react';
 import CategoryButton from './CategoryButton/CattegoryButton';
+import { connect } from 'react-redux';
 
 const shopSideBar = (props) => {
-    console.log(props.categoriesAndSubcat);
-    const categoriesAndSubcat = props.categoriesAndSubcat.map( (key, i) => {
-        return <CategoryButton 
-            key={key+i}
-            categoryAndSubcat = {props.categoriesAndSubcat[i]} 
-            clicked={() => alert('click')}/>
+    console.log(props);
+    const categoriesAndSubcategories = props.categoriesAndSubcat.map( (key, i) => {
+        return (
+                <CategoryButton 
+                    key={key+i}
+                    categoryAndSubcat = {props.categoriesAndSubcat[i]} 
+                    clicked={() => alert('click')}/>
+        )
     });
 
     return (
-        <div>{categoriesAndSubcat}</div>
+        <div>{categoriesAndSubcategories}</div>
     );
 
 
 
 };
 
-export default shopSideBar;
+const mapStateToProps = state => {
+    return {
+        categoriesAndSubcat: state.categoriesAndSubcat
+    };
+};
+
+export default connect(mapStateToProps)(shopSideBar);
+

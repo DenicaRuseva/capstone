@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Shop from './container/Shop/Shop';
 import Carousel from './container/Carousel/Carousel';
 // import { connect } from 'react-redux';
@@ -17,8 +17,12 @@ class App extends Component {
 
     return (
       <Layout>
-        <Route path="/" exact component={Carousel} />
-        <Route path="/shop" exact component={Shop}/>
+        <Switch>
+          <Route path="/" exact component={Carousel} />
+          <Route path='/shop/:category/:subcategory' component={Shop}/>
+          <Route path="/shop/:category" component={Shop}/>
+          <Route path="/shop" component={Shop}/>
+        </Switch>
       </Layout>
     );
   }
