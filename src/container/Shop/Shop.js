@@ -21,7 +21,9 @@ class Shop extends Component {
             (
                 <div>
                     <ShopSideBar categoriesAndSubcat={this.props.categoriesAndSubcat} match={this.props.match}/>
-                    <ShopGallery productsToShow={this.props.allProducts} match={this.props.match}/>
+                    <ShopGallery 
+                        currentCategory={this.props.match.params.category}
+                        currentSubcategory={this.props.match.params.subcategory}/>
                 </div>
             )
         return (

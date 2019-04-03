@@ -8,14 +8,12 @@ const categoryButton = (props) => {
 
     const subcategories = props.categoryAndSubcat.subcategories.map((subcat, i) => {
         return (
-            <Route key={subcat+i} path={`/shop/${props.categoryAndSubcat.category}/`}
-            render={ () => (<li>
-            <NavLink 
-                to={`/shop/${props.categoryAndSubcat.category}/${subcat}`}>
-                {subcat}
-            </NavLink>
-            </li>)}/>
-            
+            <li key={subcat+i}>
+                <NavLink 
+                    to={`/shop/${props.categoryAndSubcat.category}/${subcat}`}>
+                    {subcat}
+                </NavLink>
+            </li>
         );
     });
     return (
@@ -25,7 +23,8 @@ const categoryButton = (props) => {
                 to={`/shop/${props.categoryAndSubcat.category}`}>
                     {props.categoryAndSubcat.category}
                 </NavLink>
-                <ul>{subcategories}</ul>
+                <Route  path={`/shop/${props.categoryAndSubcat.category}/`}
+                render={() => <ul>{subcategories}</ul>}/>
             </li>
         </ul>
     )
