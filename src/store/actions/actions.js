@@ -36,6 +36,7 @@ const setState = (products) => {
 
 
         const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
+        
         dispatch(setCarouselProductsAndProductsObject(products, carouselProducts));
 
 
@@ -136,7 +137,7 @@ const setState = (products) => {
     //     console.log(allProducts);
     //     console.log(categoriesAndSubcat);
     //     console.log(subcategories);
-        dispatch(setShopProducts(categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds));
+        dispatch(setShopData(categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds));
 
 
     };
@@ -144,9 +145,9 @@ const setState = (products) => {
    
 };
 
-const setShopProducts = (categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds) => {
+const setShopData = (categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds) => {
     return {
-        type: actionTypes.SET_SHOP_PRODUCTS,
+        type: actionTypes.SET_SHOP_DATA,
         // allProducts: allProducts,
         categoriesAndSubcat: categoriesAndSubcat,
         subcategories: subcategories,

@@ -46,7 +46,7 @@ const setProductsObjectAndCarouselProducts = (state, action) => {
     }
 };
 
-const setShopProducts = (state, action) => {
+const setShopData = (state, action) => {
     return {
         ...state,
         // allProducts: [
@@ -78,7 +78,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_PRODUCTS_START: return fetchProductsStart(state);
         case actionTypes.FETCH_PRODUCTS_FAILL: return fetchProductsFaill(state, action);
         case actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS: return setProductsObjectAndCarouselProducts(state, action);
-        case actionTypes.SET_SHOP_PRODUCTS: return setShopProducts(state, action);
+        case actionTypes.SET_SHOP_DATA: return setShopData(state, action);
         default: return state;
     };
 
