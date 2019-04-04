@@ -9,7 +9,7 @@ const shopSideBar = (props) => {
                 <CategoryButton 
                     key={key+i}
                     categoryAndSubcat = {props.categoriesAndSubcat[i]} 
-                    clicked={() => alert('click')}/>
+                    clicked={props.toggleClassShow}/>
         )
     });
 

@@ -1,0 +1,7 @@
+.show-subcat > ul  {
+   display: block;
+}
+
+li > ul {
+    display: none;
+}

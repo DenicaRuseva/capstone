@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ShopSideBar  from '../../components/ShopSideBar/ShopSideBar';
 import ShopGallery from '../../components/ShopGallery/ShopGallery';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
 // const ShopSideBar = require('../../components/ShopSideBar/ShopSideBar').default;
 // const ShopGallery = require('../../components/ShopGallery/ShopGallery').default;
@@ -14,6 +13,11 @@ class Shop extends Component {
         console.log('in cdm Shop');
     };
 
+    toggleClassShow = (event) => {
+       event.target.classList.toggle('show-subcat');
+
+    };
+
     render(){
         
         console.log('in render shop');
@@ -21,12 +25,10 @@ class Shop extends Component {
 
         const shop = this.props.loadingShop ? <div>spinner</div> : (
             <div>
-                <ShopSideBar categoriesAndSubcat={this.props.categoriesAndSubcat}/>
-                <Switch>
-                    <Route path="/shop/:category/:subcategory" component={ShopGallery}/>
-                    <Route path="/shop/:category" component={ShopGallery}/>
-                    <Route path="/shop" component={ShopGallery}/>
-                </Switch>
+                <ShopSideBar 
+                    categoriesAndSubcat={this.props.categoriesAndSubcat}
+                    toggleClassShow={this.toggleClassShow}/>
+                <ShopGallery/>
                 
             </div>
         )
