@@ -4,9 +4,11 @@ import * as actionTypes from '../actions/actionsTypes';
 const initialState = {
     productsObject: [],
     carouselProducts: [],
-    allProducts: [],
+    // allProducts: [],
     categoriesAndSubcat: [],
     subcategories: [],
+    categoriesByIds: [], 
+    subcategoriesByIds: [],
     loadingCarousel: true,
     loadingShop: true,
     error: false
@@ -47,10 +49,10 @@ const setProductsObjectAndCarouselProducts = (state, action) => {
 const setShopProducts = (state, action) => {
     return {
         ...state,
-        allProducts: [
-            ...state.allProducts,
-            ...action.allProducts
-        ],
+        // allProducts: [
+        //     ...state.allProducts,
+        //     ...action.allProducts
+        // ],
         categoriesAndSubcat: [
             ...state.categoriesAndSubcat,
             ...action.categoriesAndSubcat
@@ -58,6 +60,14 @@ const setShopProducts = (state, action) => {
         subcategories: [
             ...state.subcategories,
             ...action.subcategories
+        ],
+        categoriesByIds: [
+            ...state.categoriesByIds,
+            ...action.categoriesByIds
+        ], 
+        subcategoriesByIds: [
+            ...state.subcategoriesByIds,
+            ...action.subcategoriesByIds
         ],
         loadingShop: false
     };
