@@ -36,7 +36,7 @@ const setState = (products) => {
 
 
         const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
-        
+
         dispatch(setCarouselProductsAndProductsObject(products, carouselProducts));
 
 
@@ -58,13 +58,13 @@ const setState = (products) => {
             });
         });
 
-        // let allSubcategById =[];
+        let allSubcategById =[];
         let subcategoriesById = [];
         let categoriesByIds = Object.keys(products).map(key => {
             return {
                 [products[key].category]: {
                     'all': [...Array(products[key].subcategories.length)].map((_, i) => {
-                    // allSubcategById.push(products[key].subcategories[i].name);
+                    allSubcategById.push(products[key].subcategories[i].name);
                     return products[key].subcategories[i].name
                     }),
                 }
@@ -91,6 +91,9 @@ const setState = (products) => {
                 }
             }
         });
+        categoriesByIds['all'] = {
+            all: allSubcategById
+        };
 
         subcategoriesById = subcategoriesById.reduce((arr, el) => {
             return arr.concat(el.map(obj => {
@@ -130,7 +133,7 @@ const setState = (products) => {
         console.log(subcategoriesByIds);
 
      
-    // //  console.log(allSubcategById);
+        console.log(allSubcategById);
         console.log(categoriesByIds);
          console.log(subcategoriesById);
          console.log(subcategoriesByIds);

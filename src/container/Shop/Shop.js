@@ -9,6 +9,11 @@ import { connect } from 'react-redux';
 
 class Shop extends Component {
 
+    state = {
+        currentCategory: 'all',
+        currentSubcategory: 'all'
+    }
+
     componentDidMount(){
         console.log('in cdm Shop');
     };
@@ -28,7 +33,7 @@ class Shop extends Component {
                 <ShopSideBar 
                     categoriesAndSubcat={this.props.categoriesAndSubcat}
                     toggleClassShow={this.toggleClassShow}/>
-                <ShopGallery itemsToShow={this.props.allProducts}/>
+                {/* <ShopGallery itemsToShow={}/> */}
             </div>
         )
         return (
@@ -40,10 +45,9 @@ class Shop extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.loadingShop,
-        allProducts: state.allProducts,
         categoriesAndSubcat: state.categoriesAndSubcat,
-        subcategories: state.subcategories,
-        shopRoutes: state.shopRoutes
+        categoriesByIds: state.categoriesByIds, 
+        subcategoriesByIds: state.subcategoriesByIds,
     }
 }
 
