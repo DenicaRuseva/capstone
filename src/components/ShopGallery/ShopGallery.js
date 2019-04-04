@@ -1,17 +1,13 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 const shopGallery = (props) => {
     console.log(props);
-    // const items = props.allProducts.map((product, i) => {
-    //    return <img 
-    //         key={product+i}
-    //         src={product.imagelink}/>
-    // });
+    
 
     return(
-        // <div>{items}</div>
         <div>shopGallery</div>
     );
 };
 
-export default shopGallery;
+export default withRouter(shopGallery);

@@ -52,10 +52,25 @@ const setState = (products) => {
                 };
             });
         });
+
+
+        let shopRoutes = Object.keys(products).map(key => {
+            return [...Array(categoriesAndSubcat[key].subcategories.length)].map((_, i) => {
+                return '/shop/' + categoriesAndSubcat[key].category + '/' + categoriesAndSubcat[key].subcategories[i];
+            });
+        });
+        shopRoutes.push(Object.keys(categoriesAndSubcat).map(key => {
+            return '/shop/' + categoriesAndSubcat[key].category
+        }));
+        shopRoutes = shopRoutes.reduce((arr, el) => {
+            return arr.concat(el);
+        },[]);
+        
+        console.log(shopRoutes);
         console.log(allProducts);
         console.log(categoriesAndSubcat);
         console.log(subcategories);
-        dispatch(setShopProducts(allProducts, categoriesAndSubcat, subcategories));
+        dispatch(setShopProducts(allProducts, categoriesAndSubcat, subcategories, shopRoutes));
 
 
     };
@@ -63,12 +78,13 @@ const setState = (products) => {
    
 };
 
-const setShopProducts = (allProducts, categoriesAndSubcat, subcategories) => {
+const setShopProducts = (allProducts, categoriesAndSubcat, subcategories, shopRoutes) => {
     return {
         type: actionTypes.SET_SHOP_PRODUCTS,
         allProducts: allProducts,
         categoriesAndSubcat: categoriesAndSubcat,
-        subcategories: subcategories
+        subcategories: subcategories,
+        shopRoutes: shopRoutes
     };
 };
 

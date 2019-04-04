@@ -7,6 +7,7 @@ const initialState = {
     allProducts: [],
     categoriesAndSubcat: [],
     subcategories: [],
+    shopRoutes: [],
     loadingCarousel: true,
     loadingShop: true,
     error: false
@@ -58,6 +59,10 @@ const setShopProducts = (state, action) => {
         subcategories: [
             ...state.subcategories,
             ...action.subcategories
+        ],
+        shopRoutes: [
+            ...state.shopRoutes,
+            ...action.shopRoutes
         ],
         loadingShop: false
     };
