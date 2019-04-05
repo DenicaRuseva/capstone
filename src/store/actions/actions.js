@@ -16,17 +16,54 @@ const fetchProductsFaill = (error) => {
 };
 
 const fetchProductsSuccess = (products) => {
-    console.log(products);
     return dispatch => {
         dispatch(setState(products));
     };
 };
 
+
+// function deepCopy(src) {
+//     let target = Array.isArray(src) ? [] : {};
+//     for (let key in src) {
+//       let v = src[key];
+//       if (v) {
+//         if (typeof v === "object") {
+//           target[key] = deepCopy(v);
+//         } else {
+//           target[key] = v;
+//         }
+//       } else {
+//         target[key] = v;
+//       }
+//     }
+  
+//     return target;
+//   };
+
+  const deepCopy = (obj) => {
+    let target = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+      let v = obj[key];
+      if (v) {
+        if (typeof v === "object") {
+          target[key] = deepCopy(v);
+        } else {
+          target[key] = v;
+        }
+      } else {
+        target[key] = v;
+      }
+    }
+    return target;
+  };
+
+
 const setState = (products) => {
+    console.log(products);
     return dispatch => {
         const allProducts = Object.keys(products).map(key => {
             return Object.keys(products[key].subcategories).map( newKey => {
-                return [...products[key].subcategories[newKey].items];
+                return deepCopy(products[key].subcategories[newKey].items);
             });
         }).reduce((arr, el) => {
                 return arr.concat(el);
@@ -34,10 +71,13 @@ const setState = (products) => {
                 return arr.concat(el);
         }, []);
 
+        console.log(allProducts);
 
-        const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
+        const carouselProducts = deepCopy(allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10));
+        console.log(carouselProducts);
 
-        dispatch(setCarouselProductsAndProductsObject(products, carouselProducts));
+
+        dispatch(setCarouselProducts(carouselProducts));
 
 
         const categoriesAndSubcat = Object.keys(products).map(key => {
@@ -49,98 +89,51 @@ const setState = (products) => {
             };
         });
 
-        const subcategories = Object.keys(products).map(key => {
-            return Object.keys(products[key].subcategories).map(newKey => {
-                return {
-                    name: products[key].subcategories[newKey].name,
-                    items:  [...products[key].subcategories[newKey].items]
-                };
-            });
-        });
+        let allSubcategById = [];
+        let subcategoriesByIds = {};
+        let categoriesByIds = {};
 
-        let allSubcategById =[];
-        let subcategoriesById = [];
-        let categoriesByIds = Object.keys(products).map(key => {
-            return {
-                [products[key].category]: {
+
+       Object.keys(products).map(key => {
+           return categoriesByIds[products[key].category] = {
                     'all': [...Array(products[key].subcategories.length)].map((_, i) => {
                     allSubcategById.push(products[key].subcategories[i].name);
                     return products[key].subcategories[i].name
-                    }),
-                }
-            };
-        });
-
-        subcategoriesById = [...Array(categoriesByIds.length)].map((_, i) => {
-            return [...Array(subcategories[i].length)].map((_, k) => {
-                return {
-                    [subcategories[i][k].name]: [[subcategories[i][k].name]]
-                }
-            })
-        });
-
-        
-        const catKeys = categoriesByIds.map(i => {
-            return Object.keys(i);
-        });
-        categoriesByIds = categoriesByIds.map((_,i) => {
-            return {
-                [catKeys[i]]: {
-                    ...Object.assign({}, ...subcategoriesById[i]),
-                    ...categoriesByIds[i][catKeys[i]]
-                }
-            }
-        });
-        categoriesByIds['all'] = {
-            all: allSubcategById
-        };
-
-        subcategoriesById = subcategoriesById.reduce((arr, el) => {
-            return arr.concat(el.map(obj => {
-                return {
-                    ...obj
-                }
-            }))
-        },[]);
-
-        
-        // subcategoriesById.map(i => {
-        //     console.log(Object.keys(i));
-        //     Object.keys(i).map((subcat, i) => {
-        //         console.log(subcat);
-        //         let ids = [];
-        //         ids = allProducts.filter(product => product.subcategory.toLowerCase() === subcat.toLowerCase());
-        //         console.log({[subcat]: [ids]});
-        //         return subcatByIds[subcat] = ids;  
-        //     })
-        // });
-
-        const subcategoriesByIds = subcategories.map(arr => {
-            return [...Array(arr.length)].map((_,i) => {
-                return {
-                    [arr[i].name]: [...Array(arr[i].items.length)].map((_, j) => {
-                        return arr[i].items[j]
                     })
                 }
-            })
-        }).reduce((arr, el) => {
-            return arr.concat(el.map(obj => {
-                return {
-                    ...obj
+        });
+
+       
+
+      
+        categoriesAndSubcat.map((el, i) => {
+            categoriesAndSubcat[i].subcategories.map(subcategory => {
+                return categoriesByIds[el.category] = {
+                    ...categoriesByIds[el.category],
+                    [subcategory]: [subcategory]
                 }
-            }))
-        },[]);;
-        console.log(subcategoriesByIds);
+            })
+        });
+
+
+     Object.keys(products).map(key => {
+            return Object.keys(products[key].subcategories).map((newKey) => {
+                return subcategoriesByIds[products[key].subcategories[newKey].name] = 
+                [deepCopy(products[key].subcategories[newKey].items)];
+            });
+        });
 
      
-        console.log(allSubcategById);
-        console.log(categoriesByIds);
-         console.log(subcategoriesById);
-         console.log(subcategoriesByIds);
-    //     console.log(allProducts);
-    //     console.log(categoriesAndSubcat);
-    //     console.log(subcategories);
-        dispatch(setShopData(categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds));
+
+     
+        categoriesByIds['all'] = {'all': deepCopy(allSubcategById)};
+        
+      
+
+        //  console.log(subcategoriesByIds);
+ 
+        dispatch(setShopData(categoriesAndSubcat, categoriesByIds, subcategoriesByIds));
+        // dispatch(setShopData(categoriesAndSubcat, subcategories, categoriesByIds));
 
 
     };
@@ -148,21 +141,20 @@ const setState = (products) => {
    
 };
 
-const setShopData = (categoriesAndSubcat, subcategories, categoriesByIds, subcategoriesByIds) => {
+const setShopData = (categoriesAndSubcat, categoriesByIds, subcategoriesByIds) => {
     return {
         type: actionTypes.SET_SHOP_DATA,
         // allProducts: allProducts,
         categoriesAndSubcat: categoriesAndSubcat,
-        subcategories: subcategories,
+        // subcategories: subcategories,
         categoriesByIds: categoriesByIds,
         subcategoriesByIds: subcategoriesByIds
     };
 };
 
-const setCarouselProductsAndProductsObject = (productsObject, carouselProducts) => {
+const setCarouselProducts = (carouselProducts) => {
     return {
-        type: actionTypes.SET_PRODUCTS_OBJECT_AND_CAROUSEL_PRODUCTS,
-        productsObject: productsObject,
+        type: actionTypes.SET_CAROUSEL_PRODUCTS,
         carouselProducts: carouselProducts
     };
 };

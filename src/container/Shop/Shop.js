@@ -33,7 +33,9 @@ class Shop extends Component {
                 <ShopSideBar 
                     categoriesAndSubcat={this.props.categoriesAndSubcat}
                     toggleClassShow={this.toggleClassShow}/>
-                {/* <ShopGallery itemsToShow={}/> */}
+                <ShopGallery 
+                    category={this.state.currentCategory}
+                    subcategory={this.state.currentSubcategory}/> 
             </div>
         )
         return (
