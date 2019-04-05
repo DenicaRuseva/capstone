@@ -28,8 +28,7 @@ class Shop extends Component {
         
         console.log('in render shop');
         console.log(this.props);
-
-        const shop = this.props.loadingShop ? <div>spinner</div> : (
+        const shop = this.props.loading ? <div>spinner</div> : (
             <div>
                 <ShopSideBar 
                     categoriesAndSubcat={this.props.categoriesAndSubcat}
