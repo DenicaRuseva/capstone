@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-// import { Route, Switch } from 'react-router-dom';
-import Shop from './container/Shop/Shop';
-import Carousel from './container/Carousel/Carousel';
-// import { connect } from 'react-redux';
-// import * as action from './store/actions/index';
+
 
 class App extends Component {
 
