@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import ShopGalleryItem from '../ShopGalleryItem/ShopGalleryItem';
 
 const subcategoriesGallery = (props) => {
-    let items = props.currentCategory !== 'all' ? props.categoriesByIds[props.currentCategory].all : props.categoriesByIds.all.all;
-    items = items.map(subcategory => {
+    let items = props.categoriesByIds[props.currentCategory].all.map(subcategory => {
         try {
            return {
                 name: subcategory,
@@ -15,12 +14,12 @@ const subcategoriesGallery = (props) => {
         catch {
             return {
                 name: subcategory,
-                imageSrc: false
+                imagelink: false
             };
         }; 
     });
     items = items.map((item, i) => {
-        return <ShopGalleryItem item={item}/>
+        return <ShopGalleryItem key={i} item={item}/>
     })
     return <div>{items}</div>
 };
