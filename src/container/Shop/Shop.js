@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ShopSideBar  from '../../components/ShopSideBar/ShopSideBar';
-import ShopGallery from '../../components/ShopGallery/ShopGallery';
+import SubategoriesGallery from '../../components/ShopGalleries/SubcategoriesGallery/SubcategoriesGallery';
 import { connect } from 'react-redux';
 
 // const ShopSideBar = require('../../components/ShopSideBar/ShopSideBar').default;
@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 class Shop extends Component {
 
     state = {
-        currentCategory: 'all',
+        currentCategory: 'Perishables',
         currentSubcategory: 'all'
     }
 
@@ -33,9 +33,8 @@ class Shop extends Component {
                 <ShopSideBar 
                     categoriesAndSubcat={this.props.categoriesAndSubcat}
                     toggleClassShow={this.toggleClassShow}/>
-                <ShopGallery 
-                    category={this.state.currentCategory}
-                    subcategory={this.state.currentSubcategory}/> 
+                <SubategoriesGallery 
+                    currentCategory={this.state.currentCategory}/>
             </div>
         )
         return (
