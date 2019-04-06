@@ -5,3 +5,12 @@
 li > ul {
     display: none;
 }
+
+.category-list {
+    width: 100%;
+    
+}
+
+.category-list, .category-list > li {
+    margin: 0px;
+}

@@ -14,10 +14,10 @@ const categoryButton = (props) => {
         );
     });
     return (
-        <ul>
+        <ul className='category-list'>
             <li onClick={(event) => props.clicked(event)}>
                 {props.categoryAndSubcat.category}
-                <ul>{subcategories}</ul>
+                <ul className='subcategory-list'>{subcategories}</ul>
             </li>
         </ul>
     )

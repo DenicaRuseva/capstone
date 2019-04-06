@@ -1,6 +1,7 @@
 import React from 'react';
 import CategoryButton from './CategoryButton/CattegoryButton';
 import { connect } from 'react-redux';
+import './ShopSideBar.css';
 
 const shopSideBar = (props) => {
     console.log(props);
@@ -14,7 +15,9 @@ const shopSideBar = (props) => {
     });
 
     return (
-        <div>{categoriesAndSubcategories}</div>
+        <div className='side-bar'>
+            {categoriesAndSubcategories}
+        </div>
     );
 
 

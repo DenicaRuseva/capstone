@@ -1,9 +1,9 @@
 import React from 'react';
 
-const shopGalleryItem = (props) => (
+const item = (props) => (
     <div>
         <img style={{width: "200px"}} src={props.item.imagelink}/>
     </div>
 );
 
-export default shopGalleryItem;
+export default item;

@@ -1,0 +1,66 @@
+.layout, .main {
+    width: 100%;
+}
+
+.grid-container {
+    width: 100%;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid black;
+}
+
+.row {
+    width: 100%;
+}
+
+[class*="col-"] {
+    width: 100%;
+    float: left;
+}
+
+.col-es-4-12 {
+    width: 33.33%;
+}
+
+.desktop-only {
+    display: none;
+}
+  
+@media only screen and (min-width: 600px) {
+    .desktop-only {
+        display: block;
+    }
+    .col-s-3-12 {
+        width: 25%;
+    }
+    .col-s-4-12 {
+        width: 33.33%
+    }
+    .col-s-9-12 {
+        width: 75%;
+    }
+  }
+    
+  @media only screen and (min-width: 768px) {
+    .col-m-3-12 {
+        width: 25%;
+    }
+    
+  }
+  
+  @media only screen and (min-width: 992px) {
+    .col-l-1-5 {
+        width: 20%;
+     }
+  } 
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .col-el-2-12 {
+        width: 16.66%;
+    }
+}

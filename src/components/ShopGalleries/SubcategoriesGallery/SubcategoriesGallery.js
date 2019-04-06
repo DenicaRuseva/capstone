@@ -1,7 +1,7 @@
 import React from 'react';
-import WithoutRootDiv from '../../../hoc/WithoutRootDiv/WithoutRootDiv';
 import { connect } from 'react-redux';
-import ShopGalleryItem from '../ShopGalleryItem/ShopGalleryItem';
+import Subcategory from './Subcategory/Subcategory';
+import './SubcategoriesGallery.css';
 
 const subcategoriesGallery = (props) => {
     let items = props.categoriesByIds[props.currentCategory].all.map(subcategory => {
@@ -18,10 +18,16 @@ const subcategoriesGallery = (props) => {
             };
         }; 
     });
+
     items = items.map((item, i) => {
-        return <ShopGalleryItem key={i} item={item}/>
-    })
-    return <div>{items}</div>
+        return <Subcategory key={i} item={item}/>
+    });
+
+    return (
+        <div className='grid-container flex-container'>
+            {items}
+        </div>
+    );
 };
 
 const mapStateToProps = state => {

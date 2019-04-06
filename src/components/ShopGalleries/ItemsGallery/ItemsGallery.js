@@ -1,12 +1,12 @@
 import React from 'react';
-import ShopGalleryItem from '../ShopGalleryItem/ShopGalleryItem';
+import Item from './Item/Item';
 import { connect } from 'react-redux';
 
 
 const itemsGallery = (props) => {
     let items = props.categoriesByIds[props.currentCategory].all.map(subcategory => {
         return props.subcategoriesByIds[subcategory][0].map((item, i) => {
-            return <ShopGalleryItem key={item.name+i} item={item}/>;
+            return <Item key={item.name+i} item={item}/>;
         })
     }).reduce((arr, el) => {
         return arr.concat(el);
@@ -15,7 +15,7 @@ const itemsGallery = (props) => {
     
     console.log(items)
 
-    return <div>{items}</div>
+    return <div className='grid-container flex-container'>{items}</div>
 };
 
 const mapStateToProps = state => {

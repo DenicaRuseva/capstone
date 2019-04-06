@@ -4,6 +4,7 @@ import * as action from '../../store/actions/index';
 import Carousel from '../../container/Carousel/Carousel';
 import Shop from '../../container/Shop/Shop';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import './Layout.css';
 
 
 class Layout extends Component {
@@ -15,16 +16,15 @@ class Layout extends Component {
 
     render(){
         console.log('in render layout');
-        console.log(this.props);
         // const shopRoutes = this.props.loadingShop ? null : (
         //     this.props.shopRoutes.map((route, i) => {
         //         return <Route key={i+route} path={route} exact component={Shop}/>
         //     })
         // );
         return(
-            <div>
+            <div className='layout'>
                 <div>header</div>
-                <main>
+                <main className='main'>
                     <Switch>
                         <Route path="/" exact component={Carousel}/>
                         {/* {shopRoutes} */}
@@ -37,17 +37,10 @@ class Layout extends Component {
     };
 };
 
-const mapStateToProps = state => {
-    return {
-        loadingShop: state.loadingShop,
-        shopRoutes: state.shopRoutes
-    };
-};
-
 const mapDispatchToProps = dispatch => {
     return {
         onFetchProducts: () => {dispatch(action.fetchProducts())}
     }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
+export default withRouter(connect(null, mapDispatchToProps)(Layout));

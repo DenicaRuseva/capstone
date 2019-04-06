@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import ShopSideBar  from '../../components/ShopSideBar/ShopSideBar';
-import SubategoriesGallery from '../../components/ShopGalleries/SubcategoriesGallery/SubcategoriesGallery';
+import SubcategoriesGallery from '../../components/ShopGalleries/SubcategoriesGallery/SubcategoriesGallery';
 import { connect } from 'react-redux';
 import ItemsGallery from '../../components/ShopGalleries/ItemsGallery/ItemsGallery';
-
-// const ShopSideBar = require('../../components/ShopSideBar/ShopSideBar').default;
-// const ShopGallery = require('../../components/ShopGallery/ShopGallery').default;
+import './Shop.css';
 
 
 class Shop extends Component {
@@ -27,15 +25,23 @@ class Shop extends Component {
     render(){
         
         console.log('in render shop');
-        console.log(this.props);
         const shop = this.props.loading ? <div>spinner</div> : (
-            <div>
-                <ShopSideBar 
-                    categoriesAndSubcat={this.props.categoriesAndSubcat}
-                    toggleClassShow={this.toggleClassShow}/>
-                <SubategoriesGallery 
-                    currentCategory={this.state.currentCategory}/>
-                <ItemsGallery currentCategory={this.state.currentCategory}/>
+            <div className='grid-container shop'>
+                <div className='row categories-side-bar-container'>
+                    <div className='desktop-only col-s-3-12 categories-section'>
+                        <ShopSideBar 
+                            categoriesAndSubcat={this.props.categoriesAndSubcat}
+                            toggleClassShow={this.toggleClassShow}/>
+                    </div>
+                    <div className='col-s-9-12 subcategories-section'>
+                        <SubcategoriesGallery 
+                            currentCategory={this.state.currentCategory}/>
+                    </div>
+                </div>
+                <div className='row'>
+                    <ItemsGallery currentCategory={this.state.currentCategory}/>
+                </div>
+                
             </div>
         )
         return (
