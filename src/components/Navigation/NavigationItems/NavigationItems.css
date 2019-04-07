@@ -1,0 +1,18 @@
+.navigationItems {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@media only screen and (min-width: 600px) {
+    .navigationItems {
+        flex-flow: row;
+    }
+    .navigationItems li:last-child {
+        margin-left: auto;
+    }
+}

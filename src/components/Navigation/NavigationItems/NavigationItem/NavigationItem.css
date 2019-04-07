@@ -1,0 +1,41 @@
+.navigationItem {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.navigationItem a {
+    display: block; 
+    width: 100%; 
+    text-decoration: none;
+}
+
+.navigationItem a:hover,
+.navigationItem a:active,
+.navigationItem a.active {
+    color:white;
+}
+
+@media only screen and (min-width: 600px) {
+    .navigationItem {
+        display: flex;
+        width: auto;
+        height: 100%;
+        margin: 0;
+        align-items: center;
+    }
+    
+    .navigationItem a {
+        height: 100%;
+        padding: 16px 10px;
+        color:#c0ccd1;
+        font-weight: bold;
+    }
+    
+    .navigationItem a:hover,
+    .navigationItem a:active,
+    .navigationItem a.active {
+        color: white;
+    }
+
+}

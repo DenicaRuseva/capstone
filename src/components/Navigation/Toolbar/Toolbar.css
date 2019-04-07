@@ -1,0 +1,20 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    /* background-color: #2f4c7a; */
+    background-image: linear-gradient(to right, #2f4c7a,  #3c7993, #2f4c7a);
+    /* background-image: linear-gradient(#2f4c7a, #4e90ad, #2f4c7a); */
+    padding: 0 20px;
+    border-bottom: 2px solid black;
+}
+
+.toolbar nav {
+    width: 100%;
+    height: 100%;
+}

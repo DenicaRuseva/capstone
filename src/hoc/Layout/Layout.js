@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 import Carousel from '../../container/Carousel/Carousel';
 import Shop from '../../container/Shop/Shop';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './Layout.css';
 
 
@@ -23,7 +24,7 @@ class Layout extends Component {
         // );
         return(
             <div className='layout'>
-                <div>header</div>
+                <Toolbar/>
                 <main className='main'>
                     <Switch>
                         <Route path="/" exact component={Carousel}/>
