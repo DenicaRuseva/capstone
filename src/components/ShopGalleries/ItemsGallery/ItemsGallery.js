@@ -1,10 +1,15 @@
 import React from 'react';
 import Item from './Item/Item';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 
 const itemsGallery = (props) => {
-    let items = props.categoriesByIds[props.currentCategory].all.map(subcategory => {
+    // console.log(props.currentCategory);
+    const currentCategory = props.match.params.category ? props.match.params.category : 'all';
+    const currentSubcategory = props.match.params.subcategory ? props.match.params.subcategory : 'all';
+
+    let items = props.categoriesByIds[currentCategory][currentSubcategory].map(subcategory => {
         return props.subcategoriesByIds[subcategory][0].map((item, i) => {
             return <Item key={item.name+i} item={item}/>;
         })
@@ -13,7 +18,9 @@ const itemsGallery = (props) => {
     },[]);  
    
     
-    console.log(items)
+    if(!items[0]){
+        items = <div>No items to show</div>;
+    };
 
     return <div className='grid-container flex-container'>{items}</div>
 };
@@ -25,4 +32,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(itemsGallery);
+export default withRouter(connect(mapStateToProps)(itemsGallery));

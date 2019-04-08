@@ -4,11 +4,11 @@ import * as action from '../../store/actions/index';
 import Carousel from '../../container/Carousel/Carousel';
 import Shop from '../../container/Shop/Shop';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 
 
-class Layout extends Component {
+class Layout extends React.Component {
 
     componentDidMount(){
         console.log('CDM Layout');
@@ -44,4 +44,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Layout));
+export default connect(null, mapDispatchToProps)(Layout);

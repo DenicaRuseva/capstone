@@ -1,0 +1,9 @@
+.subcategories-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* min-height: 300px; */
+    border: 1px solid black;
+}

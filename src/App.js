@@ -17,8 +17,7 @@ class App extends Component {
     console.log('in render app');
 
     return (
-      <Layout>
-      </Layout>
+      <Layout/>
     );
   }
 };

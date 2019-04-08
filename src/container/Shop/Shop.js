@@ -1,51 +1,60 @@
 import React, { Component } from 'react';
-import ShopSideBar  from '../../components/ShopSideBar/ShopSideBar';
-import SubcategoriesGallery from '../../components/ShopGalleries/SubcategoriesGallery/SubcategoriesGallery';
 import { connect } from 'react-redux';
-import ItemsGallery from '../../components/ShopGalleries/ItemsGallery/ItemsGallery';
+import { Route, Switch } from 'react-router-dom';
+import CategoriesPage from '../../components/CategoriesPage/CategoriesPage';
+import SubcategoryPage from '../../components/SubcategoryPage/SubcaategoryPage';
+import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
+import PropsRoute from '../../hoc/PropsRoute/PropsRoute';
 import './Shop.css';
 
 
 class Shop extends Component {
 
-    state = {
-        currentCategory: 'all',
-        currentSubcategory: 'all'
-    }
+    // state = {
+    //     currentCategory: 'all',
+    //     currentSubcategory: 'all'
+    // }
 
     componentDidMount(){
         console.log('in cdm Shop');
     };
 
-    toggleClassShow = (event) => {
-       event.target.classList.toggle('show-subcat');
-
+    sideBarCategoryClickHandler = (event, categoryClicked, currentCategory) => {
+        if(currentCategory === categoryClicked){
+            // this.setState({currentCategory: 'all', currentSubcategory: 'all'});
+            event.target.parentElement.classList.toggle('show-subcat');
+            this.props.history.replace('/shop');
+        }
+        else {
+            // this.setState({currentCategory: category, currentSubcategory: 'all'});
+            this.props.history.replace(`/shop/${categoryClicked}`);
+            event.target.parentElement.classList.add('show-subcat');
+        };
     };
 
     render(){
-        
-        console.log('in render shop');
+        console.log(this.props);
         const shop = this.props.loading ? <div>spinner</div> : (
-            <div className='grid-container shop'>
-                <div className='row categories-side-bar-container'>
-                    <div className='desktop-only col-s-3-12 categories-section'>
-                        <ShopSideBar 
-                            categoriesAndSubcat={this.props.categoriesAndSubcat}
-                            toggleClassShow={this.toggleClassShow}/>
-                    </div>
-                    <div className='col-s-9-12 subcategories-section'>
-                        <SubcategoriesGallery 
-                            currentCategory={this.state.currentCategory}/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <ItemsGallery currentCategory={this.state.currentCategory}/>
-                </div>
-                
-            </div>
-        )
+            <WithoutRootDiv>
+                <Switch>
+                    <Route path='/shop/:category/:subcategory' exact component={SubcategoryPage}/>  
+                    <PropsRoute 
+                        path='/shop/:category' 
+                        component={CategoriesPage} 
+                        categoriesAndSubcat={this.props.categoriesAndSubcat}
+                        clickOnCategory={this.sideBarCategoryClickHandler}/> 
+                    <PropsRoute 
+                        path='/shop' 
+                        component={CategoriesPage} 
+                        categoriesAndSubcat={this.props.categoriesAndSubcat}
+                        clickOnCategory={this.sideBarCategoryClickHandler}/>    
+                </Switch>
+            </WithoutRootDiv>
+        );
         return (
-            <div>{shop}</div>
+            <WithoutRootDiv>
+            {shop}
+            </WithoutRootDiv>
         )
     };
 };
@@ -56,7 +65,7 @@ const mapStateToProps = state => {
         categoriesAndSubcat: state.categoriesAndSubcat,
         categoriesByIds: state.categoriesByIds, 
         subcategoriesByIds: state.subcategoriesByIds,
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(Shop);
