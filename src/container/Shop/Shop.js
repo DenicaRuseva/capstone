@@ -45,6 +45,15 @@ class Shop extends Component {
         });
     };
 
+    resetSort = () => {
+        this.setState({
+            sort: {
+                sortBy: 'none',
+                order: 'none'
+            }
+        });
+    };
+
   
 
     render(){
@@ -60,7 +69,8 @@ class Shop extends Component {
                 path='/shop/:category/:subcategory' exact 
                 component={SubcategoryPage}
                 onSort={this.sortItemsHandler}
-                sort={this.state.sort}/> : null;
+                sort={this.state.sort}
+                onUnmount={this.resetSort}/> : null;
         return (
             <WithoutRootDiv>
                 <Switch>

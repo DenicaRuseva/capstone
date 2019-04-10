@@ -18,7 +18,7 @@ const subcategoryPage = (props) => {
         <Controls onSort={props.onSort}/>
         <div>
             <ShopSideBar categoriesAndSubcat={categoriesAndSubcat}/>
-            <ItemsGallery sort={props.sort}/>
+            <ItemsGallery sort={props.sort} onUnmount={props.onUnmount}/>
         </div>
     </div>
 );
