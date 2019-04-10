@@ -10,6 +10,13 @@ import './Shop.css';
 
 class Shop extends Component {
 
+    state = {
+        sort: {
+            sortBy: 'none',
+            order: 'none'
+        }
+    };
+
     componentDidMount(){
   
     };
@@ -27,17 +34,18 @@ class Shop extends Component {
         };
     };
 
-    // categoryRoutExist = (category) => {
-    //     console.log(Object.keys(this.props.categoriesAndSubcat).length);
-    //     let existingRoute = false;
-    //     for(let i=0; i<Object.keys(this.props.categoriesAndSubcat).length; i++){
-    //         if(this.props.categoriesAndSubcat[i].category === category){
-    //             existingRoute = true;
-    //             i=Object.keys(this.props.categoriesAndSubcat).length;
-    //         };
-    //     };
-    //     return existingRoute;
-    // };
+    sortItemsHandler = (sortCriteria) => {
+        const sortDate = sortCriteria.split('_');
+        console.log(sortDate);
+        this.setState({
+            sort: {
+                sortBy: sortDate[0],
+                order: sortDate[1]
+            }
+        });
+    };
+
+  
 
     render(){
         // console.log(this.categoryRoutExist(this.props.match.params.category));
@@ -48,8 +56,11 @@ class Shop extends Component {
                         clickOnCategory={this.sideBarCategoryClickHandler}/> 
         ) : null;
         const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
-            <Route path='/shop/:category/:subcategory' exact 
-            component={SubcategoryPage}/> : null;
+            <PropsRoute 
+                path='/shop/:category/:subcategory' exact 
+                component={SubcategoryPage}
+                onSort={this.sortItemsHandler}
+                sort={this.state.sort}/> : null;
         return (
             <WithoutRootDiv>
                 <Switch>

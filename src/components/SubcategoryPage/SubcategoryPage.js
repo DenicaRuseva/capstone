@@ -1,10 +1,12 @@
 import React from 'react';
 import ItemsGallery from './ItemsGallery/ItemsGallery';
 import ShopSideBar from '../CategoriesPage/ShopSideBar/ShopSideBar';
+import Controls from './Controls/Controls';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const subcategoryPage = (props) => {
+    console.log(props);
     const categoriesAndSubcat=[...Array({
         category: props.match.params.category,
         subcategories: [...props.categoriesByIds[props.match.params.category].all]
@@ -13,10 +15,10 @@ const subcategoryPage = (props) => {
 
     return(
     <div>
-        <div>controls</div>
+        <Controls onSort={props.onSort}/>
         <div>
             <ShopSideBar categoriesAndSubcat={categoriesAndSubcat}/>
-            <ItemsGallery/>
+            <ItemsGallery sort={props.sort}/>
         </div>
     </div>
 );
