@@ -37,11 +37,12 @@ const itemsGallery = (props) => {
             case 'name': items = sortAlphabetical(items, props.sort.order); break;
             case 'price': items = sortNumbers(items, props.sort.sortBy, props.sort.order); break;
             case 'rating': items = sortNumbers(items, props.sort.sortBy, props.sort.order); break;
-        }
-    };
-    items = items.map((item, i) => {
+        };
+        items = items.map((item, i) => {
         return <Item key={item.name+i} item={item}/>;
     });
+    };
+    
 
     
 
