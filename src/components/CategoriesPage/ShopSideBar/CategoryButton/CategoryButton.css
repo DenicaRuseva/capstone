@@ -14,6 +14,10 @@ ul.subcategory-list {
     display: block;
 }
 
+.active + ul.subcategory-list {
+    display: block;
+}
+
 ul.category-list, ul.subcategory-list {
     margin: 0px;
     padding: 0px;

@@ -17,24 +17,31 @@ class Layout extends React.Component {
 
     render(){
         console.log('in render layout');
-        // const shopRoutes = this.props.loadingShop ? null : (
-        //     this.props.shopRoutes.map((route, i) => {
-        //         return <Route key={i+route} path={route} exact component={Shop}/>
-        //     })
-        // );
+        const shopRoute = this.props.loadingShop ? <Route path='/shop' render={() => <div>spiner</div>}/> : (
+            <Switch>
+                <Route path='/shop/:category/:subcategory' component={Shop}/>
+                <Route path='/shop/:category' component={Shop}/>
+                <Route path="/shop" component={Shop}/>
+            </Switch>
+        );
         return(
             <div className='layout'>
                 <Toolbar/>
                 <main className='main'>
                     <Switch>
                         <Route path="/" exact component={Carousel}/>
-                        {/* {shopRoutes} */}
-                        <Route path='/shop' component={Shop}/>
+                        {shopRoute}
                     </Switch>
                 </main>
                 <div>footer</div>
             </div>
         )
+    };
+};
+
+const mapStateToProps = state => {
+    return {
+        loadingShop: state.loadingShop
     };
 };
 
@@ -44,4 +51,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

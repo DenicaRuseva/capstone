@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import './CategoryButton.css';
 
 
@@ -18,10 +18,10 @@ const categoryButton = (props) => {
     });
     return (
         <ul className='category-list'>
-                <li className='category-list-item' onClick={(event) => props.clickOnCategory(event, props.categoryAndSubcat.category, props.match.params.category)}>
-                    {/* <Link to={'/shop/' + props.categoryAndSubcat.category} onClick={(event) => props.clickOnCategory(event, props.categoryAndSubcat.category)}> */}
+                <li className='category-list-item'>
+                    <NavLink to={'/shop/' + props.categoryAndSubcat.category} onClick={(event) => props.clickOnCategory(event, props.categoryAndSubcat.category, props.match.params.category)}>
                         {props.categoryAndSubcat.category}
-                    {/* </Link>  */}
+                    </NavLink> 
                     <ul className='subcategory-list'>{subcategories}</ul>
                 </li>
 
