@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import CategoriesPage from '../../components/CategoriesPage/CategoriesPage';
-import SubcategoryPage from '../../components/SubcategoryPage/SubcaategoryPage';
+import SubcategoryPage from '../../components/SubcategoryPage/SubcategoryPage';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import PropsRoute from '../../hoc/Routes/PropsRoute';
 import './Shop.css';
@@ -40,7 +40,6 @@ class Shop extends Component {
     // };
 
     render(){
-        console.log(this.props);
         // console.log(this.categoryRoutExist(this.props.match.params.category));
         const categoryPageRoute = !this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category] ?  (
             <PropsRoute path='/shop/:category'
@@ -49,7 +48,8 @@ class Shop extends Component {
                         clickOnCategory={this.sideBarCategoryClickHandler}/> 
         ) : null;
         const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
-            <Route path='/shop/:category/:subcategory' exact component={SubcategoryPage}/> : null;
+            <Route path='/shop/:category/:subcategory' exact 
+            component={SubcategoryPage}/> : null;
         return (
             <WithoutRootDiv>
                 <Switch>

@@ -1,6 +1,6 @@
 import React from 'react';
 import CategoryButton from './CategoryButton/CattegoryButton';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import './ShopSideBar.css';
 
 const shopSideBar = (props) => {
@@ -24,11 +24,13 @@ const shopSideBar = (props) => {
 
 };
 
-const mapStateToProps = state => {
-    return {
-        categoriesAndSubcat: state.categoriesAndSubcat
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         categoriesAndSubcat: state.categoriesAndSubcat
+//     };
+// };
 
-export default connect(mapStateToProps)(shopSideBar);
+// export default connect(mapStateToProps)(shopSideBar);
+
+export default shopSideBar;
 
