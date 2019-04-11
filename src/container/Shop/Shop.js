@@ -17,20 +17,26 @@ class Shop extends Component {
         }
     };
 
-    componentDidMount(){
-  
-    };
 
-    sideBarCategoryClickHandler = (event, categoryClicked, currentCategory) => {
+    sideBarCategoryClickHandler = (event, categoryClicked, currentCategory) => { //MUST FIX
         if(currentCategory === categoryClicked){
-            // this.setState({currentCategory: 'all', currentSubcategory: 'all'});
             event.target.parentElement.classList.toggle('show-subcat');
             this.props.history.replace('/shop');
         }
         else {
-            // this.setState({currentCategory: category, currentSubcategory: 'all'});
             this.props.history.replace(`/shop/${categoryClicked}`);
             event.target.parentElement.classList.add('show-subcat');
+        };
+    };
+
+    sideBarOnSubcategoryPageCategoryClickHandler = (event, categoryClicked, currentCategory) => { //MUST FIX
+        if(currentCategory === categoryClicked){
+            event.target.parentElement.classList.toggle('show-subcat');
+            this.props.history.replace(`/shop/all/all`);
+        }
+        else {
+            event.target.parentElement.classList.add('show-subcat');
+            this.props.history.replace(`/shop/${categoryClicked}/all`);
         };
     };
 
@@ -54,10 +60,8 @@ class Shop extends Component {
         });
     };
 
-  
-
     render(){
-        // console.log(this.categoryRoutExist(this.props.match.params.category));
+        console.log(this.props);
         const categoryPageRoute = !this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category] ?  (
             <PropsRoute path='/shop/:category'
                         component={CategoriesPage}
@@ -68,19 +72,15 @@ class Shop extends Component {
             <PropsRoute 
                 path='/shop/:category/:subcategory' exact 
                 component={SubcategoryPage}
+                clickOnCategory={this.sideBarCategoryClickHandler}
                 onSort={this.sortItemsHandler}
                 sort={this.state.sort}
                 onUnmount={this.resetSort}/> : null;
         return (
             <WithoutRootDiv>
                 <Switch>
-                {/* <Route path='/shop/:category/:subcategory' exact component={SubcategoryPage}/>  */}
                 {subcategoryPageRoute}
                 {categoryPageRoute}
-                {/* <PropsRoute path='/shop/:category' exact
-                        component={CategoriesPage}
-                        categoriesAndSubcat={this.props.categoriesAndSubcat}
-                        clickOnCategory={this.sideBarCategoryClickHandler}/> */}
                 <PropsRoute 
                         path='/shop' exact
                         component={CategoriesPage} 
@@ -95,7 +95,6 @@ class Shop extends Component {
 
 const mapStateToProps = state => {
     return {
-        // loading: state.loadingShop,
         categoriesAndSubcat: state.categoriesAndSubcat,
         categoriesByIds: state.categoriesByIds, 
         subcategoriesByIds: state.subcategoriesByIds,

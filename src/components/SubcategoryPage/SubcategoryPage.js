@@ -11,13 +11,15 @@ const subcategoryPage = (props) => {
         category: props.match.params.category,
         subcategories: [...props.categoriesByIds[props.match.params.category].all]
     })];
-    console.log(categoriesAndSubcat);
+ 
 
     return(
     <div>
-        <Controls onSort={props.onSort}/>
+        <Controls onSort={props.onSort} category={props.match.params.category}/>
         <div>
-            <ShopSideBar categoriesAndSubcat={categoriesAndSubcat}/>
+            <ShopSideBar 
+                categoriesAndSubcat={categoriesAndSubcat}
+                clickOnCategory={props.clickOnCategory}/>
             <ItemsGallery sort={props.sort} onUnmount={props.onUnmount}/>
         </div>
     </div>
@@ -26,7 +28,8 @@ const subcategoryPage = (props) => {
 
 const mapStateToProps = state => {
     return {
-        categoriesByIds: state.categoriesByIds
+        categoriesByIds: state.categoriesByIds,
+        categoriesAndSubcat: state.categoriesAndSubcat
     };
 };
 

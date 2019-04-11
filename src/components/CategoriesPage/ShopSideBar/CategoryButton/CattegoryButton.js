@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import './CategoryButton.css';
 
 
@@ -14,9 +14,9 @@ const categoryButton = (props) => {
     const subcategories = props.categoryAndSubcat.subcategories.map((subcat, i) => {
         return (
             <li className='subcategory-list-item' key={subcat+i}>
-                <Link 
+                <NavLink 
                 to={'/shop/' + props.categoryAndSubcat.category + '/' + subcat}
-                onClick={(event) => event.stopPropagation()}>{subcat}</Link> 
+                onClick={(event) => event.stopPropagation()}>{subcat}</NavLink> 
             </li>
         );
     });

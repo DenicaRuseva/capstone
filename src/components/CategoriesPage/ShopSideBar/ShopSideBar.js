@@ -2,6 +2,7 @@ import React from 'react';
 import CategoryButton from './CategoryButton/CattegoryButton';
 // import { connect } from 'react-redux';
 import './ShopSideBar.css';
+import {withRouter} from 'react-router-dom';
 
 const shopSideBar = (props) => {
     console.log(props);

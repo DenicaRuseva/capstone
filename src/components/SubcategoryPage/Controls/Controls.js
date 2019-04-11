@@ -1,10 +1,12 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
 const controls = (props) => {
     return(
         <div>
+            <div>{props.category}</div>
             <label>Sort by:
-              <select onChange={(event) => {event.preventDefault(); event.stopPropagation(); props.onSort(event.target.value)}}>
+              <select onChange={(event) => {event.preventDefault(); props.onSort(event.target.value)}}>
                 <option value='none_none'>none</option>
                 <option value='name_ascending'>name (A-Z)</option>
                 <option value='name_descending'>name (Z-A)</option>
