@@ -1,16 +1,11 @@
 .side-bar-wrapper {
+    position: relative;
     display: block;
     width: 100%;
-    /* height: 450px; */
-  
     float: left;
-
     padding: 0px 10px 10px 10px;
-    
-    overflow-y: auto;
-    overflow-x: hidden;
     background-color: #ffff99;
-    
+    overflow: hidden;
 }
 
 .side-bar-wrapper .side-bar-container {
@@ -26,6 +21,8 @@
     .side-bar-wrapper {
         width: 50%;
         min-height: 250px;
+        /* overflow-y: auto;
+        overflow-x: hidden; */
     }
     .side-bar-wrapper .side-bar-container {
         display: inline-flex; 
@@ -63,6 +60,8 @@
     display: table;
 }
 
+
+
 .text {
     height: 20px;
     margin: 10px 0px;
@@ -70,6 +69,17 @@
     font-weight: bold;
 }
 
+div.text {
+    line-height: 30px;
+    height: 30px;
+    padding: 0px;
+    
+    cursor: pointer;
+}
+
+div.text:hover {
+    color: #85adad;
+}
 
 .side-bar-container {
     left: 20px;
