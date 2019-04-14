@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import CategoriesPage from '../../components/CategoriesPage/CategoriesPage';
 import SubcategoryPage from '../../components/SubcategoryPage/SubcategoryPage';
-import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import PropsRoute from '../../hoc/Routes/PropsRoute';
 import './Shop.css';
+import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 
 
 class Shop extends Component {
@@ -20,25 +19,21 @@ class Shop extends Component {
 
     sideBarCategoryClickHandler = (event, categoryClicked, currentCategory) => { //MUST FIX
         if(currentCategory === categoryClicked){
-            event.target.parentElement.classList.toggle('show-subcat');
+            // event.target.parentElement.classList.toggle('show-subcat');
+            
             this.props.history.replace('/shop');
         }
         else {
             this.props.history.replace(`/shop/${categoryClicked}`);
-            event.target.parentElement.classList.add('show-subcat');
+            // event.target.parentElement.classList.add('show-subcat');
         };
+        event.target.parentElement.classList.toggle('show-subcat');
     };
 
-    sideBarOnSubcategoryPageCategoryClickHandler = (event, categoryClicked, currentCategory) => { //MUST FIX
-        if(currentCategory === categoryClicked){
-            event.target.parentElement.classList.toggle('show-subcat');
-            this.props.history.replace(`/shop/all/all`);
-        }
-        else {
-            event.target.parentElement.classList.add('show-subcat');
-            this.props.history.replace(`/shop/${categoryClicked}/all`);
-        };
-    };
+
+    showCategoriesHandler = (event) => {
+        event.target.parentElement.classList.toggle('show-categories');
+    }
 
     sortItemsHandler = (sortCriteria) => {
         const sortDate = sortCriteria.split('_');
@@ -64,9 +59,12 @@ class Shop extends Component {
         console.log(this.props);
         const categoryPageRoute = !this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category] ?  (
             <PropsRoute path='/shop/:category'
-                        component={CategoriesPage}
-                        categoriesAndSubcat={this.props.categoriesAndSubcat}
-                        clickOnCategory={this.sideBarCategoryClickHandler}/> 
+                component={SubcategoryPage}
+                clickOnCategory={this.sideBarCategoryClickHandler}
+                onSort={this.sortItemsHandler}
+                sort={this.state.sort}
+                onUnmount={this.resetSort}
+                showCategories={this.showCategoriesHandler}/> 
         ) : null;
         const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
             <PropsRoute 
@@ -75,20 +73,24 @@ class Shop extends Component {
                 clickOnCategory={this.sideBarCategoryClickHandler}
                 onSort={this.sortItemsHandler}
                 sort={this.state.sort}
-                onUnmount={this.resetSort}/> : null;
+                onUnmount={this.resetSort}
+                showCategories={this.showCategoriesHandler}/> : null;
         return (
-            <WithoutRootDiv>
+            <div className='shop'>
                 <Switch>
-                {subcategoryPageRoute}
-                {categoryPageRoute}
+                    {categoryPageRoute}
+                    {subcategoryPageRoute}
                 <PropsRoute 
                         path='/shop' exact
-                        component={CategoriesPage} 
-                        categoriesAndSubcat={this.props.categoriesAndSubcat}
-                        clickOnCategory={this.sideBarCategoryClickHandler}/>
+                        component={SubcategoryPage}
+                        clickOnCategory={this.sideBarCategoryClickHandler}
+                        onSort={this.sortItemsHandler}
+                        sort={this.state.sort}
+                        onUnmount={this.resetSort}
+                        showCategories={this.showCategoriesHandler}/>
                 <Route render={() => <Redirect to='/shop'/>}/> 
                 </Switch>
-            </WithoutRootDiv>
+            </div>
         )
     };
 };

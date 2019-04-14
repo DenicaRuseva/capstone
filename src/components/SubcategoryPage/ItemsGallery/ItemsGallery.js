@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Item from './Item/Item';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import './ItemsGallery.css';
 
 
 class ItemsGallery extends Component {
@@ -58,7 +59,7 @@ class ItemsGallery extends Component {
    
     
     if(!items[0]){
-        items = <div>No items to show</div>;
+        items = <div className='items-gallery'>No items to show</div>;
     }
     else {
         switch(this.props.sort.sortBy){
@@ -79,7 +80,7 @@ class ItemsGallery extends Component {
     console.log(items);
 
 
-    return <div className='grid-container flex-container'>{items}</div>
+    return <div className='items-gallery'>{items}</div>
 };
 
 };

@@ -13,17 +13,17 @@ const categoryButton = (props) => {
     }
     const subcategories = props.categoryAndSubcat.subcategories.map((subcat, i) => {
         return (
-            <li className='subcategory-list-item' key={subcat+i}>
+            <li className='subcategory-list-item' key={subcat+i} onClick={(event) => event.stopPropagation()}>
                 <NavLink 
                 to={'/shop/' + props.categoryAndSubcat.category + '/' + subcat}
-                onClick={(event) => event.stopPropagation()}>{subcat}</NavLink> 
+                onClick={(event) => event.stopPropagation()}><span>{subcat}</span></NavLink> 
             </li>
         );
     });
     return (
         <ul className='category-list'>
                 <li className={categoryListitemClasses.join(' ')} onClick={(event) => props.clickOnCategory(event, props.categoryAndSubcat.category, props.match.params.category)}>
-                        {props.categoryAndSubcat.category}
+                        <span>{props.categoryAndSubcat.category}</span>
                     <ul className='subcategory-list'>{subcategories}</ul>
                 </li>
 

@@ -1,6 +1,6 @@
 .navigationItems {
     display: flex;
-    flex-flow: column;
+    /* flex-flow: column; */
     align-items: center;
     height: 100%;
     margin: 0;

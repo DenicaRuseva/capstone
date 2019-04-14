@@ -33,7 +33,7 @@ class Layout extends React.Component {
                         {shopRoute}
                     </Switch>
                 </main>
-                <div>footer</div>
+                <div style={{height: '56px', backgroundColor: 'blue'}}>footer</div>
             </div>
         )
     };

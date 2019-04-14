@@ -1,26 +1,6 @@
 .shop {
-    margin-top: 20px;
-}
-
-
-.categories-side-bar-container {
-    display: flex;
-    flex-direction: row;
-    align-content: stretch;
-    min-height: 300px;
-    margin-bottom: 20px;
-    padding-top: 20px;
-    /* height: 100%; */
-}
-
-.categories-section {
+    display: inline-block;
     position: relative;
-    max-height: 100%;
-    overflow: auto;
+    width: 100%;
+    padding: 10px 10px 10px 0px;
 }
-
-.subcategories-section {
-    max-height: 100%;
-    padding: 0px 10px;
-}
-

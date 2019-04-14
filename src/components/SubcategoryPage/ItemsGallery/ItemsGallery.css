@@ -1,0 +1,25 @@
+.items-gallery {
+    display: block;
+    width: 100%;
+    height: 0px;
+}
+
+/* .items-gallery  div.item:nth-last-child(1){
+    position: relative;
+    float: right;
+   
+}
+
+.items-gallery  div.item:nth-last-child(2){
+    position: relative;
+    float: right;
+   
+}
+
+.items-gallery  div.item:nth-last-child(3){
+    position: relative;
+    float: right;
+
+} */
+
+

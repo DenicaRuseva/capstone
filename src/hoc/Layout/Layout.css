@@ -1,8 +1,12 @@
-.layout, .main {
+.layout {
     width: 100%;
+    min-height: 100vh;
 }
 
 .main {
+    display: inline-block;
+    width: 100%;
+    min-height: calc(100vh - 112px); /* 56px for toolbar and 56px for footer*/
     margin-top: 56px;
 }
 
@@ -30,19 +34,23 @@
     width: 33.33%;
 }
 
-.desktop-only {
+.hide-on-es {
     display: none;
 }
   
 @media only screen and (min-width: 600px) {
-    .desktop-only {
+    .hide-on-es {
         display: block;
     }
-    .col-s-3-12 {
+    /* .col-s-3-12 {
         width: 25%;
-    }
+    } */
     .col-s-4-12 {
-        width: 33.33%
+        width: 33.33%;
+    }
+
+    .col-s-8-12 {
+        width: 66.67%;
     }
     .col-s-9-12 {
         width: 75%;
@@ -52,6 +60,9 @@
   @media only screen and (min-width: 768px) {
     .col-m-3-12 {
         width: 25%;
+    }
+    .col-m-9-12 {
+        width: 75%;
     }
     
   }
