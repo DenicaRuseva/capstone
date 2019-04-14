@@ -35,6 +35,12 @@ class Shop extends Component {
         event.target.parentElement.classList.toggle('show-categories');
     }
 
+    hideCategoryMenuHandler = (element) => {
+       console.log(element);
+       element.parentElement.parentElement.parentElement.parentElement.parentElement
+       .parentElement.parentElement.classList.toggle('show-categories');
+    }
+
     sortItemsHandler = (sortCriteria) => {
         const sortDate = sortCriteria.split('_');
         console.log(sortDate);
@@ -64,7 +70,8 @@ class Shop extends Component {
                 onSort={this.sortItemsHandler}
                 sort={this.state.sort}
                 onUnmount={this.resetSort}
-                showCategories={this.showCategoriesHandler}/> 
+                showCategories={this.showCategoriesHandler}
+                hideCategoryMenu={this.hideCategoryMenuHandler}/> 
         ) : null;
         const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
             <PropsRoute 
@@ -74,7 +81,8 @@ class Shop extends Component {
                 onSort={this.sortItemsHandler}
                 sort={this.state.sort}
                 onUnmount={this.resetSort}
-                showCategories={this.showCategoriesHandler}/> : null;
+                showCategories={this.showCategoriesHandler}
+                hideCategoryMenu={this.hideCategoryMenuHandler}/> : null;
         return (
             <div className='shop'>
                 <Switch>
@@ -87,7 +95,8 @@ class Shop extends Component {
                         onSort={this.sortItemsHandler}
                         sort={this.state.sort}
                         onUnmount={this.resetSort}
-                        showCategories={this.showCategoriesHandler}/>
+                        showCategories={this.showCategoriesHandler}
+                        hideCategoryMenu={this.hideCategoryMenuHandler}/>
                 <Route render={() => <Redirect to='/shop'/>}/> 
                 </Switch>
             </div>

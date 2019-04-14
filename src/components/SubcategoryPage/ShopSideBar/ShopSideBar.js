@@ -9,7 +9,8 @@ const shopSideBar = (props) => {
                 <CategoryButton 
                     key={key+i}
                     categoryAndSubcat = {props.categoriesAndSubcat[i]} 
-                    clickOnCategory={props.clickOnCategory}/>
+                    clickOnCategory={props.clickOnCategory}
+                    hideCategoryMenu={props.hideCategoryMenu}/>
         )
     });
 
@@ -44,7 +45,7 @@ const shopSideBar = (props) => {
 
 
     return (
-        <div className='side-bar-wrapper' style={test === 0 ? null : style2}>
+        <div id='side-bar-wrapper' className='side-bar-wrapper' style={test === 0 ? null : style2}>
             <div className='hide-on-sm'> 
                 <p className='text'>Shop by category:</p>
             </div>

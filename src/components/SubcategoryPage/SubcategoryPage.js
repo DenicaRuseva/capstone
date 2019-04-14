@@ -20,7 +20,8 @@ const subcategoryPage = (props) => {
                     <ShopSideBar 
                     categoriesAndSubcat={props.categoriesAndSubcat}
                     clickOnCategory={props.clickOnCategory}
-                    showCategories={props.showCategories}/>
+                    showCategories={props.showCategories}
+                    hideCategoryMenu={props.hideCategoryMenu}/>
                 <div className="sm-only controls-container">
                     <Controls onSort={props.onSort} category={props.match.params.category ? props.match.params.category : "All"}/>
                 </div>
