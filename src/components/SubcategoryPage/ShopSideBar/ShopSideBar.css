@@ -3,7 +3,7 @@
     display: block;
     width: 100%;
     float: left;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 10px;
     background-color: #ffff99;
     overflow: hidden;
 }
@@ -21,6 +21,8 @@
     .side-bar-wrapper {
         width: 50%;
         min-height: 250px;
+        padding: 0px 5px 30px 10px;
+
         /* overflow-y: auto;
         overflow-x: hidden; */
     }
@@ -63,8 +65,10 @@
 
 
 .text {
-    height: 20px;
+    height: 30px;
     margin: 10px 0px;
+    line-height: 30px;
+
     font-family: 'Exo 2', sans-serif;
     font-weight: bold;
 }
