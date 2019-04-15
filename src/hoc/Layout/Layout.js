@@ -4,16 +4,27 @@ import * as action from '../../store/actions/index';
 import Carousel from '../../container/Carousel/Carousel';
 import Shop from '../../container/Shop/Shop';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 
 
 class Layout extends React.Component {
 
+    state = {
+        showSideDrawer: false
+    }
+
     componentDidMount(){
         console.log('CDM Layout');
         this.props.onFetchProducts();
-    }; 
+    };
+    
+    toggleSideDrawerHandler = () => {
+        this.setState( ( prevState ) => {
+            return { showSideDrawer: !prevState.showSideDrawer };
+        } );
+    }
 
     render(){
         console.log('in render layout');
@@ -26,7 +37,8 @@ class Layout extends React.Component {
         );
         return(
             <div className='layout'>
-                <Toolbar/>
+                <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
+                <SideDrawer showSideDrawer={this.state.showSideDrawer}/>
                 <main className='main'>
                     <Switch>
                         <Route path="/" exact component={Carousel}/>

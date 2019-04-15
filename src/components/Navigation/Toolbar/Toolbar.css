@@ -13,7 +13,7 @@
     background-image: linear-gradient(to right, #264d00,  #408000, #264d00);
 
     padding: 0 20px;
-    z-index: 100;
+    z-index: 300;
     /* border-bottom: 2px solid black; */
 }
 
@@ -21,3 +21,14 @@
     width: 100%;
     height: 100%;
 }
+
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .desktop-only {
+        display: block;
+    }
+}
+
