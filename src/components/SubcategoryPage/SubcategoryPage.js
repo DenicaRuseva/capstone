@@ -16,8 +16,8 @@ const subcategoryPage = (props) => {
                         onSort={props.onSort} 
                         category={props.currentCategory}
                         onInStockClick={props.onInStockClick}
-                        numberOfItemsShown={props.numberOfItemsShown}
-                        numberOfItemsInCategory={props.numberOfItemsInCategory}/>
+                        numberOfProductsInCategory={props.numberOfProductsInCategory}
+                        numberOnShownProducts={props.numberOnShownProducts}/>
                 </div>
                     <ShopSideBar
                         clickOnCategory={props.clickOnCategory}
@@ -29,8 +29,8 @@ const subcategoryPage = (props) => {
                         onSort={props.onSort} 
                         category={props.currentCategory}
                         onInStockClick={props.onInStockClick}
-                        numberOfItemsShown={props.numberOfItemsShown}
-                        numberOfItemsInCategory={props.numberOfItemsInCategory}/>
+                        numberOfProductsInCategory={props.numberOfProductsInCategory}
+                        numberOnShownProducts={props.numberOnShownProducts}/>
                 </div>
                 <ItemsGallery 
                     onUnmount={props.onUnmount}

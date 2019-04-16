@@ -18,9 +18,8 @@ class Shop extends Component {
         showInStockOnly: false,
         currentCategory: 'all',
         currentSubcategory: 'all',
-        productsToShow: null,
+        productsToShow: [],
         numberOfProductsInCategory: null,
-        numberOfProducstShown: null,
         shownCategoryMenu: false
     };
 
@@ -32,29 +31,36 @@ class Shop extends Component {
             const currentURLCategory = this.props.categoriesByIds[this.props.match.params.category] ? this.props.match.params.category : 'all';
             const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
 
-            let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
+           
+           
 
             if(currentURLCategory === 'all'){
                 this.props.history.replace('/shop');
                 this.setState({
-                    productsToShow: productsToShow,
+                    productsToShow: this.props.allProducts,
+                    numberOfProductsInCategory: this.props.allProducts.length,
                     loading: false
                 });
             }
             else {
+                let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
+
                 if(currentURLSubcategory === 'all'){
                     this.props.history.replace('/shop/' + currentURLCategory);
                     this.setState({
                     currentCategory: currentURLCategory,
                     productsToShow: productsToShow,
+                    numberOfProductsInCategory: productsToShow.length,
                     loading: false
                     });
                 }
                 else {
+                    let productsInCategory = this.makeProductsToShow(currentURLCategory, 'all');
                     this.setState({
                     currentCategory: currentURLCategory,
                     currentSubcategory: currentURLSubcategory,
                     productsToShow: productsToShow,
+                    numberOfProductsInCategory: productsInCategory.length,
                     loading: false
                     });
                 }
@@ -63,6 +69,7 @@ class Shop extends Component {
         else {
             this.setState({
                 productsToShow: this.props.allProducts,
+                numberOfProductsInCategory: this.props.allProducts.length,
                 loading: false
             });
         };
@@ -100,14 +107,15 @@ class Shop extends Component {
             this.setState({
                 currentCategory: 'all',
                 currentSubcategory: 'all',
-                productsToShow: productsToShow
+                productsToShow: productsToShow,
+                numberOfProductsInCategory: this.props.allProducts.length
             });
         }
         else {
             this.props.history.replace(`/shop/${categoryClicked}`);
             let productsToShow = this.makeProductsToShow(categoryClicked, 'all');
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
-
+            const numberOfProductsInCategory = productsToShow.length;
             if(this.state.showInStockOnly){
                 productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
             };
@@ -115,7 +123,8 @@ class Shop extends Component {
             this.setState({
                 currentCategory: categoryClicked,
                 currentSubcategory: 'all',
-                productsToShow: productsToShow
+                productsToShow: productsToShow,
+                numberOfProductsInCategory: numberOfProductsInCategory
             });
         };
     };
@@ -127,6 +136,13 @@ class Shop extends Component {
         };
         let productsToShow = this.makeProductsToShow(this.state.currentCategory, subcategoryClicked);
 
+        let numberOfProductsInCategory = 0;
+        this.props.categoriesByIds[this.state.currentCategory].all.map(subcategory => {
+            if(this.props.subcategoriesByIds[subcategory][0]){
+                numberOfProductsInCategory = numberOfProductsInCategory + this.props.subcategoriesByIds[subcategory][0].length;
+            };
+        });
+
         productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
 
         if(this.state.showInStockOnly){
@@ -136,7 +152,8 @@ class Shop extends Component {
         this.setState({
             currentSubcategory: subcategoryClicked,
             productsToShow: productsToShow,
-            shownCategoryMenu: false
+            shownCategoryMenu: false,
+            numberOfProductsInCategory: numberOfProductsInCategory
         });
     };
 
@@ -265,13 +282,12 @@ class Shop extends Component {
                     clickOnSubcategory={this.sideBarSubcategoryClickHandler}
                     toggleCategoryMenu={this.toggleCategoryMenuHandler}
                     shownCategoryMenu={this.state.shownCategoryMenu}
-
                     onSort={this.sortItemsHandler}
                     onUnmount={this.resetSort}
-                 
                     onInStockClick={this.inStockClickHandler}
-                    
-                   />
+                    numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                    numberOnShownProducts={this.state.productsToShow.length}
+                />
             </div>
         );
         return <WithoutRootDiv>{shop}</WithoutRootDiv>

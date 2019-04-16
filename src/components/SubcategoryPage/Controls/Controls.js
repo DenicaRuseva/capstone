@@ -9,8 +9,8 @@ const controls = (props) => {
             <div className='controls'>
                 <div className='category-name'>
                     <div className='content-wrapper'>
-                    <span>Category:&nbsp;{props.category}</span>
-                    <div style={{height: '20px'}}> {props.numberOfItemsShown}/{props.numberOfItemsInCategory} items shown</div>
+                    <span>Category:&nbsp;{props.category}</span><br></br>
+                    <div className='number-of-products'>{props.numberOnShownProducts}/{props.numberOfProductsInCategory} products in category</div>
                     </div>
                     
                 </div>
