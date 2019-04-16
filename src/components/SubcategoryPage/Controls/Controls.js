@@ -30,7 +30,7 @@ const controls = (props) => {
                 </label>
                 <label className='instock-label'>
                 <div className='content-wrapper'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" onClick={props.onInStockClick}/>
                     <span>&nbsp;In stock only</span>
                 </div>
                     

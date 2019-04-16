@@ -68,6 +68,9 @@ class ItemsGallery extends Component {
             case 'price': items = this.sortNumbers(items, this.props.sort.sortBy, this.props.sort.order); break;
             case 'rating': items = this.sortNumbers(items, this.props.sort.sortBy, this.props.sort.order); break;
         };
+        if(this.props.showInStockOnly){
+            items = items.filter(item => parseFloat(item.stock) !== 0);
+        }
         items = items.map((item, i) => {
         return <Item key={item.name+i} item={item}/>;
     });

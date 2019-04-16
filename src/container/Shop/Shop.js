@@ -13,7 +13,8 @@ class Shop extends Component {
         sort: {
             sortBy: 'none',
             order: 'none'
-        }
+        },
+        showInStockOnly: false
     };
 
 
@@ -61,6 +62,13 @@ class Shop extends Component {
         });
     };
 
+    inStockClickHandler = () => {
+        this.setState( ( prevState ) => {
+            return { showInStockOnly: !prevState.showInStockOnly };
+        } );
+    }
+
+
     render(){
         console.log(this.props);
         const categoryPageRoute = !this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category] ?  (
@@ -71,7 +79,9 @@ class Shop extends Component {
                 sort={this.state.sort}
                 onUnmount={this.resetSort}
                 showCategories={this.showCategoriesHandler}
-                hideCategoryMenu={this.hideCategoryMenuHandler}/> 
+                hideCategoryMenu={this.hideCategoryMenuHandler}
+                onInStockClick={this.inStockClickHandler}
+                showInStockOnly={this.state.showInStockOnly}/> 
         ) : null;
         const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
             <PropsRoute 
@@ -82,7 +92,9 @@ class Shop extends Component {
                 sort={this.state.sort}
                 onUnmount={this.resetSort}
                 showCategories={this.showCategoriesHandler}
-                hideCategoryMenu={this.hideCategoryMenuHandler}/> : null;
+                hideCategoryMenu={this.hideCategoryMenuHandler}
+                onInStockClick={this.inStockClickHandler}
+                showInStockOnly={this.state.showInStockOnly}/> : null;
         return (
             <div className='shop'>
                 <Switch>
@@ -96,7 +108,9 @@ class Shop extends Component {
                         sort={this.state.sort}
                         onUnmount={this.resetSort}
                         showCategories={this.showCategoriesHandler}
-                        hideCategoryMenu={this.hideCategoryMenuHandler}/>
+                        hideCategoryMenu={this.hideCategoryMenuHandler}
+                        onInStockClick={this.inStockClickHandler}
+                        showInStockOnly={this.state.showInStockOnly}/>
                 <Route render={() => <Redirect to='/shop'/>}/> 
                 </Switch>
             </div>

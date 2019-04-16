@@ -15,7 +15,10 @@ const subcategoryPage = (props) => {
     return(
     <WithoutRootDiv>
                 <div className='hide-on-sm controls-container'>
-                    <Controls onSort={props.onSort} category={props.match.params.category ? props.match.params.category : "All"}/>
+                    <Controls 
+                    onSort={props.onSort} 
+                    category={props.match.params.category ? props.match.params.category : "All"}
+                    onInStockClick={props.onInStockClick}/>
                 </div>
                     <ShopSideBar 
                     categoriesAndSubcat={props.categoriesAndSubcat}
@@ -23,9 +26,15 @@ const subcategoryPage = (props) => {
                     showCategories={props.showCategories}
                     hideCategoryMenu={props.hideCategoryMenu}/>
                 <div className="sm-only controls-container">
-                    <Controls onSort={props.onSort} category={props.match.params.category ? props.match.params.category : "All"}/>
+                    <Controls 
+                    onSort={props.onSort} 
+                    category={props.match.params.category ? props.match.params.category : "All"}
+                    onInStockClick={props.onInStockClick}/>
                 </div>
-                <ItemsGallery sort={props.sort} onUnmount={props.onUnmount}/>
+                <ItemsGallery 
+                sort={props.sort} 
+                onUnmount={props.onUnmount}
+                showInStockOnly={props.showInStockOnly}/>
               
 
 
