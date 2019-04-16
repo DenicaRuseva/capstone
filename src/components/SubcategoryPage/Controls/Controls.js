@@ -10,7 +10,7 @@ const controls = (props) => {
                 <div className='category-name'>
                     <div className='content-wrapper'>
                     <span>Category:&nbsp;{props.category}</span>
-                    
+                    <div style={{height: '20px'}}> {props.numberOfItemsShown}/{props.numberOfItemsInCategory} items shown</div>
                     </div>
                     
                 </div>
@@ -33,7 +33,6 @@ const controls = (props) => {
                     <input type="checkbox" onClick={props.onInStockClick}/>
                     <span>&nbsp;In stock only</span>
                 </div>
-                    
                 </label>
             </div>
         </WithoutRootDiv>

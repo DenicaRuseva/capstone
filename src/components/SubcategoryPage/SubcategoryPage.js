@@ -3,7 +3,6 @@ import ItemsGallery from './ItemsGallery/ItemsGallery';
 import ShopSideBar from './ShopSideBar/ShopSideBar';
 import Controls from './Controls/Controls';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
-import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './SubcategoryPage.css';
 
@@ -17,24 +16,33 @@ const subcategoryPage = (props) => {
                 <div className='hide-on-sm controls-container'>
                     <Controls 
                     onSort={props.onSort} 
-                    category={props.match.params.category ? props.match.params.category : "All"}
-                    onInStockClick={props.onInStockClick}/>
+                    // category={props.match.params.category ? props.match.params.category : "All"}
+                    category={props.currentCategory}
+                    onInStockClick={props.onInStockClick}
+                    numberOfItemsShown={0}
+                    numberOfItemsInCategory={0}/>
                 </div>
                     <ShopSideBar 
                     categoriesAndSubcat={props.categoriesAndSubcat}
                     clickOnCategory={props.clickOnCategory}
                     showCategories={props.showCategories}
-                    hideCategoryMenu={props.hideCategoryMenu}/>
+                    hideCategoryMenu={props.hideCategoryMenu}
+                    clickOnSubcategory={props.clickOnSubcategory}/>
                 <div className="sm-only controls-container">
                     <Controls 
                     onSort={props.onSort} 
-                    category={props.match.params.category ? props.match.params.category : "All"}
-                    onInStockClick={props.onInStockClick}/>
+                    // category={props.match.params.category ? props.match.params.category : "All"}
+                    category={props.currentCategory}
+                    onInStockClick={props.onInStockClick}
+                    numberOfItemsShown={0}
+                    numberOfItemsInCategory={0}/>
                 </div>
                 <ItemsGallery 
-                sort={props.sort} 
-                onUnmount={props.onUnmount}
-                showInStockOnly={props.showInStockOnly}/>
+                    sort={props.sort} 
+                    onUnmount={props.onUnmount}
+                    showInStockOnly={props.showInStockOnly}
+                    currentCategory={props.currentCategory}
+                    currentSubcategory={props.currentSubcategory}/>
               
 
 
@@ -52,4 +60,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default withRouter(connect(mapStateToProps)(subcategoryPage));
+export default connect(mapStateToProps)(subcategoryPage);

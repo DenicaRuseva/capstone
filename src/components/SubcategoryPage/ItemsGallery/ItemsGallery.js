@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Item from './Item/Item';
 import { connect } from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import './ItemsGallery.css';
 
 
@@ -43,11 +42,11 @@ class ItemsGallery extends Component {
 
 
     render(){
-        console.log(this.props);
-    const currentCategory = this.props.match.params.category ? this.props.match.params.category : 'all';
-    const currentSubcategory = this.props.match.params.subcategory ? this.props.match.params.subcategory : 'all';
+    console.log(this.props);
+    // const currentCategory = this.props.match.params.category ? this.props.match.params.category : 'all';
+    // const currentSubcategory = this.props.match.params.subcategory ? this.props.match.params.subcategory : 'all';
 
-    let items = this.props.categoriesByIds[currentCategory][currentSubcategory].map(subcategory => {
+    let items = this.props.categoriesByIds[this.props.currentCategory][this.props.currentSubcategory].map(subcategory => {
         return this.props.subcategoriesByIds[subcategory][0].map((item, i) => {
             return item;
         })
@@ -96,4 +95,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default withRouter(connect(mapStateToProps)(ItemsGallery));
+export default connect(mapStateToProps)(ItemsGallery);

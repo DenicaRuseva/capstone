@@ -10,6 +10,7 @@ const shopSideBar = (props) => {
                     key={key+i}
                     categoryAndSubcat = {props.categoriesAndSubcat[i]} 
                     clickOnCategory={props.clickOnCategory}
+                    clickOnSubcategory={props.clickOnSubcategory}
                     hideCategoryMenu={props.hideCategoryMenu}/>
         )
     });
