@@ -10,107 +10,192 @@ import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 class Shop extends Component {
 
     state = {
+        loading: true,
         sort: {
             sortBy: 'none',
             order: 'none'
         },
         showInStockOnly: false,
         currentCategory: 'all',
-        currentSubcategory: 'all'
+        currentSubcategory: 'all',
+        productsToShow: null,
+        numberOfProductsInCategory: null,
+        numberOfProducstShown: null,
+        shownCategoryMenu: false
     };
 
 
     componentDidMount(){
 
-        if(this.props.match.params.category || this.props.match.params.subcategory){
-            if(this.props.match.params.category === 'all'){
+        if(this.props.match.params.category){
+           
+            const currentURLCategory = this.props.categoriesByIds[this.props.match.params.category] ? this.props.match.params.category : 'all';
+            const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
+
+            let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
+
+            if(currentURLCategory === 'all'){
                 this.props.history.replace('/shop');
+                this.setState({
+                    productsToShow: productsToShow,
+                    loading: false
+                });
             }
             else {
-                const currentURLCategory = (this.props.match.params.category &&  this.props.categoriesByIds[this.props.match.params.category]) ? this.props.match.params.category : 'all';
-                const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
-                if(currentURLCategory !== 'all'){
-                    this.setState({currentCategory: currentURLCategory, currentSubcategory: currentURLSubcategory});
+                if(currentURLSubcategory === 'all'){
+                    this.props.history.replace('/shop/' + currentURLCategory);
+                    this.setState({
+                    currentCategory: currentURLCategory,
+                    productsToShow: productsToShow,
+                    loading: false
+                    });
                 }
-                if(currentURLSubcategory !== 'all'){
-                    this.setState({currentCategory: currentURLCategory, currentSubcategory: currentURLSubcategory});
+                else {
+                    this.setState({
+                    currentCategory: currentURLCategory,
+                    currentSubcategory: currentURLSubcategory,
+                    productsToShow: productsToShow,
+                    loading: false
+                    });
                 }
-            
-                if(currentURLCategory === 'all'){
-                    this.props.history.replace('/shop');
-                }
-                else if(currentURLSubcategory === 'all' && this.props.match.params.subcategory){
-                    this.props.history.replace('/shop/' + currentURLCategory)
-                }
-            }
+            };
         }
+        else {
+            this.setState({
+                productsToShow: this.props.allProducts,
+                loading: false
+            });
+        };
+       
     };
 
+    flattenArray = (arr) => arr.reduce(
+        (a, b) => a.concat(Array.isArray(b) ? this.flattenArray(b) : b), []
+    );
+    
 
-    sideBarCategoryClickHandler = (event, categoryClicked) => {
+    makeProductsToShow = (category, subcategory) => {
+        let productsToShow = this.props.categoriesByIds[category][subcategory].map(subcategory => {
+            return this.props.subcategoriesByIds[subcategory][0].map(item => {
+                return item;
+            })
+        });
+        productsToShow = this.flattenArray(productsToShow);
+        return productsToShow;
+    };
+
+    sideBarCategoryClickHandler = (categoryClicked) => {
         if(this.state.currentCategory === categoryClicked){
-            // event.target.parentElement.classList.toggle('show-subcat');
+            let productsToShow = this.props.allProducts;
+            productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
+            
+
+            if(this.state.showInStockOnly){
+                productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
+            };
+
+
             this.props.history.replace('/shop');
-            this.setState({currentCategory: 'all', currentSubcategory: 'all'});
+
+            this.setState({
+                currentCategory: 'all',
+                currentSubcategory: 'all',
+                productsToShow: productsToShow
+            });
         }
         else {
             this.props.history.replace(`/shop/${categoryClicked}`);
-            this.setState({currentCategory: categoryClicked, currentSubcategory: 'all'});
-            // event.target.parentElement.classList.add('show-subcat');
+            let productsToShow = this.makeProductsToShow(categoryClicked, 'all');
+            productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
+
+            if(this.state.showInStockOnly){
+                productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
+            };
+
+            this.setState({
+                currentCategory: categoryClicked,
+                currentSubcategory: 'all',
+                productsToShow: productsToShow
+            });
         };
-        // event.target.parentElement.classList.toggle('show-subcat');
     };
 
     sideBarSubcategoryClickHandler = (subcategoryClicked) => {
+      
+        if(this.state.currentSubcategory === subcategoryClicked){
+            return;
+        };
+        let productsToShow = this.makeProductsToShow(this.state.currentCategory, subcategoryClicked);
 
-        this.setState({currentSubcategory: subcategoryClicked});
-    }
+        productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
 
+        if(this.state.showInStockOnly){
+            productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
+        };
 
-    showCategoriesHandler = (event) => {
-        event.target.parentElement.classList.toggle('show-categories');
-    }
+        this.setState({
+            currentSubcategory: subcategoryClicked,
+            productsToShow: productsToShow,
+            shownCategoryMenu: false
+        });
+    };
 
-    hideCategoryMenuHandler = (element) => {
-       console.log(element);
-       element.parentElement.parentElement.parentElement.parentElement.parentElement
-       .parentElement.parentElement.classList.toggle('show-categories');
-    }
+    toggleCategoryMenuHandler = () => {
+        this.setState( ( prevState ) => {
+            return { shownCategoryMenu: !prevState.shownCategoryMenu };
+        } );
+    };
 
     sortItemsHandler = (sortCriteria) => {
         const sortDate = sortCriteria.split('_');
-        console.log(sortDate);
-        this.setState({
-            sort: {
-                sortBy: sortDate[0],
-                order: sortDate[1]
-            }
-        });
+        if(this.state.sort.sortBy === sortDate[0] && this.state.sort.order === sortDate[1]){
+            return;
+        }
+        if(sortDate[0] === 'none'){
+            let productsToShow = this.makeProductsToShow(this.state.currentCategory, this.state.currentSubcategory);
+            this.setState({
+                sort: {
+                    sortBy: 'none',
+                    order: 'none'
+                },
+                productsToShow: productsToShow
+            });
+        }
+        else if(this.state.sort.sortBy === sortDate[0]){
+            this.setState({
+                sort: {
+                    sortBy: sortDate[0],
+                    order: sortDate[1]
+                },
+                productsToShow: this.state.productsToShow.reverse()
+            });
+        }
+        else {
+            let productsToShow = this.state.productsToShow;
+            productsToShow = this.sortProducts(productsToShow, sortDate[0], sortDate[1]);
+            console.log(productsToShow);
+            this.setState({
+                sort: {
+                    sortBy: sortDate[0],
+                    order: sortDate[1]
+                },
+                productsToShow: productsToShow
+            }); 
+        }
+        
     };
 
-    resetSort = () => {
-        this.setState({
-            sort: {
-                sortBy: 'none',
-                order: 'none'
-            }
-        });
+    sortProducts = (products, sortCriteria, order) => {
+        switch(sortCriteria){
+            case 'none': return products;
+            case 'name': return this.sortAlphabetical(products, order);
+            case 'price': return this.sortNumbers(products, sortCriteria, order);
+            case 'rating': return this.sortNumbers(products, sortCriteria, order);
+        };
     };
-
-    inStockClickHandler = () => {
-        this.setState( ( prevState ) => {
-            return { showInStockOnly: !prevState.showInStockOnly };
-        } );
-    }
-
-
-
-
-
-
-    sortAlphabetical = (items, order) => {
-        items.sort((a, b) => {
-            console.log(a);
+   
+    sortAlphabetical = (products, order) => {
+        products.sort((a, b) => {
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase();
             if (nameA < nameB) {
@@ -122,100 +207,74 @@ class Shop extends Component {
             return 0;
         });
         if(order === 'descending'){
-            items = items.reverse(); 
+            products = products.reverse(); 
         }
-        return items;
+        return products;
     };
     
-    sortNumbers = (items, criteria, order) => {
-        items.sort((a, b) => {
-            return a[criteria] - b[criteria];
+    sortNumbers = (products, sortCriteria, order) => {
+        products.sort((a, b) => {
+            return a[sortCriteria] - b[sortCriteria];
         });
         if(order === 'descending'){
-            items = items.reverse(); 
+            products = products.reverse(); 
         }
-        return items;
+        return products;
+    };
+    
+
+    resetSort = () => {
+            this.setState({
+                sort: {
+                    sortBy: 'none',
+                    order: 'none'
+                }
+            });
+    };
+
+    inStockClickHandler = () => {
+        if(this.state.showInStockOnly){
+            let productsToShow = this.makeProductsToShow(this.state.currentCategory, this.state.currentSubcategory);
+            productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.order);
+            this.setState({
+                showInStockOnly: false,
+                productsToShow: productsToShow
+            });
+        }
+        else {
+            const productsToShow = this.state.productsToShow.filter(item => parseFloat(item.stock) !== 0);
+            this.setState({
+                showInStockOnly: true,
+                productsToShow: productsToShow
+            });
+        };
     };
 
 
 
     render(){
         console.log(this.props);
-        // const categoryPageRoute = !this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category] ?  (
-        //     <PropsRoute path='/shop/:category'
-        //         component={SubcategoryPage}
-        //         clickOnCategory={this.sideBarCategoryClickHandler}
-        //         onSort={this.sortItemsHandler}
-        //         sort={this.state.sort}
-        //         onUnmount={this.resetSort}
-        //         showCategories={this.showCategoriesHandler}
-        //         hideCategoryMenu={this.hideCategoryMenuHandler}
-        //         onInStockClick={this.inStockClickHandler}
-        //         showInStockOnly={this.state.showInStockOnly}/> 
-        // ) : null;
-        // const subcategoryPageRoute = this.props.categoriesByIds[this.props.match.params.category] && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory] ?
-        //     <PropsRoute 
-        //         path='/shop/:category/:subcategory' exact 
-        //         component={SubcategoryPage}
-        //         clickOnCategory={this.sideBarCategoryClickHandler}
-        //         onSort={this.sortItemsHandler}
-        //         sort={this.state.sort}
-        //         onUnmount={this.resetSort}
-        //         showCategories={this.showCategoriesHandler}
-        //         hideCategoryMenu={this.hideCategoryMenuHandler}
-        //         onInStockClick={this.inStockClickHandler}
-        //         showInStockOnly={this.state.showInStockOnly}/> : null;
-        return (
+        const shop = this.state.loading ? <div>spinner</div> :
+        (
             <div className='shop'>
-                <Switch>
-                    {/* {categoryPageRoute}
-                    {subcategoryPageRoute} */}
-                <PropsRoute 
-                        path='/shop/:category/:subcategory'
-                        component={SubcategoryPage}
-                        clickOnCategory={this.sideBarCategoryClickHandler}
-                        onSort={this.sortItemsHandler}
-                        sort={this.state.sort}
-                        onUnmount={this.resetSort}
-                        showCategories={this.showCategoriesHandler}
-                        hideCategoryMenu={this.hideCategoryMenuHandler}
-                        onInStockClick={this.inStockClickHandler}
-                        showInStockOnly={this.state.showInStockOnly}
-                        currentCategory={this.state.currentCategory}
-                        currentSubcategory={this.state.currentSubcategory}
-                        clickOnSubcategory={this.sideBarSubcategoryClickHandler}/>
-                <PropsRoute 
-                        path='/shop/:category'
-                        component={SubcategoryPage}
-                        clickOnCategory={this.sideBarCategoryClickHandler}
-                        onSort={this.sortItemsHandler}
-                        sort={this.state.sort}
-                        onUnmount={this.resetSort}
-                        showCategories={this.showCategoriesHandler}
-                        hideCategoryMenu={this.hideCategoryMenuHandler}
-                        onInStockClick={this.inStockClickHandler}
-                        showInStockOnly={this.state.showInStockOnly}
-                        currentCategory={this.state.currentCategory}
-                        currentSubcategory={this.state.currentSubcategory}
-                        clickOnSubcategory={this.sideBarSubcategoryClickHandler}/>
-                <PropsRoute 
-                        path='/shop'
-                        component={SubcategoryPage}
-                        clickOnCategory={this.sideBarCategoryClickHandler}
-                        onSort={this.sortItemsHandler}
-                        sort={this.state.sort}
-                        onUnmount={this.resetSort}
-                        showCategories={this.showCategoriesHandler}
-                        hideCategoryMenu={this.hideCategoryMenuHandler}
-                        onInStockClick={this.inStockClickHandler}
-                        showInStockOnly={this.state.showInStockOnly}
-                        currentCategory={this.state.currentCategory}
-                        currentSubcategory={this.state.currentSubcategory}
-                        clickOnSubcategory={this.sideBarSubcategoryClickHandler}/>
-                <Route render={() => <Redirect to='/shop'/>}/> 
-                </Switch>
+                <SubcategoryPage 
+                    productsToShow={this.state.productsToShow}
+                    currentCategory={this.state.currentCategory}
+                    currentSubcategory={this.state.currentSubcategory}
+                    clickOnCategory={this.sideBarCategoryClickHandler}
+                    clickOnSubcategory={this.sideBarSubcategoryClickHandler}
+                    toggleCategoryMenu={this.toggleCategoryMenuHandler}
+                    shownCategoryMenu={this.state.shownCategoryMenu}
+
+                    onSort={this.sortItemsHandler}
+                    onUnmount={this.resetSort}
+                 
+                    onInStockClick={this.inStockClickHandler}
+                    
+                   />
             </div>
-        )
+        );
+        return <WithoutRootDiv>{shop}</WithoutRootDiv>
     };
 };
 
@@ -224,6 +283,7 @@ const mapStateToProps = state => {
         categoriesAndSubcat: state.categoriesAndSubcat,
         categoriesByIds: state.categoriesByIds, 
         subcategoriesByIds: state.subcategoriesByIds,
+        allProducts: state.allProducts
     };
 };
 

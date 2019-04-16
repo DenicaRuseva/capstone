@@ -9,6 +9,7 @@ const initialState = {
     // subcategories: [],
     categoriesByIds: {}, 
     subcategoriesByIds: {},
+    allProducts: [],
     loadingCarousel: true,
     loadingShop: true,
     error: false
@@ -64,12 +65,20 @@ const setShopData = (state, action) => {
     };
 };
 
+const setAllProducts = (state, action) => {
+    return {
+        ...state,
+        allProducts: action.products
+    };
+};
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.FETCH_PRODUCTS_START: return fetchProductsStart(state);
         case actionTypes.FETCH_PRODUCTS_FAILL: return fetchProductsFaill(state, action);
         case actionTypes.SET_CAROUSEL_PRODUCTS: return setCarouselProducts(state, action);
         case actionTypes.SET_SHOP_DATA: return setShopData(state, action);
+        case actionTypes.SET_ALL_PRODUCTS: return setAllProducts(state, action);
         default: return state;
     };
 

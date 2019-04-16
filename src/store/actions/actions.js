@@ -40,7 +40,7 @@ const fetchProductsSuccess = (products) => {
 //     return target;
 //   };
 
-  const deepCopy = (obj) => {
+const deepCopy = (obj) => {
     let target = Array.isArray(obj) ? [] : {};
     for (let key in obj) {
       let v = obj[key];
@@ -55,7 +55,15 @@ const fetchProductsSuccess = (products) => {
       }
     }
     return target;
-  };
+};
+
+
+const setAllProducts = (products) => {
+    return {
+        type: actionTypes.SET_ALL_PRODUCTS,
+        products: products
+    };
+};
 
 
 const setState = (products) => {
@@ -63,7 +71,7 @@ const setState = (products) => {
     return dispatch => {
         const allProducts = Object.keys(products).map(key => {
             return Object.keys(products[key].subcategories).map( newKey => {
-                return deepCopy(products[key].subcategories[newKey].items);
+                return products[key].subcategories[newKey].items;
             });
         }).reduce((arr, el) => {
                 return arr.concat(el);
@@ -72,8 +80,9 @@ const setState = (products) => {
         }, []);
 
         console.log(allProducts);
+        dispatch(setAllProducts(allProducts));
 
-        const carouselProducts = deepCopy(allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10));
+        const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
         console.log(carouselProducts);
 
 
