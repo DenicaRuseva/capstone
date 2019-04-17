@@ -21,7 +21,7 @@ const categoryButton = (props) => {
             key={subcat+i} 
             onClick={(event) => {event.stopPropagation(); props.clickOnSubcategory(subcat)}}>
                 <NavLink 
-                    to={'/shoping/' + props.categoryAndSubcat.category + '/' + subcat}>
+                    to={'/shopping/' + props.categoryAndSubcat.category + '/' + subcat}>
                     <span>{subcat}</span>
                 </NavLink> 
         </li>

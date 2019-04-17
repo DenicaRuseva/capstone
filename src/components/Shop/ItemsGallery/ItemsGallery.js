@@ -20,7 +20,10 @@ class ItemsGallery extends Component {
         }
         else {
             items = this.props.productsToShow.map((item, i) => {
-                return <Item key={item.name+i} item={item}/>;
+                return <Item 
+                        key={item.name+i} 
+                        item={item}
+                        clickOnAddBtn={this.props.clickOnAddBtn}/>;
             });
         };
 

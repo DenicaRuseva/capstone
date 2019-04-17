@@ -20,7 +20,8 @@ class Shop extends Component {
         currentSubcategory: 'all',
         productsToShow: [],
         numberOfProductsInCategory: null,
-        shownCategoryMenu: false
+        shownCategoryMenu: false,
+        productsInCart: []
     };
 
 
@@ -35,7 +36,7 @@ class Shop extends Component {
            
 
             if(currentURLCategory === 'all'){
-                this.props.history.replace('/shop');
+                this.props.history.replace('/shopping');
                 this.setState({
                     productsToShow: this.props.allProducts,
                     numberOfProductsInCategory: this.props.allProducts.length,
@@ -46,7 +47,7 @@ class Shop extends Component {
                 let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
 
                 if(currentURLSubcategory === 'all'){
-                    this.props.history.replace('/shop/' + currentURLCategory);
+                    this.props.history.replace('/shopping/' + currentURLCategory);
                     this.setState({
                     currentCategory: currentURLCategory,
                     productsToShow: productsToShow,
@@ -75,6 +76,10 @@ class Shop extends Component {
         };
        
     };
+
+    componentWillUnmount(){
+        this.props.onUnmount(this.state.productsInCart);
+    }
 
     flattenArray = (arr) => arr.reduce(
         (a, b) => a.concat(Array.isArray(b) ? this.flattenArray(b) : b), []
@@ -119,7 +124,7 @@ class Shop extends Component {
             };
 
 
-            this.props.history.replace('/shop');
+            this.props.history.replace('/shopping');
 
             this.setState({
                 currentCategory: 'all',
@@ -129,7 +134,7 @@ class Shop extends Component {
             });
         }
         else {
-            this.props.history.replace(`/shop/${categoryClicked}`);
+            this.props.history.replace(`/shopping/${categoryClicked}`);
             let productsToShow = this.makeProductsToShow(categoryClicked, 'all');
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
             const numberOfProductsInCategory = productsToShow.length;
@@ -288,10 +293,15 @@ class Shop extends Component {
         };
     };
 
+    addProductToCartHandler = (product) => {
+        const productsInCart = this.state.productsInCart.concat(product);
+        this.setState({productsInCart: productsInCart});
+    };
+
 
 
     render(){
-        console.log(this.props);
+        console.log(this.state);
         const shop = this.state.loading ? <div>spinner</div> :
         (
             <div className='shop'>
@@ -322,7 +332,8 @@ class Shop extends Component {
                 {/* rubric20  */}
                 <ItemsGallery 
                     onUnmount={this.resetSort}
-                    productsToShow={this.state.productsToShow}/>
+                    productsToShow={this.state.productsToShow}
+                    clickOnAddBtn={this.addProductToCartHandler}/>
             </div>
         );
         return <WithoutRootDiv>{shop}</WithoutRootDiv>

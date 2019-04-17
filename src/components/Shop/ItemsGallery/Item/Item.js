@@ -10,10 +10,9 @@ const item = (props) => (
         <div className='info-container'>
         <div className='info-wrapper'>
             <p className='info-name'>{props.item.name}</p>
-                <p className='info-price'>$ {props.item.price.toFixed(2)}</p>
-               <p className='button-container'><button className='add-button' type='button'>add</button></p> 
-                <p className='info-rating'><FontAwesomeIcon className='star' icon='star'/>{props.item.rating}</p>
-
+            <p className='info-price'>$ {props.item.price.toFixed(2)}</p>
+            <p className='button-container'><button className='add-button' type='button' onClick={() => props.clickOnAddBtn(props.item)}>add</button></p> 
+            <p className='info-rating'><FontAwesomeIcon className='star' icon='star'/>{props.item.rating}</p>
         </div>
         
         </div>

@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const navigationItems = () => (
     <ul className='navigationItems'>
         <NavigationItem link='/' exact={true}>Home</NavigationItem>
-        <NavigationItem link="/shop">Shop</NavigationItem>
-        <NavigationItem link="/shopping cart"><FontAwesomeIcon icon='shopping-cart'/></NavigationItem>
+        <NavigationItem link="/shopping">Shop</NavigationItem>
+        <NavigationItem link="/cart"><FontAwesomeIcon icon='shopping-cart'/></NavigationItem>
     </ul>
 );
 

@@ -16,7 +16,7 @@ class Carousel extends Component {
         return (
             <div>
                 <div>{carousel}</div>
-                <Link to='/shoping'><button>Shop All</button></Link>
+                <Link to='/shopping'><button>Shop All</button></Link>
             </div>
         )
     };
