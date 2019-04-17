@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShoppingCart, faStar} from '@fortawesome/free-solid-svg-icons';
+import { Route, Switch } from 'react-router-dom';
 
 
 library.add(faShoppingCart);
@@ -18,7 +19,10 @@ class App extends Component {
     console.log('in render app');
 
     return (
-      <Layout/>
+      <Switch>
+        <Route to='/' exact component={Layout}/>
+      </Switch>
+      
     );
   }
 };

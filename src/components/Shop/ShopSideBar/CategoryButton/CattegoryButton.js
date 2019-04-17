@@ -7,10 +7,13 @@ import './CategoryButton.css';
 const categoryButton = (props) => {
     console.log("in category button");
 
+    // rubric25
     let categoryListitemClasses = ['category-list-item'];
     if(props.match.params.category === props.categoryAndSubcat.category){
         categoryListitemClasses.push('show-subcat');
-    }
+    };
+
+
     const subcategories = props.categoryAndSubcat.subcategories.map((subcat, i) => {
         return (
             <li 
@@ -18,7 +21,7 @@ const categoryButton = (props) => {
             key={subcat+i} 
             onClick={(event) => {event.stopPropagation(); props.clickOnSubcategory(subcat)}}>
                 <NavLink 
-                    to={'/shop/' + props.categoryAndSubcat.category + '/' + subcat}>
+                    to={'/shoping/' + props.categoryAndSubcat.category + '/' + subcat}>
                     <span>{subcat}</span>
                 </NavLink> 
         </li>

@@ -30,9 +30,10 @@ class Layout extends React.Component {
         console.log('in render layout');
         const shopRoute = this.props.loadingShop ? <Route path='/shop' render={() => <div>spiner</div>}/> : (
             <Switch>
-                <Route path='/shop/:category/:subcategory' component={Shop}/>
-                <Route path='/shop/:category' component={Shop}/>
-                <Route path="/shop" component={Shop}/>
+                {/* rubric34 */}
+                <Route path='/shoping/:category/:subcategory' component={Shop}/>
+                <Route path='/shoping/:category' component={Shop}/>
+                <Route path="/shoping" component={Shop}/>
             </Switch>
         );
         return(
@@ -43,6 +44,7 @@ class Layout extends React.Component {
                     <Switch>
                         <Route path="/" exact component={Carousel}/>
                         {shopRoute}
+                        <Route render={() => this.props.history.replace('/')}/>
                     </Switch>
                 </main>
                 <div style={{height: '56px', backgroundColor: 'blue'}}>footer</div>

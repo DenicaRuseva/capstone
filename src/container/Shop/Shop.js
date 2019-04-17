@@ -79,6 +79,23 @@ class Shop extends Component {
     flattenArray = (arr) => arr.reduce(
         (a, b) => a.concat(Array.isArray(b) ? this.flattenArray(b) : b), []
     );
+
+    deepCopy = (obj) => {
+        let target = Array.isArray(obj) ? [] : {};
+        for (let key in obj) {
+            let v = obj[key];
+            if (v) {
+                if (typeof v === "object") {
+                target[key] = this.deepCopy(v);
+                } else {
+                target[key] = v;
+                }
+            } else {
+            target[key] = v;
+            }
+        };
+        return target;
+    };
     
 
     makeProductsToShow = (category, subcategory) => {
@@ -93,7 +110,7 @@ class Shop extends Component {
 
     sideBarCategoryClickHandler = (categoryClicked) => {
         if(this.state.currentCategory === categoryClicked){
-            let productsToShow = this.props.allProducts;
+            let productsToShow = this.deepCopy(this.props.allProducts);
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
             
 
@@ -129,6 +146,8 @@ class Shop extends Component {
         };
     };
 
+
+    // rubric26, rubric28
     sideBarSubcategoryClickHandler = (subcategoryClicked) => {
       
         if(this.state.currentSubcategory === subcategoryClicked){
@@ -163,6 +182,7 @@ class Shop extends Component {
         } );
     };
 
+    // rubric33
     sortItemsHandler = (sortCriteria) => {
         const sortDate = sortCriteria.split('_');
         if(this.state.sort.sortBy === sortDate[0] && this.state.sort.order === sortDate[1]){
@@ -249,6 +269,7 @@ class Shop extends Component {
             });
     };
 
+    // rubric28, rubric29
     inStockClickHandler = () => {
         if(this.state.showInStockOnly){
             let productsToShow = this.makeProductsToShow(this.state.currentCategory, this.state.currentSubcategory);
@@ -275,6 +296,7 @@ class Shop extends Component {
         (
             <div className='shop'>
             <div className='hide-on-sm controls-container'>
+                    {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
                     <Controls 
                         onSort={this.sortItemsHandler} 
                         category={this.state.currentCategory}
@@ -282,12 +304,14 @@ class Shop extends Component {
                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
                         numberOnShownProducts={this.state.productsToShow.length}/>
                 </div>
+                    {/* rubric19 */}
                     <ShopSideBar
                         clickOnCategory={this.sideBarCategoryClickHandler}
                         clickOnSubcategory={this.sideBarSubcategoryClickHandler}
                         toggleCategoryMenu={this.toggleCategoryMenuHandler}
                     shownCategoryMenu={this.state.shownCategoryMenu}/>
                 <div className="sm-only controls-container">
+                    {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
                     <Controls 
                         onSort={this.sortItemsHandler} 
                         category={this.state.currentCategory}
@@ -295,6 +319,7 @@ class Shop extends Component {
                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
                         numberOnShownProducts={this.state.productsToShow.length}/>
                 </div>
+                {/* rubric20  */}
                 <ItemsGallery 
                     onUnmount={this.resetSort}
                     productsToShow={this.state.productsToShow}/>

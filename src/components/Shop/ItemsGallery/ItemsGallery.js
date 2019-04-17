@@ -24,7 +24,9 @@ class ItemsGallery extends Component {
             });
         };
 
-        return <div className='items-gallery'>{items}</div>
+        return (
+            <div className='items-gallery'>{items}</div>
+        );
     };
 
 };
