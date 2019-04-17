@@ -49,7 +49,6 @@ const setAllProducts = (products) => {
 
 
 const setState = (products) => {
-    console.log(products);
     return dispatch => {
         const allProducts = Object.keys(products).map(key => {
             return Object.keys(products[key].subcategories).map( newKey => {
@@ -61,11 +60,10 @@ const setState = (products) => {
                 return arr.concat(el);
         }, []);
 
-        console.log(allProducts);
+
         dispatch(setAllProducts(allProducts));
 
         const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
-        console.log(carouselProducts);
 
 
         dispatch(setCarouselProducts(carouselProducts));

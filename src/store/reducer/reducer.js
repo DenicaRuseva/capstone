@@ -25,7 +25,6 @@ const fetchProductsStart = (state) => { //May be not needed???
 };
 
 const fetchProductsFaill = (state, action) => {
-    console.log(action.error);
     return {
         ...state,
         loadingCarousel: false,
@@ -46,7 +45,6 @@ const setCarouselProducts = (state, action) => {
 };
 
 const setShopData = (state, action) => {
-    console.log(action.categoriesByIds);
     return {
         ...state,
         categoriesAndSubcat: [

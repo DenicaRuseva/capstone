@@ -37,7 +37,6 @@ class Layout extends React.Component {
 
     render(){
         console.log('in render layout');
-        console.log(this.state);
         const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spiner</div>}/> : (
             <WithoutRootDiv>
                 {/* rubric34 */}

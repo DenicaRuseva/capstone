@@ -1,19 +1,19 @@
 import React from 'react';
-import CategoryButton from './CategoryButton/CattegoryButton';
-import { connect } from 'react-redux';
+import CategoryButtons from './CategoryButtons/CategoryButtons';
+// import { connect } from 'react-redux';
 import './ShopSideBar.css';
 
 const shopSideBar = (props) => {
-    let categoriesAndSubcategories = props.categoriesAndSubcat.map( (key, i) => {
-        return (
-                <CategoryButton 
-                    key={key+i}
-                    categoryAndSubcat = {props.categoriesAndSubcat[i]} 
-                    clickOnCategory={props.clickOnCategory}
-                    clickOnSubcategory={props.clickOnSubcategory}
-                    hideCategoryMenu={props.hideCategoryMenu}/>
-        )
-    });
+    // let categoriesAndSubcategories = props.categoriesAndSubcat.map( (key, i) => {
+    //     return (
+    //             <CategoryButton 
+    //                 key={key+i}
+    //                 categoryAndSubcat = {props.categoriesAndSubcat[i]} 
+    //                 clickOnCategory={props.clickOnCategory}
+    //                 clickOnSubcategory={props.clickOnSubcategory}
+    //                 hideCategoryMenu={props.hideCategoryMenu}/>
+    //     )
+    // });
 
     const attachedClasses = props.shownCategoryMenu ? ['side-bar-wrapper show-categories'] : ['side-bar-wrapper'];
     console.log('in shop side bar');
@@ -25,17 +25,20 @@ const shopSideBar = (props) => {
                 <div className='sm-only text' onClick={() => props.toggleCategoryMenu()}>Shop by category:</div>
                 <div className='side-bar-container'>
                     <div className='side-bar'> 
-                        {categoriesAndSubcategories}
+                        <CategoryButtons
+                        clickOnCategory={props.clickOnCategory}
+                        clickOnSubcategory={props.clickOnSubcategory}
+                        hideCategoryMenu={props.hideCategoryMenu}/>
                     </div>
                 </div>
         </div>
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        categoriesAndSubcat: state.categoriesAndSubcat
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         categoriesAndSubcat: state.categoriesAndSubcat
+//     };
+// };
 
-export default connect(mapStateToProps)(shopSideBar);
+export default shopSideBar;

@@ -26,6 +26,7 @@ class Shop extends Component {
 
 
     componentDidMount(){
+        console.log('in CDM Shop');
 
         if(this.props.match.params.category){
            
@@ -78,6 +79,7 @@ class Shop extends Component {
     };
 
     componentWillUnmount(){
+        console.log('in CWUn shop');
         this.props.onUnmount(this.state.productsInCart);
     }
 
@@ -301,7 +303,7 @@ class Shop extends Component {
 
 
     render(){
-        console.log(this.state);
+        console.log('in render shop');
         const shop = this.state.loading ? <div>spinner</div> :
         (
             <div className='shop'>
