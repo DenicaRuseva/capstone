@@ -276,11 +276,11 @@ class Shop extends Component {
             <div className='shop'>
             <div className='hide-on-sm controls-container'>
                     <Controls 
-                         onSort={this.sortItemsHandler} 
-                         category={this.state.currentCategory}
-                         onInStockClick={this.inStockClickHandler}
-                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
-                         numberOnShownProducts={this.state.productsToShow.length}/>
+                        onSort={this.sortItemsHandler} 
+                        category={this.state.currentCategory}
+                        onInStockClick={this.inStockClickHandler}
+                        numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                        numberOnShownProducts={this.state.productsToShow.length}/>
                 </div>
                     <ShopSideBar
                         clickOnCategory={this.sideBarCategoryClickHandler}
@@ -289,11 +289,11 @@ class Shop extends Component {
                     shownCategoryMenu={this.state.shownCategoryMenu}/>
                 <div className="sm-only controls-container">
                     <Controls 
-                         onSort={this.sortItemsHandler} 
-                         category={this.state.currentCategory}
-                         onInStockClick={this.inStockClickHandler}
-                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
-                         numberOnShownProducts={this.state.productsToShow.length}/>
+                        onSort={this.sortItemsHandler} 
+                        category={this.state.currentCategory}
+                        onInStockClick={this.inStockClickHandler}
+                        numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                        numberOnShownProducts={this.state.productsToShow.length}/>
                 </div>
                 <ItemsGallery 
                     onUnmount={this.resetSort}

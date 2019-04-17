@@ -5,7 +5,7 @@ import './CategoryButton.css';
 
 
 const categoryButton = (props) => {
-    console.log(props);
+    console.log("in category button");
 
     let categoryListitemClasses = ['category-list-item'];
     if(props.match.params.category === props.categoryAndSubcat.category){

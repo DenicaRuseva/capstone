@@ -16,7 +16,7 @@ const shopSideBar = (props) => {
     });
 
     const attachedClasses = props.shownCategoryMenu ? ['side-bar-wrapper show-categories'] : ['side-bar-wrapper'];
-
+    console.log('in shop side bar');
     return (
         <div className={attachedClasses}>
             <div className='hide-on-sm'> 
