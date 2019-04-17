@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import SubcategoryPage from '../../components/SubcategoryPage/SubcategoryPage';
-import PropsRoute from '../../hoc/Routes/PropsRoute';
+import Controls from '../../components/Shop/Controls/Controls';
+import ShopSideBar from '../../components/Shop/ShopSideBar/ShopSideBar';
+import ItemsGallery from '../../components/Shop/ItemsGallery/ItemsGallery';
 import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 
@@ -274,20 +274,30 @@ class Shop extends Component {
         const shop = this.state.loading ? <div>spinner</div> :
         (
             <div className='shop'>
-                <SubcategoryPage 
-                    productsToShow={this.state.productsToShow}
-                    currentCategory={this.state.currentCategory}
-                    currentSubcategory={this.state.currentSubcategory}
-                    clickOnCategory={this.sideBarCategoryClickHandler}
-                    clickOnSubcategory={this.sideBarSubcategoryClickHandler}
-                    toggleCategoryMenu={this.toggleCategoryMenuHandler}
-                    shownCategoryMenu={this.state.shownCategoryMenu}
-                    onSort={this.sortItemsHandler}
+            <div className='hide-on-sm controls-container'>
+                    <Controls 
+                         onSort={this.sortItemsHandler} 
+                         category={this.state.currentCategory}
+                         onInStockClick={this.inStockClickHandler}
+                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                         numberOnShownProducts={this.state.productsToShow.length}/>
+                </div>
+                    <ShopSideBar
+                        clickOnCategory={this.sideBarCategoryClickHandler}
+                        clickOnSubcategory={this.sideBarSubcategoryClickHandler}
+                        toggleCategoryMenu={this.toggleCategoryMenuHandler}
+                    shownCategoryMenu={this.state.shownCategoryMenu}/>
+                <div className="sm-only controls-container">
+                    <Controls 
+                         onSort={this.sortItemsHandler} 
+                         category={this.state.currentCategory}
+                         onInStockClick={this.inStockClickHandler}
+                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                         numberOnShownProducts={this.state.productsToShow.length}/>
+                </div>
+                <ItemsGallery 
                     onUnmount={this.resetSort}
-                    onInStockClick={this.inStockClickHandler}
-                    numberOfProductsInCategory={this.state.numberOfProductsInCategory}
-                    numberOnShownProducts={this.state.productsToShow.length}
-                />
+                    productsToShow={this.state.productsToShow}/>
             </div>
         );
         return <WithoutRootDiv>{shop}</WithoutRootDiv>
