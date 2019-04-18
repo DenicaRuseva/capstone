@@ -3,6 +3,7 @@ import WithoutRootDiv from '../../../hoc//WithoutRootDiv/WithoutRootDiv';
 import CategoryName from './CategoryName/CategoryName';
 import Sort from './Sort/Sort';
 import InStockCheckbox from './InStockCheckbox/InStockCheckbox';
+import NumberOfProducts from './NumberOfProducts/NumberOfProducts';
 import './Controls.css';
 
 
@@ -11,13 +12,13 @@ const controls = (props) => {
     return(
         <WithoutRootDiv>
             <div className='controls'>
-                <CategoryName 
-                    category={props.category}
-                    numberOnShownProducts={props.numberOnShownProducts}
-                    numberOfProductsInCategory={props.numberOfProductsInCategory}
-                />
+                <CategoryName category={props.category}/>
                 <Sort onSort={props.onSort}/>
                 <InStockCheckbox onInStockClick={props.onInStockClick}/>
+                <NumberOfProducts 
+                    category={props.category}
+                    numberOnShownProducts={props.numberOnShownProducts}
+                    numberOfProductsInCategory={props.numberOfProductsInCategory}/>
             </div>
         </WithoutRootDiv>
     );

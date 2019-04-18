@@ -1,5 +1,6 @@
 import React from 'react';
 import CategoryButtons from './CategoryButtons/CategoryButtons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { connect } from 'react-redux';
 import './ShopSideBar.css';
 
@@ -20,15 +21,15 @@ const shopSideBar = (props) => {
     return (
         <div className={attachedClasses}>
             <div className='hide-on-sm'> 
-                <p className='text'>Shop by category:</p>
+                <p className='text'>Shop by category</p>
             </div>
-                <div className='sm-only text' onClick={() => props.toggleCategoryMenu()}>Shop by category:</div>
+                <div className='sm-only text' onClick={() => props.toggleCategoryMenu()}>Shop by category <FontAwesomeIcon icon="chevron-down"/></div>
                 <div className='side-bar-container'>
                     <div className='side-bar'> 
                         <CategoryButtons
                         clickOnCategory={props.clickOnCategory}
                         clickOnSubcategory={props.clickOnSubcategory}
-                        hideCategoryMenu={props.hideCategoryMenu}
+                        // hideCategoryMenu={props.hideCategoryMenu}
                         currentCategory={props.currentCategory}
                         clickedCategories={props.clickedCategories}/>
                     </div>

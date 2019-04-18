@@ -22,7 +22,7 @@ const categoryButton = (props) => {
             <li 
             className='subcategory-list-item' 
             key={subcat+i} 
-            onClick={(event) => {console.log(event.target); event.stopPropagation(); props.clickOnSubcategory(props.categoryAndSubcat.category, subcat)}}>
+            onClick={(event) => {event.stopPropagation(); props.clickOnSubcategory(props.categoryAndSubcat.category, subcat)}}>
                 <NavLink 
                     to={'/shopping/' + props.categoryAndSubcat.category + '/' + subcat}>
                     <span>{subcat}</span>

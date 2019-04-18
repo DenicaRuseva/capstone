@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import '../NavigationItems/NavigationItems.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const navigationItems = () => (

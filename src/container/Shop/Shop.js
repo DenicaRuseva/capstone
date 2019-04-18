@@ -352,16 +352,16 @@ class Shop extends Component {
         const shop = this.state.loading ? <div>spinner</div> :
         (
             <div className='shop'>
-            <div className='hide-on-sm controls-container'>
-                    {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
+            {/* <div className='hide-on-sm controls-container'>
                     <Controls 
                         onSort={this.sortItemsHandler} 
                         category={this.state.currentCategory}
                         onInStockClick={this.inStockClickHandler}
                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
                         numberOnShownProducts={this.state.productsToShow.length}/>
-                </div>
+                </div> */}
                     {/* rubric19 */}
+                    
                     <ShopSideBar
                         clickOnCategory={this.sideBarCategoryClickHandler}
                         clickOnSubcategory={this.sideBarSubcategoryClickHandler}
@@ -369,7 +369,7 @@ class Shop extends Component {
                         shownCategoryMenu={this.state.shownCategoryMenu}
                         currentCategory={this.state.currentCategory}
                         clickedCategories={this.state.clickedCategories}/>
-                <div className="sm-only controls-container">
+                    <div className="controls-container">
                     {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
                     <Controls 
                         onSort={this.sortItemsHandler} 
@@ -378,6 +378,7 @@ class Shop extends Component {
                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
                         numberOnShownProducts={this.state.productsToShow.length}/>
                 </div>
+                
                 {/* rubric20  */}
                 <ItemsGallery 
                     onUnmount={this.resetSort}
