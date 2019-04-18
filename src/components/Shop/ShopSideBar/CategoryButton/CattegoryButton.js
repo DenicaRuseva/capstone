@@ -7,9 +7,12 @@ import './CategoryButton.css';
 const categoryButton = (props) => {
     console.log("in category button");
 
-    // rubric25
+    //rubric25
     let categoryListitemClasses = ['category-list-item'];
-    if(props.match.params.category === props.categoryAndSubcat.category){
+    if(props.currentCategory === props.categoryAndSubcat.category){
+        categoryListitemClasses.push('active');
+    };
+    if(props.clickedCategories[props.categoryId]){
         categoryListitemClasses.push('show-subcat');
     };
 
@@ -19,7 +22,7 @@ const categoryButton = (props) => {
             <li 
             className='subcategory-list-item' 
             key={subcat+i} 
-            onClick={(event) => {event.stopPropagation(); props.clickOnSubcategory(subcat)}}>
+            onClick={(event) => {console.log(event.target); event.stopPropagation(); props.clickOnSubcategory(props.categoryAndSubcat.category, subcat)}}>
                 <NavLink 
                     to={'/shopping/' + props.categoryAndSubcat.category + '/' + subcat}>
                     <span>{subcat}</span>
@@ -28,14 +31,13 @@ const categoryButton = (props) => {
         );
     });
     return (
-        <ul className='category-list'>
-                <li className={categoryListitemClasses.join(' ')} onClick={() => props.clickOnCategory(props.categoryAndSubcat.category)}>
+            <ul className='category-list'>
+                <li className={categoryListitemClasses.join(' ')} onClick={() => props.clickOnCategory(props.categoryId, props.categoryAndSubcat.category)}>
                         <span>{props.categoryAndSubcat.category}</span>
-                    <ul className='subcategory-list'>{subcategories}</ul>
+                        <ul className='subcategory-list'>{subcategories}</ul>
                 </li>
-
-        </ul>
-    )
-}
+            </ul>  
+    );
+};
 
 export default withRouter(categoryButton);

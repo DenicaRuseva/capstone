@@ -12,7 +12,10 @@ const categoryButtons = (props) => {
                 categoryAndSubcat = {props.categoriesAndSubcat[i]} 
                 clickOnCategory={props.clickOnCategory}
                 clickOnSubcategory={props.clickOnSubcategory}
-                hideCategoryMenu={props.hideCategoryMenu}/>
+                hideCategoryMenu={props.hideCategoryMenu}
+                currentCategory={props.currentCategory}
+                clickedCategories={props.clickedCategories}
+                categoryId={i}/>
         );
     });
     return (

@@ -28,7 +28,9 @@ const shopSideBar = (props) => {
                         <CategoryButtons
                         clickOnCategory={props.clickOnCategory}
                         clickOnSubcategory={props.clickOnSubcategory}
-                        hideCategoryMenu={props.hideCategoryMenu}/>
+                        hideCategoryMenu={props.hideCategoryMenu}
+                        currentCategory={props.currentCategory}
+                        clickedCategories={props.clickedCategories}/>
                     </div>
                 </div>
         </div>

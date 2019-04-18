@@ -7,6 +7,7 @@ import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 
 
+
 class Shop extends Component {
 
     state = {
@@ -21,12 +22,18 @@ class Shop extends Component {
         productsToShow: [],
         numberOfProductsInCategory: null,
         shownCategoryMenu: false,
+        clickedCategories: [],
         productsInCart: []
     };
 
 
     componentDidMount(){
         console.log('in CDM Shop');
+        const numberOfCategories = this.props.categoriesAndSubcat.length;
+        let clickedCategories = [];
+        for(let i=0; i < numberOfCategories; i++){
+            clickedCategories.push(false);
+        };
 
         if(this.props.match.params.category){
            
@@ -41,6 +48,7 @@ class Shop extends Component {
                 this.setState({
                     productsToShow: this.props.allProducts,
                     numberOfProductsInCategory: this.props.allProducts.length,
+                    clickedCategories: clickedCategories,
                     loading: false
                 });
             }
@@ -49,20 +57,38 @@ class Shop extends Component {
 
                 if(currentURLSubcategory === 'all'){
                     this.props.history.replace('/shopping/' + currentURLCategory);
+                    clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
+                        if(el.category === currentURLCategory){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
                     this.setState({
                     currentCategory: currentURLCategory,
                     productsToShow: productsToShow,
                     numberOfProductsInCategory: productsToShow.length,
+                    clickedCategories: clickedCategories,
                     loading: false
                     });
                 }
                 else {
                     let productsInCategory = this.makeProductsToShow(currentURLCategory, 'all');
+                    clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
+                        if(el.category === currentURLCategory){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
                     this.setState({
                     currentCategory: currentURLCategory,
                     currentSubcategory: currentURLSubcategory,
                     productsToShow: productsToShow,
                     numberOfProductsInCategory: productsInCategory.length,
+                    clickedCategories: clickedCategories,
                     loading: false
                     });
                 }
@@ -72,6 +98,7 @@ class Shop extends Component {
             this.setState({
                 productsToShow: this.props.allProducts,
                 numberOfProductsInCategory: this.props.allProducts.length,
+                clickedCategories: clickedCategories,
                 loading: false
             });
         };
@@ -115,24 +142,48 @@ class Shop extends Component {
         return productsToShow;
     };
 
-    sideBarCategoryClickHandler = (categoryClicked) => {
+    checkDoesInStockIsChecked = (products) => {
+        if(this.state.showInStockOnly){
+            products = products.filter(item => parseFloat(item.stock) !== 0);
+        };
+        return products;
+    };
+
+    toggleSubcategoriesDropdown = (categoryId) => {
+        let clickedCategories = [...this.state.clickedCategories];
+        clickedCategories[categoryId] = !clickedCategories[categoryId];
+        return clickedCategories;
+    };
+
+    showSubcategoriesDropdown = (categoryId) => {
+        let clickedCategories = [...this.state.clickedCategories];
+        clickedCategories[categoryId] = true;
+        return clickedCategories;
+    };
+
+    countProductsInCategory = (category) => {
+        let number = 0;
+        this.props.categoriesByIds[category].all.map(subcategory => {
+            if(this.props.subcategoriesByIds[subcategory][0]){
+                number = number + this.props.subcategoriesByIds[subcategory][0].length;
+            };
+        });
+        return number;
+    };
+
+    sideBarCategoryClickHandler = (categoryId, categoryClicked) => {
         if(this.state.currentCategory === categoryClicked){
             let productsToShow = this.deepCopy(this.props.allProducts);
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
-            
-
-            if(this.state.showInStockOnly){
-                productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
-            };
-
-
+            productsToShow = this.checkDoesInStockIsChecked(productsToShow);
             this.props.history.replace('/shopping');
-
+            const clickedCategories = this.toggleSubcategoriesDropdown(categoryId);
             this.setState({
                 currentCategory: 'all',
                 currentSubcategory: 'all',
                 productsToShow: productsToShow,
-                numberOfProductsInCategory: this.props.allProducts.length
+                numberOfProductsInCategory: this.props.allProducts.length,
+                clickedCategories: clickedCategories
             });
         }
         else {
@@ -140,42 +191,36 @@ class Shop extends Component {
             let productsToShow = this.makeProductsToShow(categoryClicked, 'all');
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
             const numberOfProductsInCategory = productsToShow.length;
-            if(this.state.showInStockOnly){
-                productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
-            };
-
+            productsToShow = this.checkDoesInStockIsChecked(productsToShow);
+            const clickedCategories = this.showSubcategoriesDropdown(categoryId);
             this.setState({
                 currentCategory: categoryClicked,
                 currentSubcategory: 'all',
                 productsToShow: productsToShow,
-                numberOfProductsInCategory: numberOfProductsInCategory
+                numberOfProductsInCategory: numberOfProductsInCategory,
+                clickedCategories: clickedCategories
             });
         };
     };
 
 
     // rubric26, rubric28
-    sideBarSubcategoryClickHandler = (subcategoryClicked) => {
-      
+    sideBarSubcategoryClickHandler = (category, subcategoryClicked) => {
         if(this.state.currentSubcategory === subcategoryClicked){
             return;
         };
-        let productsToShow = this.makeProductsToShow(this.state.currentCategory, subcategoryClicked);
+        let productsToShow = this.makeProductsToShow(category, subcategoryClicked);
 
-        let numberOfProductsInCategory = 0;
-        this.props.categoriesByIds[this.state.currentCategory].all.map(subcategory => {
-            if(this.props.subcategoriesByIds[subcategory][0]){
-                numberOfProductsInCategory = numberOfProductsInCategory + this.props.subcategoriesByIds[subcategory][0].length;
-            };
-        });
+        const numberOfProductsInCategory = this.countProductsInCategory(category);
+        
 
         productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
 
-        if(this.state.showInStockOnly){
-            productsToShow = productsToShow.filter(item => parseFloat(item.stock) !== 0);
-        };
+        productsToShow = this.checkDoesInStockIsChecked(productsToShow);
+
 
         this.setState({
+            currentCategory: category,
             currentSubcategory: subcategoryClicked,
             productsToShow: productsToShow,
             shownCategoryMenu: false,
@@ -321,7 +366,9 @@ class Shop extends Component {
                         clickOnCategory={this.sideBarCategoryClickHandler}
                         clickOnSubcategory={this.sideBarSubcategoryClickHandler}
                         toggleCategoryMenu={this.toggleCategoryMenuHandler}
-                    shownCategoryMenu={this.state.shownCategoryMenu}/>
+                        shownCategoryMenu={this.state.shownCategoryMenu}
+                        currentCategory={this.state.currentCategory}
+                        clickedCategories={this.state.clickedCategories}/>
                 <div className="sm-only controls-container">
                     {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
                     <Controls 
