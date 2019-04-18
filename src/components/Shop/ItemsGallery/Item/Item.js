@@ -1,12 +1,11 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ImageContainer from './ImageContainer/ImageContainer';
 import './Item.css';
 
 const item = (props) => (
     <div className='item'>
-        <div className='img-container'>
-            <img src={props.item.imagelink}/>
-        </div>
+        <ImageContainer src={props.item.imagelink} alt={props.item.name}/>
         <div className='info-container'>
         <div className='info-wrapper'>
             <p className='info-name'>{props.item.name}</p>
