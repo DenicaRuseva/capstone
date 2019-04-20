@@ -27,9 +27,35 @@
     font-style: italic;
 }
 
+.remove-icon {
+    color: red;
+    cursor: pointer;
+}
+
+.cost {
+    width: 40%;
+    float: right;
+    margin-right: 20px;
+}
+.cost div {
+    text-align: left;
+}
+
+.cost div span {
+    display: block;
+    float: right;
+    text-align: right;
+}
+
 .total {
     font-weight: bold;
 }
+
+.hidden {
+    font-weight: bold;
+}
+
+
 
 @media only screen and (min-width: 500px){ 
     .table {
@@ -97,6 +123,7 @@
     }
 
     .cost {
+        width: auto;
         float: right;
         margin-right: 5%;
         padding-top: 10px;

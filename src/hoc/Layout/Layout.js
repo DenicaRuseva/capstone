@@ -12,24 +12,12 @@ import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
 
 
-class Layout extends React.Component {
+class Layout extends Component {
 
     state = {
         showSideDrawer: false,
         productsInCart: [],
-        quantityOfEachProduct: [],
-        testProducts: [{
-            imagelink: "https://webmppcapstone.blob.core.windows.net/babycare-royaltyfree/babydress.png",
-            name: "Baby Girl Dress",
-            price: 13,
-            stock: "55"
-        }, {
-            imagelink: "https://webmppcapstone.blob.core.windows.net/drugs-royaltyfree/painrelief.png",
-            name: "Extra Strength Pain Relief Caplets",
-            price: 8,
-            stock: "90"
-        }],
-        testQuantity: [1, 20000]
+        quantityOfEachProduct: []
     }
 
     componentDidMount(){
@@ -41,11 +29,43 @@ class Layout extends React.Component {
         this.setState( ( prevState ) => {
             return { showSideDrawer: !prevState.showSideDrawer };
         } );
-    }
-
-    addProductsInCartHandler = (products, quantityOfEachProduct) => {
-        this.setState({productsInCart: products, quantityOfEachProduct: quantityOfEachProduct});
     };
+
+    addProductToCartHandler = (product) => {
+        let updatedProductsInCart = [...this.state.productsInCart];
+        let updatedQuantity = [...this.state.quantityOfEachProduct];
+            if (this.state.productsInCart.indexOf(product) === -1) {
+                updatedProductsInCart.push(product);
+                updatedQuantity.push(1);
+            } else {
+                let indexOfProduct = this.state.productsInCart.indexOf(product);
+                updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + 1;
+            };
+
+        
+        this.setState({productsInCart: updatedProductsInCart, quantityOfEachProduct: updatedQuantity});
+    };
+
+    removeProductHandller = (index) => {
+        const newProducts = this.state.productsInCart.filter((_, i) => i !== index);
+        const newQuantities = this.state.quantityOfEachProduct.filter((_, i) => i !== index);
+        this.setState({
+            productsInCart: newProducts,
+            quantityOfEachProduct: newQuantities
+        });
+    };
+
+    changeQuantityHandler = (event, index) => {
+      const newQuantities = [...this.state.quantityOfEachProduct].map((el, i) => {
+          if(i !== index){
+              return el;
+          }
+          else {
+              return parseInt(event.target.value);
+          }
+      });
+      this.setState({quantityOfEachProduct: newQuantities});
+    }
 
     render(){
         console.log('in render layout');
@@ -53,9 +73,9 @@ class Layout extends React.Component {
             <WithoutRootDiv>
                 {/* rubric34 */}
                 <Switch>
-                    <PropsRoute path='/shopping/:category/:subcategory' component={Shop} onUnmount={this.addProductsInCartHandler}/>
-                    <PropsRoute path='/shopping/:category' component={Shop} onUnmount={this.addProductsInCartHandler}/>
-                    <PropsRoute path="/shopping" component={Shop} onUnmount={this.addProductsInCartHandler}/>
+                    <PropsRoute path='/shopping/:category/:subcategory' component={Shop} addProductToCart={this.addProductToCartHandler}/>
+                    <PropsRoute path='/shopping/:category' component={Shop} addProductToCart={this.addProductToCartHandler}/>
+                    <PropsRoute path="/shopping" component={Shop} addProductToCart={this.addProductToCartHandler}/>
                 </Switch>
             </WithoutRootDiv>
         );
@@ -65,11 +85,17 @@ class Layout extends React.Component {
                 <SideDrawer showSideDrawer={this.state.showSideDrawer}/>
                 <main className='main'>
                     <Switch>
-                    <PropsRoute path='/cart' component={Cart} products={this.state.testProducts} productsQuantities={this.state.testQuantity}/>
+                    <PropsRoute 
+                    path='/cart' 
+                    component={Cart} 
+                    products={this.state.productsInCart} 
+                    productsQuantities={this.state.quantityOfEachProduct}
+                    changeQuantity={this.changeQuantityHandler}
+                    removeProduct={this.removeProductHandller}/>
 
-                        <Route path="/" exact component={Carousel}/>
-                        {shopRoute}
-                        <Route render={() => this.props.history.replace('/')}/>
+                    <Route path="/" exact component={Carousel}/>
+                    {shopRoute}
+                    <Route render={() => this.props.history.replace('/')}/>
                     </Switch>
                 </main>
                 <div style={{height: '56px', backgroundColor: 'blue'}}>footer</div>

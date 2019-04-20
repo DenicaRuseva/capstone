@@ -8,14 +8,28 @@ const order = (props) => {
     const products = props.products.map((product, i) => {
         if(product.stock >= props.productsQuantities[i]){
             totalPrice = totalPrice + parseFloat(product.price)*props.productsQuantities[i];
-            return <Product key={i} product={product} quantity={props.productsQuantities[i]}/>
+            return (
+            <Product 
+            key={i} 
+            product={product} 
+            quantity={props.productsQuantities[i]} 
+            removeProduct={() => props.removeProduct(i)}
+            changeQuantity={(event) => props.changeQuantity(event, i)}/>
+            );
         }
         else {
-            totalPrice = totalPrice + parseFloat(product.price)*parseFloat(product.stock);
-            return <Product key={i} product={product} quantity={product.stock} quantityReduce={true}/>
+            totalPrice = totalPrice + parseFloat(product.price)*parseInt(product.stock);
+            return (
+            <Product 
+            key={i} 
+            product={product} 
+            quantity={product.stock} 
+            quantityReduce={true} 
+            removeProduct={() => props.removeProduct(i)}
+            changeQuantity={(event) => props.changeQuantity(event, i)}/>
+            );
         }
     });
-    console.log(products);
     return(
         <div className='table'>
             <div className='t-head'>
