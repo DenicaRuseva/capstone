@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
+import Order from './Order/Order';
+import './Cart.css';
 
-const cart = (props) => {
-    console.log(props.products);
-    const products = props.products.map(product => {
-        return <div>name: {product.name}</div>
-    });
-    return <div>{products}</div>
-};
+class Cart extends Component {
 
-export default cart;
+
+    render(){
+        console.log(this.props.products);
+        return (
+            <div className="cart">
+                <Order products={this.props.products} productsQuantities={this.props.productsQuantities}/>
+                <div>form</div>
+            </div>
+        );
+    };
+}
+   
+
+export default Cart;

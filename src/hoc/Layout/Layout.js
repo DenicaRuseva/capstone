@@ -16,7 +16,20 @@ class Layout extends React.Component {
 
     state = {
         showSideDrawer: false,
-        productsInCart: []
+        productsInCart: [],
+        quantityOfEachProduct: [],
+        testProducts: [{
+            imagelink: "https://webmppcapstone.blob.core.windows.net/babycare-royaltyfree/babydress.png",
+            name: "Baby Girl Dress",
+            price: 13,
+            stock: "55"
+        }, {
+            imagelink: "https://webmppcapstone.blob.core.windows.net/drugs-royaltyfree/painrelief.png",
+            name: "Extra Strength Pain Relief Caplets",
+            price: 8,
+            stock: "90"
+        }],
+        testQuantity: [1, 20000]
     }
 
     componentDidMount(){
@@ -30,9 +43,8 @@ class Layout extends React.Component {
         } );
     }
 
-    addProductsInCartHandler = (product) => {
-        const productsInCart = this.state.productsInCart.concat(product);
-        this.setState({productsInCart: productsInCart});
+    addProductsInCartHandler = (products, quantityOfEachProduct) => {
+        this.setState({productsInCart: products, quantityOfEachProduct: quantityOfEachProduct});
     };
 
     render(){
@@ -53,7 +65,7 @@ class Layout extends React.Component {
                 <SideDrawer showSideDrawer={this.state.showSideDrawer}/>
                 <main className='main'>
                     <Switch>
-                    <PropsRoute path='/cart' component={Cart} products={this.state.productsInCart}/>
+                    <PropsRoute path='/cart' component={Cart} products={this.state.testProducts} productsQuantities={this.state.testQuantity}/>
 
                         <Route path="/" exact component={Carousel}/>
                         {shopRoute}

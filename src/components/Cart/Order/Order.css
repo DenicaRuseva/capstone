@@ -1,0 +1,165 @@
+.table {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.t-head {
+    display: none;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.t-row, .t-head, .hidden, .th, .th-product, .td-image, .td-name, .td-price, .td-quantity,
+.td-total-price-product, .remove-btn, .border-row, .border .cost, .cost div {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.td-image > img {
+    max-width: 100%;
+}
+
+
+.quantity-reduce {
+    color: red;
+    font-style: italic;
+}
+
+.total {
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 500px){ 
+    .table {
+        border: 1px solid  #194d19;
+    }
+  
+    .t-head {
+        display: block;
+        border-bottom: 1px solid  #194d19;
+    }
+
+    .t-head > .t-row {
+        padding: 0px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .t-head div {
+        background-color: rgba(64, 191, 64, 0.7);
+        border-left: 1px solid white;
+    }
+
+    .t-head div:last-child {
+        border-right: 1px solid white;
+    }
+
+    .t-row {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        flex: 6;
+        height: 150px;
+        margin: 0px;
+        padding: 0px 5px;
+    }
+    
+    .t-head > .t-row {
+        height: 50px;
+    }
+
+   
+
+    .t-head, .hidden, .th, .th-product, .td-image, .td-name, .td-price, .td-quantity,
+    .td-total-price-product, .remove-btn, .border-row, .border {
+        flex: 1;
+        float: left;
+        margin: 0px;
+    }
+    .th-product {
+        flex: 2;
+        padding: 5px;
+    }
+
+    .th {
+        padding: 5px;
+    }
+
+    .quantity-reduce {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .cost {
+        float: right;
+        margin-right: 5%;
+        padding-top: 10px;
+    }
+    .cost div {
+        width: 150px;
+        height: 25px;
+        line-height: 25px;
+        margin-bottom: 5px;
+       
+        text-align: left;
+    }
+
+    .cost div span {
+        display: block;
+        float: right;
+        text-align: right;
+        width: 50%;
+    }
+
+   
+}
+
+@media only screen and (min-width: 600px){
+    .table {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.td-quantity > input {
+    width:40px;
+    text-align: center;
+    border: 1px solid #808080;
+}
+
+.td-quantity > input::-webkit-inner-spin-button, 
+.td-quantity > input::-webkit-outer-spin-button { 
+    opacity: 1;
+    margin: 0;
+}
+
+
+.border-row {
+    height: 1px;
+}
+
+.border {
+    position: relative;
+    width: 90%;
+    height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-image: 
+      linear-gradient(
+        to right, 
+        black, 
+        #006622,
+        black
+      ) 1
+}
+
+

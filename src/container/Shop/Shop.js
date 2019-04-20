@@ -23,7 +23,8 @@ class Shop extends Component {
         numberOfProductsInCategory: null,
         shownCategoryMenu: false,
         clickedCategories: [],
-        productsInCart: []
+        productsInCart: [],
+        quantityOfEachProduct: []
     };
 
 
@@ -105,10 +106,21 @@ class Shop extends Component {
        
     };
 
+    shouldComponentUpdate(nextProps, nextState){
+        console.log("in SCmU Shop");
+        if(this.state.productsInCart !== nextState.productsInCart || this.state.quantityOfEachProduct !== nextState.quantityOfEachProduct){
+            return false
+        }
+        return true;
+
+    };
+
     componentWillUnmount(){
         console.log('in CWUn shop');
-        this.props.onUnmount(this.state.productsInCart);
-    }
+        console.log(this.state.productsInCart);
+        console.log(this.state.quantityOfEachProduct);
+        this.props.onUnmount(this.state.productsInCart, this.state.quantityOfEachProduct);
+    };
 
     flattenArray = (arr) => arr.reduce(
         (a, b) => a.concat(Array.isArray(b) ? this.flattenArray(b) : b), []
@@ -341,8 +353,19 @@ class Shop extends Component {
     };
 
     addProductToCartHandler = (product) => {
-        const productsInCart = this.state.productsInCart.concat(product);
-        this.setState({productsInCart: productsInCart});
+        let updatedProductsInCart = [...this.state.productsInCart];
+        let updatedQuantity = [...this.state.quantityOfEachProduct];
+            if (this.state.productsInCart.indexOf(product) === -1) {
+                updatedProductsInCart.push(product);
+                updatedQuantity.push(1);
+            } else {
+                let indexOfProduct = this.state.productsInCart.indexOf(product);
+                updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + 1;
+            };
+
+        
+        this.setState({productsInCart: updatedProductsInCart, quantityOfEachProduct: updatedQuantity});
+        console.log(this.state);
     };
 
 
