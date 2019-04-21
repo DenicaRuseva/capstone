@@ -130,9 +130,7 @@ class Cart extends Component {
         const cart = this.props.products.length > 0 || this.props.orderMade  ? (
                 <div className="cart">
                     <Modal show={this.props.orderMade} modalClosed={this.props.cleanState}>
-                        <OrderSummary 
-                        products={this.props.products} 
-                        productsQuantities={this.props.productsQuantities}
+                        <OrderSummary
                         totalPrice={this.props.totalPrice}
                         firstName={this.state.orderForm.firstName.value}
                         lastName={this.state.orderForm.lastName.value}

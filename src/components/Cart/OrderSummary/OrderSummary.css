@@ -1,0 +1,27 @@
+.order-summary {
+    width: 100%;
+}
+
+.order-header, .order-summary h5 {
+    text-align: center;
+}
+
+.order-ul {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.order-list-item {
+    width: 100%;
+    margin: auto 0px;
+    padding: auto 0px;
+    list-style: none;
+}
+
+.order-summary p:first-child {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}

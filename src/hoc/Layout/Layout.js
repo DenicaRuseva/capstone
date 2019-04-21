@@ -34,7 +34,7 @@ class Layout extends Component {
     };
 
     addProductToCartHandler = (product) => {
-        const updatedTotalPrice = this.state.totalPrice + parseFloat(product.price); 
+        const updatedTotalPrice = this.state.totalPrice + product.price*1; 
         let updatedProductsInCart = [...this.state.productsInCart];
         let updatedQuantity = [...this.state.quantityOfEachProduct];
             if (this.state.productsInCart.indexOf(product) === -1) {
@@ -54,7 +54,7 @@ class Layout extends Component {
     };
 
     removeProductHandller = (index) => {
-        const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price)*this.state.quantityOfEachProduct[index]; 
+        const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price*1)*(this.state.quantityOfEachProduct[index]*1); 
         const newProducts = this.state.productsInCart.filter((_, i) => i !== index);
         const newQuantities = this.state.quantityOfEachProduct.filter((_, i) => i !== index);
         console.log(updatedTotalPrice);
@@ -67,8 +67,8 @@ class Layout extends Component {
     };
 
     changeQuantityHandler = (event, index) => {
-        const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price)*this.state.quantityOfEachProduct[index] +
-        this.state.productsInCart[index].price * parseInt(event.target.value); 
+        const updatedTotalPrice = this.state.totalPrice*1 - parseFloat(this.state.productsInCart[index].price*1)*(this.state.quantityOfEachProduct[index]*1) +
+        (this.state.productsInCart[index].price*1) * parseInt(event.target.value); 
         console.log(updatedTotalPrice);
         let newQuantities = [...this.state.quantityOfEachProduct];
         newQuantities[index] = parseInt(event.target.value);
