@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Order from './Order/Order';
+import Form from './Form/Form';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import './Cart.css';
 
@@ -13,12 +14,14 @@ class Cart extends Component {
                       productsQuantities={this.props.productsQuantities}
                       removeProduct={this.props.removeProduct}
                       changeQuantity={this.props.changeQuantity}/>
-                      <div>form</div>
+                      <Form/>
                 </div>
               ) : <div>Your cart is empty</div>
         
         return (
-            <WithoutRootDiv>{cart}</WithoutRootDiv> 
+            <WithoutRootDiv>
+                {cart}
+            </WithoutRootDiv> 
         );
     };
 }
