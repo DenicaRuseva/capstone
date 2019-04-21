@@ -42,6 +42,7 @@ const order = (props) => {
                 </div>
             </div>
             {products}
+            {/*rubric49*/}
             <div className="cost">
                 <div>Subtotal: <span>{(props.totalPrice*1).toFixed(2)}$</span></div>
                 <div>Tax cost: <span>{(props.totalPrice*0.01).toFixed(2)}$</span></div>

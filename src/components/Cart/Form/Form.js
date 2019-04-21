@@ -13,7 +13,7 @@ const form = (props) => {
             });
         }
         let form = (
-            <form onSubmit={(event) => props.makeOrder(event)}>
+            <form onSubmit={(event) => props.makeOrder(event)}> {/*rubric51*/}
                 {formElementsArray.map(formElement => (
                     <Input 
                         key={formElement.id}
@@ -27,7 +27,8 @@ const form = (props) => {
                         label={formElement.config.label}
                         />
                 ))}
-                <button type='submit' className='order-button'>ORDER</button>
+                 {/*rubric50*/}
+                <button type='submit' className='order-button'>CHECKOUT</button>
             </form>
         );
         return (

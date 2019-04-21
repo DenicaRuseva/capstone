@@ -53,6 +53,8 @@ class Layout extends Component {
         });
     };
 
+
+    // rubric53, // rubric54, rubric55
     removeProductHandller = (index) => {
         const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price*1)*(this.state.quantityOfEachProduct[index]*1); 
         const newProducts = this.state.productsInCart.filter((_, i) => i !== index);
@@ -66,6 +68,7 @@ class Layout extends Component {
         });
     };
 
+    // rubric53, rubric55
     changeQuantityHandler = (event, index) => {
         const updatedTotalPrice = this.state.totalPrice*1 - parseFloat(this.state.productsInCart[index].price*1)*(this.state.quantityOfEachProduct[index]*1) +
         (this.state.productsInCart[index].price*1) * parseInt(event.target.value); 
@@ -105,6 +108,7 @@ class Layout extends Component {
                 <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
+                    {/* rubric56 */}
                     <PropsRoute 
                     path='/cart' 
                     component={Cart} 

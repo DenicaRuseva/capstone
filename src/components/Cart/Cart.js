@@ -14,8 +14,8 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'First Name',
-                    pattern: '^[A-Za-z]+$',
-                    required: true
+                    pattern: '^[A-Za-z]+$',  /*rubric52*/
+                    required: true /*rubric52*/
                 },
                 value: '',
                 validation: {
@@ -30,8 +30,8 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Last Name',
-                    pattern: '^[A-Za-z]+$',
-                    required: true
+                    pattern: '^[A-Za-z]+$', /*rubric52*/
+                    required: true /*rubric52*/
                 },
                 value: '',
                 validation: {
@@ -45,7 +45,7 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Street',
-                    required: true
+                    required: true /*rubric52*/
                 },
                 value: '',
                 validation: {
@@ -59,7 +59,7 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'City',
-                    required: true
+                    required: true /*rubric52*/
                 },
                 value: '',
                 validation: {
@@ -72,8 +72,8 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'tel',
                     placeholder: '123-456-7890',
-                    pattern: '^[0-9]{3}-[0-9]{3}-[0-9]{4}$',
-                    required: true 
+                    pattern: '^[0-9]{3}-[0-9]{3}-[0-9]{4}$', /*rubric52*/
+                    required: true  /*rubric52*/
                 },
                 value: '',
                 validation: {
@@ -130,7 +130,8 @@ class Cart extends Component {
         const cart = this.props.products.length > 0 || this.props.orderMade  ? (
                 <div className="cart">
                     <Modal show={this.props.orderMade} modalClosed={this.props.cleanState}>
-                        <OrderSummary
+                        {/*rubric51*/}
+                        <OrderSummary 
                         totalPrice={this.props.totalPrice}
                         firstName={this.state.orderForm.firstName.value}
                         lastName={this.state.orderForm.lastName.value}
@@ -138,13 +139,13 @@ class Cart extends Component {
                         city={this.state.orderForm.city.value}
                         phoneNumber={this.state.orderForm.phoneNumber.value}/>
                     </Modal>
-                    <Order 
+                    <Order  /*rubric47, rubric49, rubric53, rubric54, rubric55*/
                         products={this.props.products} 
                         productsQuantities={this.props.productsQuantities}
                         removeProduct={this.props.removeProduct}
                         changeQuantity={this.props.changeQuantity}
                         totalPrice={this.props.totalPrice}/>
-                    <Form 
+                    <Form /*rubric48, rubric50, rubric51, rubric52 */
                         orderForm={this.state.orderForm}
                         inputChanged={this.inputChangedHandler}
                         makeOrder={this.props.makeOrder}/>
