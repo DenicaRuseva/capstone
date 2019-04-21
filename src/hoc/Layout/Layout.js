@@ -82,7 +82,7 @@ class Layout extends Component {
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
-                <SideDrawer showSideDrawer={this.state.showSideDrawer}/>
+                <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
                     <PropsRoute 
