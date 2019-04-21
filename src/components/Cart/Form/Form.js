@@ -1,21 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Input from './Input/Input';
 import './Form.css';
 
 
-class Form extends Component {
-    
+const form = (props) => {
 
-    render () {
         const formElementsArray = [];
-        for (let key in this.props.orderForm) {
+        for (let key in props.orderForm) {
             formElementsArray.push({
                 id: key,
-                config: this.props.orderForm[key]
+                config: props.orderForm[key]
             });
         }
         let form = (
-            <form onSubmit={(event) => this.props.makeOrder(event)}>
+            <form onSubmit={(event) => props.makeOrder(event)}>
                 {formElementsArray.map(formElement => (
                     <Input 
                         key={formElement.id}
@@ -25,7 +23,7 @@ class Form extends Component {
                         invalid={!formElement.config.valid}
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
-                        changed={(event) => this.props.inputChanged(event, formElement.id)} 
+                        changed={(event) => props.inputChanged(event, formElement.id)} 
                         label={formElement.config.label}
                         />
                 ))}
@@ -38,8 +36,7 @@ class Form extends Component {
                 {form}
             </div>
         );
-    }
 };
 
 
-export default Form;
+export default form;

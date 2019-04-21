@@ -7,7 +7,7 @@ import './Modal.css';
 class Modal extends Component {
 
     shouldComponentUpdate ( nextProps, nextState ) {
-        if(nextProps.show !== this.props.show || nextProps.children !== this.props.children){
+        if(nextProps.show !== this.props.show){
             return true;
         }
         return false ;
