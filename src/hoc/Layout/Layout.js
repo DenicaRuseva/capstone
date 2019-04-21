@@ -17,7 +17,9 @@ class Layout extends Component {
     state = {
         showSideDrawer: false,
         productsInCart: [],
-        quantityOfEachProduct: []
+        quantityOfEachProduct: [],
+        totalPrice: 0,
+        orderMade: false
     }
 
     componentDidMount(){
@@ -32,6 +34,7 @@ class Layout extends Component {
     };
 
     addProductToCartHandler = (product) => {
+        const updatedTotalPrice = this.state.totalPrice + parseFloat(product.price); 
         let updatedProductsInCart = [...this.state.productsInCart];
         let updatedQuantity = [...this.state.quantityOfEachProduct];
             if (this.state.productsInCart.indexOf(product) === -1) {
@@ -41,31 +44,48 @@ class Layout extends Component {
                 let indexOfProduct = this.state.productsInCart.indexOf(product);
                 updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + 1;
             };
-
+            console.log(updatedTotalPrice);
         
-        this.setState({productsInCart: updatedProductsInCart, quantityOfEachProduct: updatedQuantity});
+        this.setState({
+            productsInCart: updatedProductsInCart,
+            quantityOfEachProduct: updatedQuantity,
+            totalPrice: updatedTotalPrice
+        });
     };
 
     removeProductHandller = (index) => {
+        const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price)*this.state.quantityOfEachProduct[index]; 
         const newProducts = this.state.productsInCart.filter((_, i) => i !== index);
         const newQuantities = this.state.quantityOfEachProduct.filter((_, i) => i !== index);
+        console.log(updatedTotalPrice);
+
         this.setState({
             productsInCart: newProducts,
-            quantityOfEachProduct: newQuantities
+            quantityOfEachProduct: newQuantities,
+            totalPrice: updatedTotalPrice
         });
     };
 
     changeQuantityHandler = (event, index) => {
-      const newQuantities = [...this.state.quantityOfEachProduct].map((el, i) => {
-          if(i !== index){
-              return el;
-          }
-          else {
-              return parseInt(event.target.value);
-          }
-      });
-      this.setState({quantityOfEachProduct: newQuantities});
-    }
+        const updatedTotalPrice = this.state.totalPrice - parseFloat(this.state.productsInCart[index].price)*this.state.quantityOfEachProduct[index] +
+        this.state.productsInCart[index].price * parseInt(event.target.value); 
+        console.log(updatedTotalPrice);
+        let newQuantities = [...this.state.quantityOfEachProduct];
+        newQuantities[index] = parseInt(event.target.value);
+        this.setState({quantityOfEachProduct: newQuantities, totalPrice: updatedTotalPrice});
+    };
+
+    makeOrderHandler = (event) => {
+        event.preventDefault();
+        this.setState({
+            orderMade: true
+        });
+    };
+
+    resetProductsInCatrHandler = () => {
+        this.props.history.replace('/');
+        this.setState({productsInCart: [], quantityOfEachProduct: [], totalPrice: [], orderMade: false})
+    };
 
     render(){
         console.log('in render layout');
@@ -91,7 +111,11 @@ class Layout extends Component {
                     products={this.state.productsInCart} 
                     productsQuantities={this.state.quantityOfEachProduct}
                     changeQuantity={this.changeQuantityHandler}
-                    removeProduct={this.removeProductHandller}/>
+                    removeProduct={this.removeProductHandller}
+                    orderMade={this.state.orderMade}
+                    totalPrice={this.state.totalPrice}
+                    makeOrder={this.makeOrderHandler}
+                    cleanState={this.resetProductsInCatrHandler}/>
 
                     <Route path="/" exact component={Carousel}/>
                     {shopRoute}

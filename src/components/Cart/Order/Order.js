@@ -4,10 +4,10 @@ import './Order.css';
 
 const order = (props) => {
     const shipping = 10;
-    let totalPrice = 0;
+    // let totalPrice = 0;
     const products = props.products.map((product, i) => {
         if(product.stock >= props.productsQuantities[i]){
-            totalPrice = totalPrice + parseFloat(product.price)*props.productsQuantities[i];
+            // totalPrice = totalPrice + parseFloat(product.price)*props.productsQuantities[i];
             return (
             <Product 
             key={i} 
@@ -18,7 +18,7 @@ const order = (props) => {
             );
         }
         else {
-            totalPrice = totalPrice + parseFloat(product.price)*parseInt(product.stock);
+            // totalPrice = totalPrice + parseFloat(product.price)*parseInt(product.stock);
             return (
             <Product 
             key={i} 
@@ -43,10 +43,10 @@ const order = (props) => {
             </div>
             {products}
             <div className="cost">
-                <div>Subtotal: <span>{totalPrice.toFixed(2)}$</span></div>
-                <div>Tax cost: <span>{(totalPrice*0.01).toFixed(2)}$</span></div>
+                <div>Subtotal: <span>{props.totalPrice.toFixed(2)}$</span></div>
+                <div>Tax cost: <span>{(props.totalPrice*0.01).toFixed(2)}$</span></div>
                 <div>Shipping: <span>{shipping.toFixed(2)}$</span></div>
-                <div className='total'>Total: <span>{(totalPrice + totalPrice*0.1 + shipping).toFixed(2)}$</span></div>
+                <div className='total'>Total: <span>{(props.totalPrice*1.01 + shipping*1).toFixed(2)}$</span></div>
             </div>
         </div>
     )
