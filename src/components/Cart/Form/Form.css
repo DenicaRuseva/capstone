@@ -8,6 +8,24 @@
     box-sizing: border-box;
 }
 
+.order-button {
+    padding: 5px 10px;
+    border-radius: 3px;
+    outline: none;
+    border: #808080;
+    background-color: #b3b3b3;
+    color: white;
+    cursor: pointer;
+}
+
+.order-button:hover {
+    background-color: #999999;
+}
+
+.order-button:active {
+    background-color: #e6e6e6;
+}
+
 @media (min-width: 600px) {
     .form {
         width: 500px;

@@ -29,7 +29,7 @@ class Form extends Component {
                         label={formElement.config.label}
                         />
                 ))}
-                <button>ORDER</button>
+                <button type='submit' className='order-button'>ORDER</button>
             </form>
         );
         return (

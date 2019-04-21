@@ -151,7 +151,7 @@ class Cart extends Component {
                         inputChanged={this.inputChangedHandler}
                         makeOrder={this.props.makeOrder}/>
                 </div>
-              ) : <div>Your cart is empty</div>
+              ) : <div className='cart-empty'>Your cart is empty</div>
         
         return (
             <WithoutRootDiv>

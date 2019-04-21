@@ -1,7 +1,19 @@
 .cart {
+    position: relative;
     display: inline-block;
     width: 100%;
     padding: 2px;
+    font-family: 'Lato', sans-serif;
+}
+
+.cart-empty {
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
 }
 
 @media only screen and (min-width: 600px){
@@ -9,3 +21,4 @@
         padding: 5px;
     }
 }
+
