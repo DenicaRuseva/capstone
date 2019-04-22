@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './ImageContainer.css';
 
-const imageContainer = (props) => (
-    <div className='img-container'>
-        <img src={props.src} alt={props.alt} height="126.5px"/>
-    </div>
-);
 
-export default imageContainer;
+
+class ImageContainer extends Component {
+
+
+    render(){
+        const image = <img src={this.props.src} alt={this.props.alt} height="126.5px"
+        onLoad={(event) => {
+            event.target.classList.add('image-shown');
+            event.target.nextElementSibling.classList.add('hide');
+        }}/>;
+        return (
+            <div className='img-container'>
+            {image}
+            <div className='img-container-spinner'>spinner</div>
+            </div>
+        )
+    }
+}
+
+export default ImageContainer;
