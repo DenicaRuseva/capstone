@@ -15,7 +15,8 @@ class Cart extends Component {
                     type: 'text',
                     placeholder: 'First Name',
                     pattern: '^[A-Za-z]+$',  /*rubric52*/
-                    required: true /*rubric52*/
+                    required: true, /*rubric52*/
+                    tabindex:"-1"
                 },
                 value: '',
                 validation: {
@@ -31,7 +32,8 @@ class Cart extends Component {
                     type: 'text',
                     placeholder: 'Last Name',
                     pattern: '^[A-Za-z]+$', /*rubric52*/
-                    required: true /*rubric52*/
+                    required: true, /*rubric52*/
+                    tabindex:"-1"
                 },
                 value: '',
                 validation: {
@@ -45,7 +47,8 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Street',
-                    required: true /*rubric52*/
+                    required: true, /*rubric52*/
+                    tabindex:"-1"
                 },
                 value: '',
                 validation: {
@@ -59,7 +62,8 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'City',
-                    required: true /*rubric52*/
+                    required: true, /*rubric52*/
+                    tabindex:"-1"
                 },
                 value: '',
                 validation: {
@@ -73,7 +77,8 @@ class Cart extends Component {
                     type: 'tel',
                     placeholder: '123-456-7890',
                     pattern: '^[0-9]{3}-[0-9]{3}-[0-9]{4}$', /*rubric52*/
-                    required: true  /*rubric52*/
+                    required: true,  /*rubric52*/
+                    tabindex:"-1"
                 },
                 value: '',
                 validation: {

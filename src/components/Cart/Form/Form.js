@@ -13,7 +13,7 @@ const form = (props) => {
             });
         }
         let form = (
-            <form onSubmit={(event) => props.makeOrder(event)}> {/*rubric51*/}
+            <form onSubmit={(event) =>{event.preventDefault();  } }> {/*rubric51*/}
                 {formElementsArray.map(formElement => (
                     <Input 
                         key={formElement.id}
@@ -28,7 +28,10 @@ const form = (props) => {
                         />
                 ))}
                  {/*rubric50*/}
-                <button type='submit' className='order-button'>CHECKOUT</button>
+                <button onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    props.makeOrder(event) } }className='order-button'>CHECKOUT</button>
             </form>
         );
         return (
