@@ -6,7 +6,7 @@ import Shop from '../../container/Shop/Shop';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
-import Cart from '../../components/Cart/Cart';
+import Cart from '../../container/Cart/Cart';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Order from './Order/Order';
-import Form from './Form/Form';
+import Order from '../../components/Cart/Order/Order';
+import Form from '../../components/Cart/Form/Form';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
-import Modal from '../UI/Modal/Modal';
-import OrderSummary from './OrderSummary/OrderSummary';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
 import './Cart.css';
 
 class Cart extends Component {
