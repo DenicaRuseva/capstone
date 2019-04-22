@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Order from '../../components/Cart/Order/Order';
-import Form from '../../components/Cart/Form/Form';
+import Form from '../../components/UI/Form/Form';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
@@ -138,9 +138,10 @@ class Cart extends Component {
                         changeQuantity={this.props.changeQuantity}
                         totalPrice={this.props.totalPrice}/>
                     <Form /*rubric48, rubric50, rubric51, rubric52 */
-                        orderForm={this.state.orderForm}
+                        form={this.state.orderForm}
                         inputChanged={this.inputChangedHandler}
-                        makeOrder={this.props.makeOrder}/>
+                        onSubmited={this.props.makeOrder}
+                        formHeader="Enter your shipping details"/>
                 </div>
               ) : <div className='cart-empty'>Your cart is empty</div>
         

@@ -6,16 +6,16 @@ import './Form.css';
 const form = (props) => {
 
         const formElementsArray = [];
-        for (let key in props.orderForm) {
+        for (let key in props.form) {
             formElementsArray.push({
                 id: key,
-                config: props.orderForm[key]
+                config: props.form[key]
             });
         }
         let form = (
             <form onSubmit={(event) => {
                 event.preventDefault();
-                props.makeOrder(event) } }
+                props.onSubmited(event) } }
                 > {/*rubric51*/}
                 {formElementsArray.map(formElement => (
                     <Input 
@@ -36,7 +36,7 @@ const form = (props) => {
         );
         return (
             <div className='form'>
-                <h4>Enter Shipping Details</h4>
+                <h4>{props.formHeader}</h4>
                 {form}
             </div>
         );
