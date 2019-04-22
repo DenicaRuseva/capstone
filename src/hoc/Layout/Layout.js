@@ -7,6 +7,7 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
+import ContactPage from '../../container/ContactPage/ContactPage';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
@@ -120,7 +121,7 @@ class Layout extends Component {
                     totalPrice={this.state.totalPrice}
                     makeOrder={this.makeOrderHandler}
                     cleanState={this.resetProductsInCatrHandler}/>
-
+                    <Route path="/contact" component={ContactPage}/>
                     <Route path="/" exact component={Carousel}/>
                     {shopRoute}
                     <Route render={() => this.props.history.replace('/')}/>
