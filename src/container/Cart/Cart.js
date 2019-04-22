@@ -5,6 +5,7 @@ import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
 import './Cart.css';
+import { updateFormOnInput } from '../utility';
 
 class Cart extends Component {
 
@@ -94,44 +95,28 @@ class Cart extends Component {
         }
     };
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        };
+    // inputChangedHandler = (event, inputIdentifier) => {
+    //     const updatedOrderForm = {
+    //         ...this.state.orderForm
+    //     };
+    //     const updatedFormElement = { 
+    //         ...updatedOrderForm[inputIdentifier]
+    //     };
+    //     updatedFormElement.value = event.target.value;
+    //     updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    //     updatedFormElement.touched = true;
+    //     updatedOrderForm[inputIdentifier] = updatedFormElement;
         
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        };
+    //     this.setState({orderForm: updatedOrderForm});
 
-        if(rules.isPhone) {
-            const pattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
-            isValid = pattern.test(value) && isValid
-        };
+    // }
 
-        if(rules.isLettersOnly) {
-            const pattern = /^[a-zA-Z]+$/;
-            isValid = pattern.test(value) && isValid;
-        };
 
-        return isValid;
-    }
-
-    inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = { 
-            ...updatedOrderForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
+      inputChangedHandler = (event, inputIdentifier) => {
+        const updatedForm = updateFormOnInput(event, inputIdentifier, this.state.orderForm);
         
-        this.setState({orderForm: updatedOrderForm});
-
-    }
+        this.setState({orderForm: updatedForm});
+    };
 
     render(){
         const cart = this.props.products.length > 0 || this.props.orderMade  ? (
