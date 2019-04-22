@@ -23,7 +23,7 @@ class Cart extends Component {
                     required: true,
                     isLettersOnly: true
                 },
-                label: "Name",
+                label: "First Name",
                 valid: false,
                 touched: false
             },
@@ -40,6 +40,7 @@ class Cart extends Component {
                     required: true,
                     isLettersOnly: true
                 },
+                label: 'Last Name',
                 valid: false,
                 touched: false
             },
@@ -54,7 +55,7 @@ class Cart extends Component {
                 validation: {
                     required: true
                 },
-                label: "Address",
+                label: "Street",
                 valid: false,
                 touched: false
             },
@@ -69,6 +70,7 @@ class Cart extends Component {
                 validation: {
                     required: true
                 },
+                label: 'City',
                 valid: false,
                 touched: false
             },
