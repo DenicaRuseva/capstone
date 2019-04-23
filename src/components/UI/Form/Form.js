@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../../UI/Input/Input';
+import Button from '../../UI/Button/Button';
 import './Form.css';
 
 
@@ -31,7 +32,7 @@ const form = (props) => {
                         />
                 ))}
                  {/*rubric50*/}
-                <button className='order-button'>CHECKOUT</button>
+                <Button class={props.btnClass}>{props.btnText}</Button>
             </form>
         );
         return (

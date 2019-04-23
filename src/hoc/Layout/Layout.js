@@ -79,11 +79,14 @@ class Layout extends Component {
         this.setState({quantityOfEachProduct: newQuantities, totalPrice: updatedTotalPrice});
     };
 
-    makeOrderHandler = (event) => {
-        event.preventDefault();
-        this.setState({
-            orderMade: true
-        });
+    makeOrderHandler = (formIsValid) => {
+       if(formIsValid){
+            this.setState({
+                orderMade: true
+            });  
+       };
+       return;
+       
     };
 
     resetProductsInCatrHandler = () => {

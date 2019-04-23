@@ -18,12 +18,20 @@ const checkValidity = (value, rules) => {
         isValid = pattern.test(value) && isValid;
     };
 
+    if (rules.minLength) {
+        isValid = value.length >= rules.minLength && isValid
+    };
+
+    if (rules.maxLength) {
+        isValid = value.length <= rules.maxLength && isValid
+    };
+
     return isValid;
 };
 
-export const updateFormOnInput = (event, inputIdentifier, orderForm) => {
+export const updateFormOnInput = (event, inputIdentifier, form) => {
     const updatedForm = {
-        ...orderForm
+        ...form
     };
     const updatedFormElement = { 
         ...updatedForm[inputIdentifier]
@@ -32,7 +40,12 @@ export const updateFormOnInput = (event, inputIdentifier, orderForm) => {
     updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
     updatedFormElement.touched = true;
     updatedForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+        for (let inputIdentifier in updatedForm) {
+            formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+        }
     
-    return updatedForm;
+    return [updatedForm, formIsValid];
 
 };

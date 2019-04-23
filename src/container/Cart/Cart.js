@@ -15,14 +15,15 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'First Name',
-                    pattern: '^[A-Za-z]+$',  /*rubric52*/
+                    pattern: '^[A-Za-z]{1,50}$',  /*rubric52*/
                     required: true, /*rubric52*/
-                    tabindex:"-1"
+                    tabIndex:"-1"
                 },
                 value: '',
                 validation: {
                     required: true,
-                    isLettersOnly: true
+                    isLettersOnly: true,
+                    maxLength: 50
                 },
                 label: "First Name",
                 valid: false,
@@ -32,14 +33,15 @@ class Cart extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Last Name',
-                    pattern: '^[A-Za-z]+$', /*rubric52*/
+                    pattern: '^[A-Za-z]{1,50}$', /*rubric52*/
                     required: true, /*rubric52*/
-                    tabindex:"-1"
+                    tabIndex:"-1"
                 },
                 value: '',
                 validation: {
                     required: true,
-                    isLettersOnly: true
+                    isLettersOnly: true,
+                    maxLength: 50
                 },
                 label: 'Last Name',
                 valid: false,
@@ -48,13 +50,15 @@ class Cart extends Component {
             street: {
                 elementConfig: {
                     type: 'text',
+                    pattern: '^.{1,50}$',
                     placeholder: 'Street',
                     required: true, /*rubric52*/
-                    tabindex:"-1"
+                    tabIndex:"-1"
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    maxLength: 50
                 },
                 label: "Street",
                 valid: false,
@@ -63,13 +67,15 @@ class Cart extends Component {
             city: {
                 elementConfig: {
                     type: 'text',
+                    pattern: '^.{1,50}$',
                     placeholder: 'City',
                     required: true, /*rubric52*/
-                    tabindex:"-1"
+                    tabIndex:"-1"
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    maxLength: 50,
                 },
                 label: 'City',
                 valid: false,
@@ -81,7 +87,7 @@ class Cart extends Component {
                     placeholder: '123-456-7890',
                     pattern: '^[0-9]{3}-[0-9]{3}-[0-9]{4}$', /*rubric52*/
                     required: true,  /*rubric52*/
-                    tabindex:"-1"
+                    tabIndex:"-1"
                 },
                 value: '',
                 validation: {
@@ -92,7 +98,8 @@ class Cart extends Component {
                 valid: false,
                 touched: false
             }
-        }
+        },
+        formIsValid: false
     };
 
     // inputChangedHandler = (event, inputIdentifier) => {
@@ -113,9 +120,9 @@ class Cart extends Component {
 
 
       inputChangedHandler = (event, inputIdentifier) => {
-        const updatedForm = updateFormOnInput(event, inputIdentifier, this.state.orderForm);
+        const updatedFormData = updateFormOnInput(event, inputIdentifier, this.state.orderForm);
         
-        this.setState({orderForm: updatedForm});
+        this.setState({orderForm: updatedFormData[0], formIsValid: updatedFormData[1]});
     };
 
     render(){
@@ -140,8 +147,10 @@ class Cart extends Component {
                     <Form /*rubric48, rubric50, rubric51, rubric52 */
                         form={this.state.orderForm}
                         inputChanged={this.inputChangedHandler}
-                        onSubmited={this.props.makeOrder}
-                        formHeader="Enter your shipping details"/>
+                        onSubmited={() => this.props.makeOrder(this.state.formIsValid)}
+                        formHeader="Enter your shipping details"
+                        btnClass='order-button'
+                        btnText="CHECKOUT"/>
                 </div>
               ) : <div className='cart-empty'>Your cart is empty</div>
         
