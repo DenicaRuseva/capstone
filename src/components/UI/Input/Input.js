@@ -40,7 +40,7 @@ const input = ( props ) => {
 
     return (
         <div className='input'>
-            <label className='label'>{props.label}{inputElement}</label>
+            <label className='label'><span>{props.label}</span>{inputElement}</label>
             
         </div>
     );

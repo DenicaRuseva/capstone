@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Form from '../../components/UI/Form/Form';
+import Contacts from '../../components/ContactPage/Contacts/Contacts';
 import {updateFormOnInput} from '../utility';
+import './ContactPage.css';
 
 class ContactPage extends Component {
 
@@ -20,7 +22,7 @@ class ContactPage extends Component {
                     isLettersOnly: true,
                     maxLength: 50
                 },
-                label: "First Name",
+                label: "FIRST NAME *",
                 valid: false,
                 touched: false
             },
@@ -38,7 +40,7 @@ class ContactPage extends Component {
                     isLettersOnly: true,
                     maxLength: 50
                 },
-                label: 'Last Name',
+                label: 'LAST NAME *',
                 valid: false,
                 touched: false
             },
@@ -47,7 +49,7 @@ class ContactPage extends Component {
                 elementConfig: {
                     type: 'email',
                     pattern: '^.{1,50}$',
-                    placeholder: 'Your E-Mail',
+                    placeholder: 'E-Mail',
                     required: true,
                     tabIndex:"-1"
                 },
@@ -56,7 +58,7 @@ class ContactPage extends Component {
                     required: true,
                     maxLength: 50
                 },
-                label: "E-mail",
+                label: "EMAIL *",
                 valid: false,
                 touched: false
             },
@@ -72,7 +74,7 @@ class ContactPage extends Component {
                 validation: {
                     required: true
                 },
-                label: 'Message',
+                label: 'MESSAGE',
                 valid: false,
                 touched: false
             }
@@ -94,11 +96,17 @@ class ContactPage extends Component {
     render(){
         return(
             <div className='contact-page'>
-            <Form 
-            form={this.state.contactForm}
-            inputChanged={this.inputChangedHandler}
-            onSubmited={this.formSubmitHandler}
-            btnText="Send"/>
+                <div className="form-container">
+                    <Form 
+                    formClass="contact-form"
+                    form={this.state.contactForm}
+                    formHeader="CONTACT US"
+                    inputChanged={this.inputChangedHandler}
+                    onSubmited={this.formSubmitHandler}
+                    btnText="Send"
+                    btnClass='contacts-button'/>
+                </div>
+                    <Contacts/>
             </div>
         );
     };

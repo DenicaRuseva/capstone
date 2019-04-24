@@ -15,3 +15,22 @@
 .order-button:active {
     background-color: #e6e6e6;
 }
+
+.contacts-button {
+    width: 100px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    outline: none;
+    border: #808080;
+    color: white;
+    cursor: pointer;
+    background-color: #3a3232;
+}
+
+.contacts-button:hover {
+    background-color: #524747;
+}
+
+.contacts-button:active {
+    background-color: #887777;
+}

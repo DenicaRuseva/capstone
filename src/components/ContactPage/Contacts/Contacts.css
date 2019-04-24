@@ -1,0 +1,81 @@
+.contacts-container {
+    display: inline-block;
+    width: 100%;
+    margin-top: 30px;
+    font-family: inherit;
+}
+
+.contacts-wrapper {
+    padding: 0px 40px;
+    text-align: left;
+}
+
+.contacts-wrapper p, .contacts-wrapper h4 {
+    display: inline-block;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.contacts-wrapper h4 {
+    position: relative;
+    font-weight: normal;
+    padding: 5px;
+    /* text-decoration: underline #3a3232; */
+}
+
+.contacts-wrapper h4:after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 0;
+    bottom: 0;
+    max-width: 150px;
+    height: 4px;
+    border-top: 1px solid #3a3232;
+    border-bottom: 1px solid #3a3232;
+    
+}
+
+.contacts-wrapper p {
+    margin-top: 0px;
+}
+
+@media only screen and (min-width: 825px){
+    /* .contacts-wrapper h4:after {
+        max-width: 60%;
+        width: 60%;
+    } */
+}
+
+
+
+
+@media only screen and (min-width: 825px){
+
+    .contacts-container {
+        width: 40%;
+        float: right;
+    }
+
+    .contacts-wrapper {
+        padding: 0px;
+        padding-left: 10px;
+        float: right;
+        width: 90%;
+        margin: 0px auto;
+    }
+}
+
+/* .contacts-wrapper {
+    margin: 20px auto;
+    width: 80%;
+    padding-left: 30px; 
+}
+
+.contacts-wrapper h4 {
+    margin-bottom: 10px;
+}
+
+.contacts-wrapper div {
+    margin: 5px auto;
+} */

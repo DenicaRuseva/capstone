@@ -25,7 +25,7 @@ class Cart extends Component {
                     isLettersOnly: true,
                     maxLength: 50
                 },
-                label: "First Name",
+                label: "FIRST NAME *",
                 valid: false,
                 touched: false
             },
@@ -43,7 +43,7 @@ class Cart extends Component {
                     isLettersOnly: true,
                     maxLength: 50
                 },
-                label: 'Last Name',
+                label: 'LAST NAME *',
                 valid: false,
                 touched: false
             },
@@ -60,7 +60,7 @@ class Cart extends Component {
                     required: true,
                     maxLength: 50
                 },
-                label: "Street",
+                label: "STREET *",
                 valid: false,
                 touched: false
             },
@@ -77,7 +77,7 @@ class Cart extends Component {
                     required: true,
                     maxLength: 50,
                 },
-                label: 'City',
+                label: 'CITY *',
                 valid: false,
                 touched: false
             },
@@ -94,7 +94,7 @@ class Cart extends Component {
                     required: true,
                     isPhone: true
                 },
-                label: 'Phone number',
+                label: 'PHONE NUMBER *',
                 valid: false,
                 touched: false
             }
@@ -148,7 +148,7 @@ class Cart extends Component {
                         form={this.state.orderForm}
                         inputChanged={this.inputChangedHandler}
                         onSubmited={() => this.props.makeOrder(this.state.formIsValid)}
-                        formHeader="Enter your shipping details"
+                        formHeader="ENTER YOUR SHIPPING DETAILS"
                         btnClass='order-button'
                         btnText="CHECKOUT"/>
                 </div>

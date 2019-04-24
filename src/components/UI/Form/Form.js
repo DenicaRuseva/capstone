@@ -6,6 +6,7 @@ import './Form.css';
 
 const form = (props) => {
 
+        const formClasses = props.formClass ? props.formClass.concat(' form') : 'form';
         const formElementsArray = [];
         for (let key in props.form) {
             formElementsArray.push({
@@ -36,8 +37,8 @@ const form = (props) => {
             </form>
         );
         return (
-            <div className='form'>
-                <h4>{props.formHeader}</h4>
+            <div className={formClasses}>
+                <h4 className='form-header'>{props.formHeader}</h4>
                 {form}
             </div>
         );

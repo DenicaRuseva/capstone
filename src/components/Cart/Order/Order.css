@@ -83,9 +83,7 @@
 
 @media only screen and (min-width: 500px){ 
     .table {
-        border: 1px solid  #cccccc;
-        border-top: none;
-        box-shadow: 0 2px 3px #cccccc;
+        border-bottom: 1px solid  #cccccc;
         /* box-shadow: 0px 3px 10px #40bf40;  */
     }
   
@@ -187,6 +185,9 @@
         width: 90%;
         left: 50%;
         transform: translateX(-50%);
+        border: 1px solid  #cccccc;
+        border-top: none;
+        box-shadow: 0 2px 3px #cccccc;
     }
 
     .border {

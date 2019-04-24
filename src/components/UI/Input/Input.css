@@ -2,12 +2,29 @@
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    color: inherit;
 }
 
 .label {
     font-weight: bold;
+    font-size: 12px;
     display: block;
     margin-bottom: 8px;
+    text-align: left;
+    color: inherit;
+}
+
+.label span {
+    display: inline-block;
+    padding: 0px;
+    font: inherit;
+    color: inherit;
+}
+
+@media only screen and (min-width: 400px){
+    .label span {
+        padding-left: 10px;
+    }
 }
 
 .inputElement {
@@ -15,11 +32,20 @@
     border: 1px solid #cccccc;
     background-color: white;
     font: inherit;
+    font-weight: lighter;
+    /* font-style: italic; */
+    opacity: 0.7;
     padding: 6px 10px;
     display: block;
     width: 100%;
-    margin: 10px;
+    margin: 10px 0px;
     box-sizing: border-box;
+}
+
+@media only screen and (min-width: 400px){
+    .inputElement {
+        margin: 10px;
+    }
 }
 
 .inputElement:focus {

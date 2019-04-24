@@ -1,0 +1,12 @@
+.contact-page, .form-container {
+    display: inline-block;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media only screen and (min-width: 825px){
+    .form-container {
+        width: 60%;
+        float: left;
+    }
+}
