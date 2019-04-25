@@ -7,13 +7,14 @@ import './Form.css';
 const form = (props) => {
 
         const formClasses = props.formClass ? props.formClass.concat(' form') : 'form';
-        const formElementsArray = [];
+        let formElementsArray = [];
         for (let key in props.form) {
             formElementsArray.push({
                 id: key,
                 config: props.form[key]
             });
-        }
+        };
+        console.log(formElementsArray);
         let form = (
             <form onSubmit={(event) => {
                 event.preventDefault();
@@ -30,7 +31,7 @@ const form = (props) => {
                         touched={formElement.config.touched}
                         changed={(event) => props.inputChanged(event, formElement.id)} 
                         label={formElement.config.label}
-                        />
+                        onSubcetegoryChoosen={props.onSubcetegoryChoosen}/>
                 ))}
                  {/*rubric50*/}
                 <Button class={props.btnClass}>{props.btnText}</Button>
