@@ -8,6 +8,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
 import ContactPage from '../../container/ContactPage/ContactPage';
+import ProductPage from '../../components/ProductPage/ProductPage';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
@@ -96,7 +97,7 @@ class Layout extends Component {
 
     render(){
         console.log('in render layout');
-        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spiner</div>}/> : (
+        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spinner</div>}/> : (
             <WithoutRootDiv>
                 {/* rubric34 */}
                 <Switch>
@@ -106,12 +107,15 @@ class Layout extends Component {
                 </Switch>
             </WithoutRootDiv>
         );
+        const productsRout = this.props.loadingShop ? 
+        <Route path='/product' render={() => <div>spinner</div>}/> : <Route path='/product' component={ProductPage}/>;
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
+                    {productsRout}
                     {/* rubric56 */}
                     <PropsRoute 
                     path='/cart' 

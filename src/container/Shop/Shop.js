@@ -5,6 +5,7 @@ import ShopSideBar from '../../components/Shop/ShopSideBar/ShopSideBar';
 import ItemsGallery from '../../components/Shop/ItemsGallery/ItemsGallery';
 import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
+import {flattenArray, deepCopy} from '../utility';
 
 
 
@@ -109,29 +110,7 @@ class Shop extends Component {
             return false;
         }
         return true;
-    }
-
-    flattenArray = (arr) => arr.reduce(
-        (a, b) => a.concat(Array.isArray(b) ? this.flattenArray(b) : b), []
-    );
-
-    deepCopy = (obj) => {
-        let target = Array.isArray(obj) ? [] : {};
-        for (let key in obj) {
-            let v = obj[key];
-            if (v) {
-                if (typeof v === "object") {
-                target[key] = this.deepCopy(v);
-                } else {
-                target[key] = v;
-                }
-            } else {
-            target[key] = v;
-            }
-        };
-        return target;
     };
-    
 
     makeProductsToShow = (category, subcategory) => {
         let productsToShow = this.props.categoriesByIds[category][subcategory].map(subcategory => {
@@ -139,7 +118,7 @@ class Shop extends Component {
                 return item;
             })
         });
-        productsToShow = this.flattenArray(productsToShow);
+        productsToShow = flattenArray(productsToShow);
         return productsToShow;
     };
 
@@ -174,7 +153,7 @@ class Shop extends Component {
 
     sideBarCategoryClickHandler = (categoryId, categoryClicked) => {
         if(this.state.currentCategory === categoryClicked){
-            let productsToShow = this.deepCopy(this.props.allProducts);
+            let productsToShow = deepCopy(this.props.allProducts);
             productsToShow = this.sortProducts(productsToShow, this.state.sort.sortBy, this.state.sort.order);
             productsToShow = this.checkDoesInStockIsChecked(productsToShow);
             this.props.history.replace('/shopping');

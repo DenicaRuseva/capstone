@@ -1,5 +1,6 @@
 import * as actionTypes from './actionsTypes';
 import axios from 'axios';
+import {flattenArray, deepCopy} from '../../container/utility';
 
 
 const fetchProductsStart = () => {
@@ -21,25 +22,6 @@ const fetchProductsSuccess = (products) => {
     };
 };
 
-
-const deepCopy = (obj) => {
-    let target = Array.isArray(obj) ? [] : {};
-    for (let key in obj) {
-      let v = obj[key];
-      if (v) {
-        if (typeof v === "object") {
-          target[key] = deepCopy(v);
-        } else {
-          target[key] = v;
-        }
-      } else {
-        target[key] = v;
-      }
-    }
-    return target;
-};
-
-
 const setAllProducts = (products) => {
     return {
         type: actionTypes.SET_ALL_PRODUCTS,
@@ -47,21 +29,19 @@ const setAllProducts = (products) => {
     };
 };
 
-
 const setState = (products) => {
     return dispatch => {
-        const allProducts = Object.keys(products).map(key => {
+        let allProducts = Object.keys(products).map(key => {
             return Object.keys(products[key].subcategories).map( newKey => {
                 return products[key].subcategories[newKey].items;
             });
-        }).reduce((arr, el) => {
-                return arr.concat(el);
-        }, []).reduce((arr, el) => {
-                return arr.concat(el);
-        }, []);
+        });
+
+        allProducts = flattenArray(allProducts);
 
 
         dispatch(setAllProducts(allProducts));
+
 
         const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
 

@@ -49,3 +49,24 @@ export const updateFormOnInput = (event, inputIdentifier, form) => {
     return [updatedForm, formIsValid];
 
 };
+
+export const flattenArray = (arr) => arr.reduce(
+    (a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []
+);
+
+ export const deepCopy = (obj) => {
+    let target = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+      let v = obj[key];
+      if (v) {
+        if (typeof v === "object") {
+          target[key] = deepCopy(v);
+        } else {
+          target[key] = v;
+        }
+      } else {
+        target[key] = v;
+      }
+    }
+    return target;
+};
