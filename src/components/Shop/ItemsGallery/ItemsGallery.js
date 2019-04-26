@@ -23,7 +23,8 @@ class ItemsGallery extends Component {
                 return <Item 
                         key={item.name+i} 
                         item={item}
-                        clickOnAddBtn={this.props.clickOnAddBtn}/>;
+                        clickOnAddBtn={this.props.clickOnAddBtn}
+                        clickOnImg={() => this.props.clickOnImg(i)}/>;
             });
         };
 

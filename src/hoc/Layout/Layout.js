@@ -8,8 +8,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
 import ContactPage from '../../container/ContactPage/ContactPage';
-import ProductPage from '../../components/ProductPage/ProductPage';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
 
@@ -103,12 +102,12 @@ class Layout extends Component {
                 <Switch>
                     <PropsRoute path='/shopping/:category/:subcategory' component={Shop} addProductToCart={this.addProductToCartHandler}/>
                     <PropsRoute path='/shopping/:category' component={Shop} addProductToCart={this.addProductToCartHandler}/>
-                    <PropsRoute path="/shopping" component={Shop} addProductToCart={this.addProductToCartHandler}/>
+                    <PropsRoute path="/shopping" exact component={Shop} addProductToCart={this.addProductToCartHandler}/>
                 </Switch>
             </WithoutRootDiv>
         );
         const productsRout = this.props.loadingShop ? 
-        <Route path='/product' render={() => <div>spinner</div>}/> : <Route path='/product' component={ProductPage}/>;
+        <Route path='/product' render={() => <div>spinner</div>}/> : <Route path='/product' component={Shop}/>;
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>

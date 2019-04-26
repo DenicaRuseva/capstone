@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Controls from '../../components/Shop/Controls/Controls';
 import ShopSideBar from '../../components/Shop/ShopSideBar/ShopSideBar';
 import ItemsGallery from '../../components/Shop/ItemsGallery/ItemsGallery';
+import PropsRoute from '../../hoc/Routes/PropsRoute'; 
+import Product from '../../components/Shop/Product/Product';
 import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import {flattenArray, deepCopy} from '../utility';
@@ -23,7 +25,8 @@ class Shop extends Component {
         productsToShow: [],
         numberOfProductsInCategory: null,
         shownCategoryMenu: false,
-        clickedCategories: []
+        clickedCategories: [],
+        productSelected: 0
     };
 
 
@@ -35,73 +38,112 @@ class Shop extends Component {
             clickedCategories.push(false);
         };
 
-        if(this.props.match.params.category){
-           
-            const currentURLCategory = this.props.categoriesByIds[this.props.match.params.category] ? this.props.match.params.category : 'all';
-            const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
+        if(this.props.location.pathname === '/product' && this.props.location.search){
+            const productUrl = this.props.location.search.split("=").pop();
+            let validUrl = false;
+            let productId;
 
-           
-           
+            for(let i = 0; i < this.props.allProducts.length; i++) {
+                if (this.props.allProducts[i].name == decodeURI(productUrl)) {
+                    validUrl = true;
+                    productId = i;
+                    i = this.props.allProducts.length;
+                };
+            };
 
-            if(currentURLCategory === 'all'){
-                this.props.history.replace('/shopping');
+            if(validUrl){
+                    this.setState({
+                    productsToShow: this.props.allProducts,
+                    numberOfProductsInCategory: this.props.allProducts.length,
+                    clickedCategories: clickedCategories,
+                    productSelected: productId,
+                    loading: false
+                });
+                this.props.history.replace('/product?name=' + productUrl);
+            }
+            else {
                 this.setState({
                     productsToShow: this.props.allProducts,
                     numberOfProductsInCategory: this.props.allProducts.length,
                     clickedCategories: clickedCategories,
                     loading: false
                 });
-            }
-            else {
-                let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
-
-                if(currentURLSubcategory === 'all'){
-                    this.props.history.replace('/shopping/' + currentURLCategory);
-                    clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
-                        if(el.category === currentURLCategory){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    });
+                this.props.history.replace('/shopping');
+            };  
+        }
+        else {
+            if(this.props.match.params.category){
+                const currentURLCategory = this.props.categoriesByIds[this.props.match.params.category] ? this.props.match.params.category : 'all';
+                const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
+    
+               
+               
+    
+                if(currentURLCategory === 'all'){
+                    this.props.history.replace('/shopping');
                     this.setState({
-                    currentCategory: currentURLCategory,
-                    productsToShow: productsToShow,
-                    numberOfProductsInCategory: productsToShow.length,
-                    clickedCategories: clickedCategories,
-                    loading: false
+                        productsToShow: this.props.allProducts,
+                        numberOfProductsInCategory: this.props.allProducts.length,
+                        clickedCategories: clickedCategories,
+                        loading: false
                     });
                 }
                 else {
-                    let productsInCategory = this.makeProductsToShow(currentURLCategory, 'all');
-                    clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
-                        if(el.category === currentURLCategory){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    });
-                    this.setState({
-                    currentCategory: currentURLCategory,
-                    currentSubcategory: currentURLSubcategory,
-                    productsToShow: productsToShow,
-                    numberOfProductsInCategory: productsInCategory.length,
+                    let productsToShow =  this.makeProductsToShow(currentURLCategory, currentURLSubcategory);
+    
+                    if(currentURLSubcategory === 'all'){
+                        this.props.history.replace('/shopping/' + currentURLCategory);
+                        clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
+                            if(el.category === currentURLCategory){
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        });
+                        this.setState({
+                        currentCategory: currentURLCategory,
+                        productsToShow: productsToShow,
+                        numberOfProductsInCategory: productsToShow.length,
+                        clickedCategories: clickedCategories,
+                        loading: false
+                        });
+                        this.props.history.replace('/shopping/' + currentURLCategory);
+                    }
+                    else {
+                        let productsInCategory = this.makeProductsToShow(currentURLCategory, 'all');
+                        clickedCategories = this.props.categoriesAndSubcat.map((el, i) => {
+                            if(el.category === currentURLCategory){
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        });
+                        this.setState({
+                        currentCategory: currentURLCategory,
+                        currentSubcategory: currentURLSubcategory,
+                        productsToShow: productsToShow,
+                        numberOfProductsInCategory: productsInCategory.length,
+                        clickedCategories: clickedCategories,
+                        loading: false
+                        });
+                        this.props.history.replace('/shopping/' + currentURLCategory + '/' + currentURLSubcategory);
+                    }
+                };
+            }
+            else {
+                this.setState({
+                    productsToShow: this.props.allProducts,
+                    numberOfProductsInCategory: this.props.allProducts.length,
                     clickedCategories: clickedCategories,
                     loading: false
-                    });
-                }
+                });
+                this.props.history.replace('/shopping');
             };
         }
-        else {
-            this.setState({
-                productsToShow: this.props.allProducts,
-                numberOfProductsInCategory: this.props.allProducts.length,
-                clickedCategories: clickedCategories,
-                loading: false
-            });
-        };
+
+        
        
     };
 
@@ -319,7 +361,19 @@ class Shop extends Component {
         };
     };
 
+    showProductPageHandler = (product) => {
+        this.props.history.replace('/product?=' + product.name);
+    };
 
+    productSelectHandler = (id) => {
+        console.log(id);
+        console.log(this.state.productsToShow[id]);
+        this.setState({
+            productSelected: id
+        });
+        this.props.history.replace('/product?name=' + this.state.productsToShow[id].name);
+
+    };
 
 
     render(){
@@ -328,28 +382,28 @@ class Shop extends Component {
         (
             <div className='shop'>
                     {/* rubric19 */}
-                    <ShopSideBar
+                    <PropsRoute path='/shopping' 
+                        component={ShopSideBar} 
                         clickOnCategory={this.sideBarCategoryClickHandler}
                         clickOnSubcategory={this.sideBarSubcategoryClickHandler}
                         toggleCategoryMenu={this.toggleCategoryMenuHandler}
                         shownCategoryMenu={this.state.shownCategoryMenu}
                         currentCategory={this.state.currentCategory}
                         clickedCategories={this.state.clickedCategories}/>
-                    <div className="controls-container">
                     {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
-                    <Controls 
+                    <PropsRoute path='/shopping' component={Controls} 
                         onSort={this.sortItemsHandler} 
                         category={this.state.currentCategory}
                         onInStockClick={this.inStockClickHandler}
                         numberOfProductsInCategory={this.state.numberOfProductsInCategory}
                         numberOnShownProducts={this.state.productsToShow.length}/>
-                </div>
-                
                 {/* rubric20  */}
-                <ItemsGallery 
-                    onUnmount={this.resetSort}
-                    productsToShow={this.state.productsToShow}
-                    clickOnAddBtn={this.props.addProductToCart}/>
+                    <PropsRoute path='/shopping' component={ItemsGallery}
+                     onUnmount={this.resetSort}
+                     productsToShow={this.state.productsToShow}
+                     clickOnAddBtn={this.props.addProductToCart}
+                     clickOnImg={this.productSelectHandler}/> 
+                    <PropsRoute path='/product' component={Product} product={this.state.productsToShow[this.state.productSelected]}/>
             </div>
         );
         return <WithoutRootDiv>{shop}</WithoutRootDiv>

@@ -5,7 +5,7 @@ import './Item.css';
 
 const item = (props) => (
     <div className='item'>
-        <ImageContainer src={props.item.imagelink} alt={props.item.name}/>
+        <ImageContainer src={props.item.imagelink} alt={props.item.name} clicked={props.clickOnImg}/>
         <div className='info-container'>
         <div className='info-wrapper'>
             <p className='info-name'>{props.item.name}</p>

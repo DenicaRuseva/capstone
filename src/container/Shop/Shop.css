@@ -7,72 +7,14 @@
     /* padding: 10px; */
 }
 
-.controls-container {
-    position: relative;
-    top: 56px; /*50px side bar  5px shop padding top + 1px styling*/
-    display: block;
-    float: right;
-
-    width: 100%;
-    height: 150px;
-   
-}
-
-/* .hide-on-sm {
-    display: none;
-} */
-
-
 @media only screen and (min-width: 768px) {
-
     .shop {
         padding: 10px;
     }
-    .controls-container {
-        top: 0px;
-        float: right;
-        /* width: 70%; */
-        width: 100%;
-        height: 100px;
-        
-    }
 }
-
-
-/* @media only screen and (min-width: 800px) {
-    .controls-container {
-        width: 66.67%;
-        height: 50px;
-    }
-} */
 
 @media only screen and (min-width: 900px) {
     .shop {
         padding-left: 0px;
     }
-    .controls-container {
-        width: 75%;
-        height: 100px;
-    }
 }
-
-@media only screen and (min-width: 1030px) {
-    .controls-container {
-        width: 80%;
-    }
-}
-
-/* @media only screen and (min-width: 1230px) {
-    .controls-container {
-        width: 75%;
-    }
-} */
-
-/* @media only screen and (min-width: 600px) {
-    .hide-on-sm {
-        display: block;
-    }
-    .sm-only {
-        display: none;
-    }
-} */
