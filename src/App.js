@@ -8,7 +8,8 @@ import {
   faMinusCircle, 
   faMapMarkerAlt,
   faPhone,
-  faAt
+  faAt,
+  faArrowAltCircleLeft
 } from '@fortawesome/free-solid-svg-icons';
 import { Route } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ library.add(faMinusCircle);
 library.add(faMapMarkerAlt);
 library.add(faPhone);
 library.add(faAt);
+library.add(faArrowAltCircleLeft);
 
 
 

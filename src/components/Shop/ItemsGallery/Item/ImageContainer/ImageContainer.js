@@ -4,7 +4,7 @@ import './ImageContainer.css';
 
 
 const imageContainer = (props) => {
-    const image = <img src={props.src} alt={props.alt} height="126.5px"
+    const image = <img src={props.src} alt={props.alt} height={props.height} width={props.width}
         onLoad={(event) => {
             event.target.classList.add('image-shown');
             event.target.nextElementSibling.classList.add('hide');

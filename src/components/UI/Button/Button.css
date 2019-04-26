@@ -34,3 +34,35 @@
 .contacts-button:active {
     background-color: #887777;
 }
+
+
+.add-button {
+    border-radius: 5px;
+    width: 100px;
+    height: 22px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    /* font-family: 'Impact', 'Charcoal', sans-serif; */
+    /* font-family: "Palatino Linotype", "Book Antiqua", 'Palatino', serif; */
+    line-height: 13px;
+    font-size: 13px;
+    /* font-style: italic; */
+    background-color: #264d00;
+    border: none;
+    outline: 0;
+    color: #ffd11a;  
+    cursor: pointer;
+    opacity: 0.8;
+    /* transition: all 0.4s; */
+}
+
+.add-button:hover {
+    color: #ffff66;
+    /* color: #ffa31a; */
+    /* border-color: #ffd699; */
+    opacity: 0.9;
+    box-shadow: 0 0 10px #000000;
+}
+
+.add-button:active {
+    background-color: #66cc00;
+}
