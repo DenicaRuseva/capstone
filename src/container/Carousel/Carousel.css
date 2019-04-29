@@ -1,0 +1,25 @@
+.carousel {
+    position: relative;
+    margin-top: 30px;
+    width: 80%;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+@media only screen and (max-width: 500px){
+    .carousel {
+        height: 300px;
+    }
+}
+
+.wellcome {
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+    padding-left: 20px;
+    font-size: 30px;
+    background-color: white;
+    font-family: 'Ubuntu', sans-serif;
+}

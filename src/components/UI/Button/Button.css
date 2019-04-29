@@ -66,3 +66,10 @@
 .add-button:active {
     background-color: #66cc00;
 }
+
+.shop-all-btn {
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}

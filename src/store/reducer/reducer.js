@@ -24,7 +24,8 @@ const initialState = {
     loading: true,
     loadingCarousel: true,
     loadingShop: true,
-    error: false
+    error: false,
+    carouselProducts: []
 };
 
 
@@ -43,17 +44,6 @@ const fetchProductsFaill = (state, action) => {
         loadingShop: false,
         error: true
     };
-};
-
-const setCarouselProducts = (state, action) => {
-    return {
-        ...state,
-        carouselProducts: [
-            ...state.carouselProducts,
-            ...action.carouselProducts
-        ],
-        loadingCarousel: false
-    }
 };
 
 const setShopData = (state, action) => {
@@ -116,6 +106,14 @@ const saveShopState = (state, action) => {
         selectValue: action.state.selectValue,
         loading: action.state.loading,
         shopMounted: true
+    };
+};
+
+const setCarouselProducts = (state, action) => {
+    return {
+        ...state,
+        carouselProducts: action.carouselProducts,
+        loadingCarousel: false
     };
 };
 

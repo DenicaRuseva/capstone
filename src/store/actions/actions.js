@@ -25,6 +25,15 @@ export const flattenArray = (arr) => arr.reduce(
     (a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []
 );
 
+const makeArrayToArraysWithNElements = (array) => {
+    let arr = [];
+    while(array.length) {
+        arr.push(array.splice(0, 4));
+    };
+    return arr;
+};
+
+
 const setAllProducts = (products) => {
     return {
         type: actionTypes.SET_ALL_PRODUCTS,
@@ -116,16 +125,28 @@ const mekeClickedCategories = (length) => {
     return clickedCategories;
 };
 
+const makeCarouselProducts = () => {
+    let carouselProducts = [];
+    for(let i = 0; i < 12; i++){
+        carouselProducts.push(85-i)
+        // carouselProducts.push(i)
 
+    }
+    console.log(carouselProducts);
+    carouselProducts = makeArrayToArraysWithNElements(carouselProducts);
+    return carouselProducts;
+};
 
 const setState = (products) => {
     return dispatch => {
-
+        console.log(products);
         const allProducts = mekeAllProductsObject(products); //Make array of objects; Every object represent product;
         dispatch(setAllProducts(allProducts));
 
-        // const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
-        // dispatch(setCarouselProducts(carouselProducts));
+        
+        const carouselProducts = makeCarouselProducts();
+        
+        dispatch(setCarouselProducts(carouselProducts));
 
         const categoriesAndSubcat = makeCategoryesAndSubcategories(products); //Make array of objects; Every object have
                                                                             // category property, holding name of category and
@@ -139,7 +160,6 @@ const setState = (products) => {
 
         const subcategoriesByIds = makesubcategoriesByIds(products); //Object of objects; Every object holds a subcategory name
                                                                     //as property and array of items in subcategory ids as value;  
-
 
 
         const clickedCategories = mekeClickedCategories(categoriesAndSubcat.length); //Array, holding bolean values; If clickedCategories[n] === true,
@@ -163,12 +183,12 @@ const setShopData = (categoriesAndSubcat, categoriesByIds, subcategoriesByIds, a
     };
 };
 
-// const setCarouselProducts = (carouselProducts) => {
-//     return {
-//         type: actionTypes.SET_CAROUSEL_PRODUCTS,
-//         carouselProducts: carouselProducts
-//     };
-// };
+const setCarouselProducts = (carouselProducts) => {
+    return {
+        type: actionTypes.SET_CAROUSEL_PRODUCTS,
+        carouselProducts: carouselProducts
+    };
+};
 
 
 export const fetchProducts = () => {

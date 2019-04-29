@@ -96,6 +96,7 @@ class Layout extends Component {
 
     render(){
         console.log('in render layout');
+        const carouselRoute = this.props.loadingCarousel ? <Route path="/" exact render={() => <div>spinner</div>}/> : <Route path="/" exact component={Carousel}/>
         const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spinner</div>}/> : (
             <WithoutRootDiv>
                 {/* rubric34 */}
@@ -131,7 +132,7 @@ class Layout extends Component {
                         makeOrder={this.makeOrderHandler}
                         cleanState={this.resetProductsInCatrHandler}/>
                     <Route path="/contact" component={ContactPage}/>
-                    <Route path="/" exact component={Carousel}/>
+                    {carouselRoute}
                     {shopRoute}
                     <Route render={() => this.props.history.replace('/')}/> 
                     </Switch>
@@ -144,7 +145,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        loadingShop: state.loadingShop
+        loadingShop: state.loadingShop,
+        loadingCarousel: state.loadingCarousel
     };
 };
 

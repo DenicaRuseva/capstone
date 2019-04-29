@@ -1,0 +1,23 @@
+.leftBtn, .rightBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color:#d0d7e2;
+    opacity: 0.5;
+}
+
+.leftBtn:hover, .rightBtn:hover {
+    opacity: 0.7;
+}
+
+.leftBtn::before, .rightBtn::before {
+    background: transparent;
+}
+
+.leftBtn {
+    left: 0;
+}
+
+.rightBtn {
+    right: 0;
+}
