@@ -8,7 +8,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
 import ContactPage from '../../container/ContactPage/ContactPage';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
 
@@ -34,18 +34,19 @@ class Layout extends Component {
         } );
     };
 
-    addProductToCartHandler = (product) => {
-        const updatedTotalPrice = this.state.totalPrice + product.price*1; 
+
+    /* rubric44 */
+    addProductToCartHandler = (product, quantity = 1) => {
+        const updatedTotalPrice = this.state.totalPrice + product.price*quantity; 
         let updatedProductsInCart = [...this.state.productsInCart];
         let updatedQuantity = [...this.state.quantityOfEachProduct];
             if (this.state.productsInCart.indexOf(product) === -1) {
                 updatedProductsInCart.push(product);
-                updatedQuantity.push(1);
+                updatedQuantity.push(quantity*1);
             } else {
                 let indexOfProduct = this.state.productsInCart.indexOf(product);
-                updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + 1;
+                updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + quantity*1;
             };
-            console.log(updatedTotalPrice);
         
         this.setState({
             productsInCart: updatedProductsInCart,
@@ -86,7 +87,6 @@ class Layout extends Component {
             });  
        };
        return;
-       
     };
 
     resetProductsInCatrHandler = () => {
@@ -102,12 +102,15 @@ class Layout extends Component {
                 <Switch>
                     <PropsRoute path='/shopping/:category/:subcategory' component={Shop} addProductToCart={this.addProductToCartHandler}/>
                     <PropsRoute path='/shopping/:category' component={Shop} addProductToCart={this.addProductToCartHandler}/>
-                    <PropsRoute path="/shopping" exact component={Shop} addProductToCart={this.addProductToCartHandler}/>
+                    <PropsRoute path="/shopping"  exact component={Shop} addProductToCart={this.addProductToCartHandler}/>
                 </Switch>
             </WithoutRootDiv>
         );
         const productsRout = this.props.loadingShop ? 
-        <Route path='/product' render={() => <div>spinner</div>}/> : <Route path='/product' component={Shop}/>;
+        <Route path='/product' render={() => <div>spinner</div>}/> : 
+        <PropsRoute path='/product' 
+            component={Shop}
+            addProductToCart={this.addProductToCartHandler}/>;
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
@@ -117,20 +120,20 @@ class Layout extends Component {
                     {productsRout}
                     {/* rubric56 */}
                     <PropsRoute 
-                    path='/cart' 
-                    component={Cart} 
-                    products={this.state.productsInCart} 
-                    productsQuantities={this.state.quantityOfEachProduct}
-                    changeQuantity={this.changeQuantityHandler}
-                    removeProduct={this.removeProductHandller}
-                    orderMade={this.state.orderMade}
-                    totalPrice={this.state.totalPrice}
-                    makeOrder={this.makeOrderHandler}
-                    cleanState={this.resetProductsInCatrHandler}/>
+                        path='/cart' 
+                        component={Cart} 
+                        products={this.state.productsInCart} 
+                        productsQuantities={this.state.quantityOfEachProduct}
+                        changeQuantity={this.changeQuantityHandler}
+                        removeProduct={this.removeProductHandller}
+                        orderMade={this.state.orderMade}
+                        totalPrice={this.state.totalPrice}
+                        makeOrder={this.makeOrderHandler}
+                        cleanState={this.resetProductsInCatrHandler}/>
                     <Route path="/contact" component={ContactPage}/>
                     <Route path="/" exact component={Carousel}/>
                     {shopRoute}
-                    <Route render={() => this.props.history.replace('/')}/>
+                    <Route render={() => this.props.history.replace('/')}/> 
                     </Switch>
                 </main>
                 <div style={{height: '56px', backgroundColor: 'blue'}}>footer</div>

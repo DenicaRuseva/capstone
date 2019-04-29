@@ -1,3 +1,4 @@
 export {
-    fetchProducts
+    fetchProducts,
+    saveShopState
 } from './actions';

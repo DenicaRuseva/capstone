@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import Item from './Item/Item';
 import './ItemsGallery.css';
+import { connect } from 'react-redux';
 
 
 class ItemsGallery extends Component {
    
 
     componentWillUnmount(){
-        this.props.onUnmount();
+
     }
 
 
@@ -15,16 +16,16 @@ class ItemsGallery extends Component {
 
         console.log('in render items gallery');
         let items;
-        if(!this.props.productsToShow[0]){
+        if(this.props.productsToShow.length < 1){
             items = <div className='items-gallery'>No items to show</div>;
         }
         else {
-            items = this.props.productsToShow.map((item, i) => {
+            items = this.props.productsToShow.map((id, i) => {
                 return <Item 
-                        key={item.name+i} 
-                        item={item}
+                        key={i} 
+                        item={this.props.allProducts[id]}
                         clickOnAddBtn={this.props.clickOnAddBtn}
-                        clickOnImg={() => this.props.clickOnImg(i)}/>;
+                        clickOnImg={() => this.props.clickOnImg(id*1)}/>;
             });
         };
 
@@ -35,4 +36,10 @@ class ItemsGallery extends Component {
 
 };
 
-export default ItemsGallery;
+const mapStateToProps = state => {
+    return {
+        allProducts:  state.allProducts
+    };
+};
+
+export default connect(mapStateToProps)(ItemsGallery);

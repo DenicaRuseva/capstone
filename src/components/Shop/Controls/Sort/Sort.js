@@ -1,20 +1,48 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
-class Sort  extends PureComponent{
+class Sort extends Component {
+
+    state = {
+        options: [
+            {
+                value: 'none_none',
+                innerHtml: 'none'
+            },
+            {
+                value: 'name_ascending',
+                innerHtml: 'name (A-Z)'
+            }, {
+                value: 'name_descending',
+                innerHtml: 'name (Z-A)'
+            }, {
+                value: 'price_ascending',
+                innerHtml: 'price (lowest first)'
+            }, {
+                value: 'price_descending',
+                innerHtml: 'price (highest first)'
+            }, {
+                value: 'rating_ascending',
+                innerHtml: 'rating (lowest first)'
+            }, {
+                value: 'rating_descending',
+                innerHtml: 'rating (highest first)'
+            }
+        ],
+        defaultValue: 'none'
+    };
+
     render(){
+        const options = this.state.options.map((o, i) => {
+           return <option key={i} value={o.value} selected={o.selected}>{o.innerHtml}</option>
+        });
         console.log('in sort');
         return(
             <label className='sort-label'>
                 <div className='content-wrapper'>
                     <span>Sort by:&nbsp;</span>
-                    <select onChange={(event) => {event.preventDefault(); this.props.onSort(event.target.value)}}>
-                        <option value='none_none'>none</option>
-                        <option value='name_ascending'>name (A-Z)</option>
-                        <option value='name_descending'>name (Z-A)</option>
-                        <option value='price_ascending'>price (lowest first)</option>
-                        <option value='price_descending'>price (highest first)</option>
-                        <option value='rating_ascending'>rating (lowest first)</option>
-                        <option value='rating_descending'>rating (highest first)</option>
+                    <select 
+                        onChange={(event) => this.props.onSort(event)} value={this.props.selectValue}>
+                        {options}
                     </select>  
                 </div>                    
             </label>

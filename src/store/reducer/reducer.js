@@ -2,14 +2,26 @@ import * as actionTypes from '../actions/actionsTypes';
 
 
 const initialState = {
-    // productsObject: [],
-    carouselProducts: [],
-    // allProducts: [],
+    allProducts: [],
+    allProductsByIds: [],
     categoriesAndSubcat: [],
-    // subcategories: [],
     categoriesByIds: {}, 
     subcategoriesByIds: {},
-    allProducts: [],
+    sort: {
+        sortBy: 'none',
+        order: 'none'
+    },
+    showInStockOnly: false,
+    currentCategory: 'all',
+    currentSubcategory: 'all',
+    productsToShow: [],
+    numberOfProductsInCategory: null,
+    shownCategoryMenu: false,
+    clickedCategories: [],
+    selectValue: 'none',
+    shopMounted: false,
+    productSelected: 0,
+    loading: true,
     loadingCarousel: true,
     loadingShop: true,
     error: false
@@ -59,6 +71,18 @@ const setShopData = (state, action) => {
             ...state.subcategoriesByIds,
             ...action.subcategoriesByIds
         },
+        allProductsByIds: [
+            ...state.allProductsByIds,
+            ...action.allProductsByIds
+        ],
+        productsToShow: [
+            ...state.productsToShow,
+            ...action.productsToShow
+        ],
+        clickedCategories: [
+            ...state.clickedCategories,
+            ...action.clickedCategories
+        ],
         loadingShop: false
     };
 };
@@ -70,6 +94,31 @@ const setAllProducts = (state, action) => {
     };
 };
 
+
+const saveShopState = (state, action) => {
+    return {
+        ...state,
+        sort: {
+            ...state.sort,
+            sortBy: action.state.sort.sortBy,
+            order: action.state.sort.order
+        },
+        showInStockOnly: action.state.showInStockOnly,
+        currentCategory: action.state.currentCategory,
+        currentSubcategory: action.state.currentSubcategory,
+        productsToShow: [
+            ...action.state.productsToShow
+        ],
+        numberOfProductsInCategory: action.state.numberOfProductsInCategory,
+        shownCategoryMenu: action.state.shownCategoryMenu,
+        clickedCategories: [...action.state.clickedCategories],
+        productSelected: action.state.productSelected,
+        selectValue: action.state.selectValue,
+        loading: action.state.loading,
+        shopMounted: true
+    };
+};
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.FETCH_PRODUCTS_START: return fetchProductsStart(state);
@@ -77,6 +126,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_CAROUSEL_PRODUCTS: return setCarouselProducts(state, action);
         case actionTypes.SET_SHOP_DATA: return setShopData(state, action);
         case actionTypes.SET_ALL_PRODUCTS: return setAllProducts(state, action);
+        case actionTypes.SAVE_SHOP_STATE: return saveShopState(state, action);
         default: return state;
     };
 

@@ -1,6 +1,5 @@
 import * as actionTypes from './actionsTypes';
 import axios from 'axios';
-import {flattenArray, deepCopy} from '../../container/utility';
 
 
 const fetchProductsStart = () => {
@@ -22,6 +21,10 @@ const fetchProductsSuccess = (products) => {
     };
 };
 
+export const flattenArray = (arr) => arr.reduce(
+    (a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []
+);
+
 const setAllProducts = (products) => {
     return {
         type: actionTypes.SET_ALL_PRODUCTS,
@@ -29,104 +32,143 @@ const setAllProducts = (products) => {
     };
 };
 
+const mekeAllProductsObject = (products) => {
+    let allProducts = Object.keys(products).map(key => {
+        return Object.keys(products[key].subcategories).map( newKey => {
+            return products[key].subcategories[newKey].items;
+        });
+    });
+    allProducts = flattenArray(allProducts);
+    return allProducts;
+};
+
+const makeCategoryesAndSubcategories = (products) => {
+    const catAndSubcat = Object.keys(products).map(key => {
+        return {
+            category: products[key].category,
+            subcategories: [...Array(products[key].subcategories.length)].map((_, i) => {
+            return products[key].subcategories[i].name
+            })
+        };
+    });
+    return catAndSubcat;
+};
+
+const makeCategoriesByIds = (products, categoriesAndSubcat) => {
+    let allSubcategById = [];
+    let categoriesByIds = {};
+
+
+    Object.keys(products).map(key => {
+        return categoriesByIds[products[key].category] = {
+            'all': [...Array(products[key].subcategories.length)].map((_, i) => {
+            allSubcategById.push(products[key].subcategories[i].name);
+                return products[key].subcategories[i].name
+            })
+        }
+    });
+
+    categoriesAndSubcat.map((el, i) => {
+        categoriesAndSubcat[i].subcategories.map(subcategory => {
+            return categoriesByIds[el.category] = {
+                ...categoriesByIds[el.category],
+                [subcategory]: [subcategory]
+            }
+        })
+    });
+
+    categoriesByIds['all'] = {'all': allSubcategById};
+
+    return categoriesByIds;
+};
+
+const makesubcategoriesByIds = (products) => {
+    let subcategoriesByIds = [];
+    let a = -1*1;
+    Object.keys(products).map(key => {
+        return Object.keys(products[key].subcategories).map((newKey) => {
+            return subcategoriesByIds[products[key].subcategories[newKey].name] = 
+            [...Array(products[key].subcategories[newKey].items.length)]
+            .map((_, i) => {
+                a = a + 1;
+                return a*1;
+            });
+        })
+    });
+    return subcategoriesByIds;
+};
+
+const makeAllProductsByIds = (products) => {
+    let allProductsByIds = [];
+    let i = 0;
+    while(i < products.length){
+        allProductsByIds.push(i);
+        i++
+    };
+    return allProductsByIds;
+};
+
+const mekeClickedCategories = (length) => {
+    let clickedCategories = [];
+    for(let i = 0; i < length; i++){
+        clickedCategories.push(false);
+    };
+    return clickedCategories;
+};
+
+
+
 const setState = (products) => {
     return dispatch => {
-        let allProducts = Object.keys(products).map(key => {
-            return Object.keys(products[key].subcategories).map( newKey => {
-                return products[key].subcategories[newKey].items;
-            });
-        });
 
-        allProducts = flattenArray(allProducts);
-
-
+        const allProducts = mekeAllProductsObject(products); //Make array of objects; Every object represent product;
         dispatch(setAllProducts(allProducts));
 
+        // const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
+        // dispatch(setCarouselProducts(carouselProducts));
 
-        const carouselProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 10);
+        const categoriesAndSubcat = makeCategoryesAndSubcategories(products); //Make array of objects; Every object have
+                                                                            // category property, holding name of category and
+                                                                            //subcategory property - array of subcategories names of category
 
-
-        dispatch(setCarouselProducts(carouselProducts));
-
-
-        const categoriesAndSubcat = Object.keys(products).map(key => {
-            return {
-                category: products[key].category,
-                subcategories: [...Array(products[key].subcategories.length)].map((_, i) => {
-                return products[key].subcategories[i].name
-                })
-            };
-        });
-
-        let allSubcategById = [];
-        let subcategoriesByIds = {};
-        let categoriesByIds = {};
-
-
-       Object.keys(products).map(key => {
-           return categoriesByIds[products[key].category] = {
-                    'all': [...Array(products[key].subcategories.length)].map((_, i) => {
-                    allSubcategById.push(products[key].subcategories[i].name);
-                    return products[key].subcategories[i].name
-                    })
-                }
-        });
-
-       
-
-      
-        categoriesAndSubcat.map((el, i) => {
-            categoriesAndSubcat[i].subcategories.map(subcategory => {
-                return categoriesByIds[el.category] = {
-                    ...categoriesByIds[el.category],
-                    [subcategory]: [subcategory]
-                }
-            })
-        });
-
-
-     Object.keys(products).map(key => {
-            return Object.keys(products[key].subcategories).map((newKey) => {
-                return subcategoriesByIds[products[key].subcategories[newKey].name] = 
-                [deepCopy(products[key].subcategories[newKey].items)];
-            });
-        });
-
-     
-
-     
-        categoriesByIds['all'] = {'all': deepCopy(allSubcategById)};
+        const categoriesByIds = makeCategoriesByIds(products, categoriesAndSubcat); //Object of objects; Every object holds a category name
+                                                                                //as property and array of subcategoryes as value; 
         
-      
-
-        //  console.log(subcategoriesByIds);
- 
-        dispatch(setShopData(categoriesAndSubcat, categoriesByIds, subcategoriesByIds));
-        // dispatch(setShopData(categoriesAndSubcat, subcategories, categoriesByIds));
-
-
-    };
     
-   
+        const allProductsByIds = makeAllProductsByIds(allProducts); //Array; Holds numbers of all ids;
+
+        const subcategoriesByIds = makesubcategoriesByIds(products); //Object of objects; Every object holds a subcategory name
+                                                                    //as property and array of items in subcategory ids as value;  
+
+
+
+        const clickedCategories = mekeClickedCategories(categoriesAndSubcat.length); //Array, holding bolean values; If clickedCategories[n] === true,
+                                                                                    //categoriesAndSubc[n].category will be clicked
+
+        // const productsToShow = makeArrayToArraysOfTwentyFourElements([...allProductsByIds]); //Will be use to be shown 24 products per page;
+
+        dispatch(setShopData(categoriesAndSubcat, categoriesByIds, subcategoriesByIds, allProductsByIds, clickedCategories));
+    };
 };
 
-const setShopData = (categoriesAndSubcat, categoriesByIds, subcategoriesByIds) => {
+const setShopData = (categoriesAndSubcat, categoriesByIds, subcategoriesByIds, allProductsByIds, clickedCategories) => {
     return {
         type: actionTypes.SET_SHOP_DATA,
-        // allProducts: allProducts,
         categoriesAndSubcat: categoriesAndSubcat,
-        // subcategories: subcategories,
         categoriesByIds: categoriesByIds,
-        subcategoriesByIds: subcategoriesByIds
+        subcategoriesByIds: subcategoriesByIds,
+        allProductsByIds: allProductsByIds,
+        clickedCategories: clickedCategories,
+        productsToShow: allProductsByIds
     };
 };
 
-const setCarouselProducts = (carouselProducts) => {
-    return {
-        type: actionTypes.SET_CAROUSEL_PRODUCTS,
-        carouselProducts: carouselProducts
-    };
-};
+// const setCarouselProducts = (carouselProducts) => {
+//     return {
+//         type: actionTypes.SET_CAROUSEL_PRODUCTS,
+//         carouselProducts: carouselProducts
+//     };
+// };
 
 
 export const fetchProducts = () => {
@@ -135,7 +177,14 @@ export const fetchProducts = () => {
         const products = axios.get('https://webmppcapstone.blob.core.windows.net/data/itemsdata.json')
         .then(res => dispatch(fetchProductsSuccess(res.data)))
         .catch( error => dispatch(fetchProductsFaill(error)));
-        
     };
+}
 
+
+export const saveShopState = (state) => {
+    return {
+        type: actionTypes.SAVE_SHOP_STATE,
+        state: state
+    };
 };
+

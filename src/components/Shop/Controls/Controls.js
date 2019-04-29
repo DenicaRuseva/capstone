@@ -12,7 +12,7 @@ const controls = (props) => {
         <div className="controls-container">
             <div className='controls'>
                 <CategoryName category={props.category}/>
-                <Sort onSort={props.onSort}/>
+                <Sort onSort={props.onSort} selectValue={props.selectValue}/>
                 <InStockCheckbox onInStockClick={props.onInStockClick}/>
                 <NumberOfProducts 
                     category={props.category}
