@@ -48,7 +48,7 @@ class CarouselSlide extends Component {
     render(){
         const images = this.state.images.map((img, i) => {
             return (
-                <div key={i} className='img-container-carousel' onClick={() => {this.props.showProduct(img.id)}}>
+                <div key={i} className='img-container-carousel' onClick={() => this.props.showProduct(img.id)}>
                     <img style={img.style}
                         src={img.src}
                         height='200px'

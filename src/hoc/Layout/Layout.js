@@ -8,6 +8,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
 import ContactPage from '../../container/ContactPage/ContactPage';
+import Product from '../../components/Product/Product';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
@@ -20,7 +21,8 @@ class Layout extends Component {
         productsInCart: [],
         quantityOfEachProduct: [],
         totalPrice: 0,
-        orderMade: false
+        orderMade: false,
+        selectedProduct: ''
     }
 
     componentDidMount(){
@@ -36,15 +38,15 @@ class Layout extends Component {
 
 
     /* rubric44 */
-    addProductToCartHandler = (product, quantity = 1) => {
-        const updatedTotalPrice = this.state.totalPrice + product.price*quantity; 
+    addProductToCartHandler = (productId, quantity = 1) => {
+        const updatedTotalPrice = this.state.totalPrice + this.props.allProducts[productId].price*quantity; 
         let updatedProductsInCart = [...this.state.productsInCart];
         let updatedQuantity = [...this.state.quantityOfEachProduct];
-            if (this.state.productsInCart.indexOf(product) === -1) {
-                updatedProductsInCart.push(product);
+            if (this.state.productsInCart.indexOf(this.props.allProducts[productId]) === -1) {
+                updatedProductsInCart.push(this.props.allProducts[productId]);
                 updatedQuantity.push(quantity*1);
             } else {
-                let indexOfProduct = this.state.productsInCart.indexOf(product);
+                let indexOfProduct = this.state.productsInCart.indexOf(this.props.allProducts[productId]);
                 updatedQuantity[indexOfProduct] = updatedQuantity[indexOfProduct] + quantity*1;
             };
         
@@ -74,7 +76,6 @@ class Layout extends Component {
     changeQuantityHandler = (event, index) => {
         const updatedTotalPrice = this.state.totalPrice*1 - parseFloat(this.state.productsInCart[index].price*1)*(this.state.quantityOfEachProduct[index]*1) +
         (this.state.productsInCart[index].price*1) * parseInt(event.target.value); 
-        console.log(updatedTotalPrice);
         let newQuantities = [...this.state.quantityOfEachProduct];
         newQuantities[index] = parseInt(event.target.value);
         this.setState({quantityOfEachProduct: newQuantities, totalPrice: updatedTotalPrice});
@@ -94,31 +95,43 @@ class Layout extends Component {
         this.setState({productsInCart: [], quantityOfEachProduct: [], totalPrice: [], orderMade: false})
     };
 
+    showProductPageHandler = (id) => {
+        this.setState({selectedProduct: id});
+        const url = "/product?name=" + this.props.allProducts[id].name;
+        this.props.history.push(url);
+    };
+
     render(){
         console.log('in render layout');
-        const carouselRoute = this.props.loadingCarousel ? <Route path="/" exact render={() => <div>spinner</div>}/> : <Route path="/" exact component={Carousel}/>
+        const carouselRoute = this.props.loadingCarousel ? 
+        <Route path="/" exact render={() => <div>spinner</div>}/> : 
+        <PropsRoute path="/" exact 
+        component={ Carousel } 
+        showProductPage={(id) => this.showProductPageHandler(id)}
+        addProductToCart={this.addProductToCartHandler}
+        />
         const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spinner</div>}/> : (
             <WithoutRootDiv>
                 {/* rubric34 */}
                 <Switch>
-                    <PropsRoute path='/shopping/:category/:subcategory' component={Shop} addProductToCart={this.addProductToCartHandler}/>
-                    <PropsRoute path='/shopping/:category' component={Shop} addProductToCart={this.addProductToCartHandler}/>
-                    <PropsRoute path="/shopping"  exact component={Shop} addProductToCart={this.addProductToCartHandler}/>
+                    <PropsRoute path='/shopping/:category/:subcategory' component={Shop} addProductToCart={this.addProductToCartHandler} showProductPage={(id) => this.showProductPageHandler(id)}/>
+                    <PropsRoute path='/shopping/:category' component={Shop} addProductToCart={this.addProductToCartHandler} showProductPage={(id) => this.showProductPageHandler(id)}/>
+                    <PropsRoute path="/shopping"  exact component={Shop} addProductToCart={this.addProductToCartHandler} showProductPage={(id) => this.showProductPageHandler(id)}/>
                 </Switch>
             </WithoutRootDiv>
         );
-        const productsRout = this.props.loadingShop ? 
-        <Route path='/product' render={() => <div>spinner</div>}/> : 
-        <PropsRoute path='/product' 
-            component={Shop}
-            addProductToCart={this.addProductToCartHandler}/>;
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
-                    {productsRout}
+                    {/* {productsRout} */}
+                    <PropsRoute path='/product' 
+                    component={Product}
+                    addProductToCart={this.addProductToCartHandler}
+                    product={this.state.selectedProduct}
+                    />;
                     {/* rubric56 */}
                     <PropsRoute 
                         path='/cart' 
@@ -146,7 +159,8 @@ class Layout extends Component {
 const mapStateToProps = state => {
     return {
         loadingShop: state.loadingShop,
-        loadingCarousel: state.loadingCarousel
+        loadingCarousel: state.loadingCarousel,
+        allProducts: state.allProducts
     };
 };
 

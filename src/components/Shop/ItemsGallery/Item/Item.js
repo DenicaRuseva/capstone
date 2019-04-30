@@ -17,7 +17,7 @@ const item = (props) => (
         <div className='info-wrapper'>
             <p className='info-name' onClick={props.clickOnImg}>{props.item.name}</p>
             <p className='info-price'>$ {props.item.price.toFixed(2)}</p>
-            <p className='button-container'><Button class='add-button' type='button' clicked={() => props.clickOnAddBtn(props.item)}>add</Button></p> 
+            <p className='button-container'><Button class='add-button' type='button' clicked={props.clickOnAddBtn}>add</Button></p> 
             <p className='info-rating'><FontAwesomeIcon className='star' icon='star'/>{props.item.rating}</p>
         </div>
         

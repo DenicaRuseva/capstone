@@ -4,7 +4,7 @@ import Controls from '../../components/Shop/Controls/Controls';
 import ShopSideBar from '../../components/Shop/ShopSideBar/ShopSideBar';
 import ItemsGallery from '../../components/Shop/ItemsGallery/ItemsGallery';
 import PropsRoute from '../../hoc/Routes/PropsRoute'; 
-import Product from '../../components/Shop/Product/Product';
+// import Product from '../../components/Shop/Product/Product';
 import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import {flattenArray, deepCopy} from '../utility';
@@ -28,8 +28,6 @@ class Shop extends Component {
         numberOfProductsInCategory: null,
         shownCategoryMenu: false,
         clickedCategories: [],
-        productSelected: 0,
-        selectedProductQty: 1,
         selectValue: 'none_none'
     };
 
@@ -52,7 +50,6 @@ class Shop extends Component {
                 numberOfProductsInCategory: this.props.numberOfProductsInCategory,
                 shownCategoryMenu: this.props.shownCategoryMenu,
                 clickedCategories: [...this.props.clickedCategories],
-                productSelected: this.props.productSelected,
                 selectValue: this.props.selectValue,
                 loading: this.props.loading
             });
@@ -63,41 +60,7 @@ class Shop extends Component {
             for(let i=0; i < numberOfCategories; i++){
                 clickedCategories.push(false);
             };
-            if(this.props.location.pathname === '/product' && this.props.location.search){
-                const productUrl = this.props.location.search.split("=").pop();
-                let validUrl = false;
-                let productId;
-    
-                for(let i = 0; i < this.props.allProducts.length; i++) {
-                    if (this.props.allProducts[i].name == decodeURI(productUrl)) {
-                        validUrl = true;
-                        productId = i;
-                        i = this.props.allProducts.length;
-                    };
-                };
-    
-                if(validUrl){
-                        this.setState({
-                        productsToShow: [...this.props.allProducts],
-                        numberOfProductsInCategory: this.props.allProducts.length,
-                        clickedCategories: [...clickedCategories],
-                        productSelected: productId,
-                        loading: false
-                    });
-                    this.props.history.replace('/product?name=' + productUrl);
-                }
-                else {
-                    this.setState({
-                        productsToShow: [...this.props.allProducts],
-                        numberOfProductsInCategory: this.props.allProducts.length,
-                        clickedCategories: [...clickedCategories],
-                        loading: false
-                    });
-                    this.props.history.replace('/shopping');
-                };  
-            }
-            else {
-                if(this.props.match.params.category){
+            if(this.props.match.params.category){
                     const currentURLCategory = this.props.categoriesByIds[this.props.match.params.category] ? this.props.match.params.category : 'all';
                     const currentURLSubcategory = (currentURLCategory !== 'all' && this.props.match.params.subcategory && this.props.categoriesByIds[this.props.match.params.category][this.props.match.params.subcategory]) ? this.props.match.params.subcategory : 'all';
                     if(currentURLCategory === 'all'){
@@ -164,7 +127,6 @@ class Shop extends Component {
                     this.props.history.replace('/shopping');
                 };
             };
-        };
     };
 
     componentWillUnmount(){
@@ -386,33 +348,6 @@ class Shop extends Component {
         };
     };
 
-    showProductPageHandler = (product) => {
-        this.props.history.replace('/product?=' + product.name);
-    };
-
-    productSelectHandler = (id) => {
-        const state =   {
-            ...this.state,
-            productSelected: id
-        };
-        this.props.onShopUnmount(state);
-        this.props.history.push('/product?name=' + this.props.allProducts[id].name);
-        // this.setState({
-        //     productSelected: id*1
-        // }, () => this.props.history.push('/product?name=' + this.props.allProducts[id].name));
-    };
-
-    onSelectProductQtyChangeHandler = (event) => {
-        this.setState({
-            selectedProductQty: event.target.value
-        });
-    };
-
-    showPreviousPageHandler = () => {
-        this.props.history.goBack();
-    };
-
-
     render(){
         console.log('in render shop');
         const shop = this.state.loading ? <div>spinner</div> :
@@ -438,16 +373,9 @@ class Shop extends Component {
                     />
                 {/* rubric20  */}
                     <PropsRoute path='/shopping' component={ItemsGallery}
-                     productsToShow={this.state.productsToShow}
-                     clickOnAddBtn={this.props.addProductToCart}
-                     clickOnImg={this.productSelectHandler}/> 
-                    <PropsRoute 
-                    path='/product' 
-                    component={Product} 
-                    product={this.props.allProducts[this.state.productSelected]}
-                    clickOnAddBtn={() => this.props.addProductToCart(this.props.allProducts[this.state.productSelected], this.state.selectedProductQty)}
-                    onQuantityChange={this.onSelectProductQtyChangeHandler}
-                    clickOnBackBtn={this.showPreviousPageHandler}/>
+                        productsToShow={this.state.productsToShow}
+                        clickOnAddBtn={this.props.addProductToCart}
+                        clickOnImg={this.props.showProductPage}/> 
             </div>
         );
         return <WithoutRootDiv>{shop}</WithoutRootDiv>
@@ -469,7 +397,6 @@ const mapStateToProps = state => {
         numberOfProductsInCategory: state.numberOfProductsInCategory,
         shownCategoryMenu: state.shownCategoryMenu,
         clickedCategories: state.clickedCategories,
-        productSelected: state.productSelected,
         selectValue: state.selectValue,
         loading: state.loading,
         shopMounted: state.shopMounted

@@ -12,21 +12,9 @@ class Carousel extends Component {
     
     state = {
         showSlideWithId: 0,
-        unmountSlider: false
+        unmountSlider: false,
+        // selectedProduct: ''
     };
-
-    componentDidMount(){
-        // let slides = [];
-        // alert(this.props.carouselProducts.length)
-        // for(let i = 0; i < this.props.carouselProducts.length; i++){
-        //     slides.push("url('" + this.props.allProducts[[this.props.carouselProducts[i][0]]].imagelink + "'), url('" + 
-        //     this.props.allProducts[[this.props.carouselProducts[i][1]]].imagelink + "'), url('" + 
-        //     this.props.allProducts[[this.props.carouselProducts[i][2]]].imagelink + "'), url('" +
-        //     this.props.allProducts[[this.props.carouselProducts[i][3]]].imagelink + "')");
-        // };
-        // console.log(slides);
-        // this.setState({slides: slides})
-    }
 
     showNextSlideHandler = () => {
         const newSlideId = (this.state.showSlideWithId + 1) % 3
@@ -47,8 +35,6 @@ class Carousel extends Component {
         this.mountSlider();
     };
 
-
-
     mountSlider = () => {
         setTimeout(() => {this.mount()}, 300)
     }
@@ -62,8 +48,7 @@ class Carousel extends Component {
     };
 
     showProductHandler = (id) => {
-        const url = "/product?name=" + this.props.allProducts[id].name;
-        this.props.history.push(url);
+        this.props.showProductPage(id);
     };
 
 
@@ -85,7 +70,7 @@ class Carousel extends Component {
             <div className="carousel">
                 <CarouselSlide 
                 currentSlideId={this.state.showSlideWithId}
-                showProduct={this.showProductHandler}
+                showProduct={this.props.showProductPage}
                 />
                 <CarouselButton 
                 left 
