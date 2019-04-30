@@ -32,7 +32,7 @@ const categoryButton = (props) => {
     });
     return (
             <ul className='category-list'>
-                <li className={categoryListitemClasses.join(' ')} onClick={() => props.clickOnCategory(props.categoryId, props.categoryAndSubcat.category)}>
+                <li className={categoryListitemClasses.join(' ')} onClick={(event) => {props.clickOnCategory(props.categoryId, props.categoryAndSubcat.category, event)}}>
                         <span>{props.categoryAndSubcat.category}</span>
                         <ul className='subcategory-list'>{subcategories}</ul>
                 </li>

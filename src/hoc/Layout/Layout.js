@@ -12,6 +12,7 @@ import Product from '../../components/Product/Product';
 import Footer from '../../components/Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import About from '../../components/About/About';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
 import WithErrorHandler from '../WithErrorHandler/WithErrorHandler';
@@ -156,7 +157,8 @@ class Layout extends Component {
                         makeOrder={this.makeOrderHandler}
                         cleanState={this.resetProductsInCatrHandler}/>
                     <Route path="/contact" exact component={ContactPage}/>
-                    {carouselRoute}
+                    <Route path='/about' exact component={About}/>
+                    {carouselRoute} 
                     {shopRoute}
                     <Route render={() => this.props.history.replace('/')}/> 
                     </Switch>

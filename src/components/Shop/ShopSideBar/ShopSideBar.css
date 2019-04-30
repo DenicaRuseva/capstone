@@ -28,45 +28,15 @@
   
 }
 
-@media only screen and (min-width: 600px) {
-    .side-bar-wrapper {
-   
-        
-    
-        /* min-height: 280px; */
-        /* padding: 0px 5px 30px 3px; */
-
-        /* overflow-y: auto;
-        overflow-x: hidden; */
-    }
-    /* .side-bar-wrapper .side-bar-container {
-        display: inline-flex; 
-    } */
-}
-
 
 @media only screen and (min-width: 768px) {
     .side-bar-wrapper {
         position: absolute;
         top: 10px;
-        /* left: 10px; */
         width: 25%;
-        /* min-height: 280px; */
-        /* padding: 0px 5px 30px 3px; */
-
-        /* overflow-y: auto;
-        overflow-x: hidden; */
     }
-    /* .side-bar-wrapper .side-bar-container {
-        display: inline-flex; 
-    } */
 }
-/* @media only screen and (min-width: 800px) {
-    .side-bar-wrapper {
-        width: 33.33%;
-        padding: 0px 5px 30px 0px;
-    }
-} */
+
 
 
 @media only screen and (min-width: 900px) {
@@ -155,6 +125,9 @@ div.text:hover {
     margin: auto 0px;
     float: left;
     width: 100%;
+    position: relative;
+    height: auto;
+    overflow: hidden;
     /* height: 100%; */
     /* border: 1px solid black; */
 
