@@ -11,6 +11,7 @@ import ContactPage from '../../container/ContactPage/ContactPage';
 import Product from '../../components/Product/Product';
 import Footer from '../../components/Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
 import WithErrorHandler from '../WithErrorHandler/WithErrorHandler';
@@ -42,6 +43,9 @@ class Layout extends Component {
 
     /* rubric44 */
     addProductToCartHandler = (productId, quantity = 1) => {
+        if(quantity === 0){
+            return;
+        };
         const updatedTotalPrice = this.state.totalPrice + this.props.allProducts[productId].price*quantity; 
         let updatedProductsInCart = [...this.state.productsInCart];
         let updatedQuantity = [...this.state.quantityOfEachProduct];
@@ -106,14 +110,15 @@ class Layout extends Component {
 
     render(){
         console.log('in render layout');
+        console.log(!this.props.allProducts.length);
         const carouselRoute = this.props.loadingCarousel ? 
-        <Route path="/" exact render={() => <div>spinner</div>}/> : 
+        <Route path="/" exact render={() => <Spinner/>}/> : 
         <PropsRoute path="/" exact 
         component={ Carousel } 
         showProductPage={(id) => this.showProductPageHandler(id)}
         addProductToCart={this.addProductToCartHandler}
         />
-        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <div>spinner</div>}/> : (
+        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <Spinner/>}/> : (
             <WithoutRootDiv>
                 {/* rubric34 */}
                 <Switch>
@@ -123,18 +128,20 @@ class Layout extends Component {
                 </Switch>
             </WithoutRootDiv>
         );
+        const productsRoute = this.props.allProducts.length ?  
+            <PropsRoute path='/product' 
+            component={Product}
+            addProductToCart={this.addProductToCartHandler}
+            product={this.state.selectedProduct}
+            /> : <Spinner/>
         return(
             <div className='layout'>
                 <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
-                    {/* {productsRout} */}
-                    <PropsRoute path='/product' 
-                    component={Product}
-                    addProductToCart={this.addProductToCartHandler}
-                    product={this.state.selectedProduct}
-                    />;
+                    {productsRoute}
+                   
                     {/* rubric56 */}
                     <PropsRoute 
                         path='/cart' 

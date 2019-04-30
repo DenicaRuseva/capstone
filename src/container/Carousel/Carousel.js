@@ -15,19 +15,19 @@ class Carousel extends Component {
     };
 
     showNextSlideHandler = () => {
-        const newSlideId = (this.state.showSlideWithId + 1) % 3
-        // this.state.promotionalProducts.length;
-        this.setState({showSlideWithId: newSlideId});
+        this.setState((prevState, props) => {
+            return {showSlideWithId: ((prevState.showSlideWithId + 1) % this.props.carouselProducts.length)};
+        });
     };
 
     showPreviousSlideHandler = () => {
-        const newSlideId = (this.state.showSlideWithId + 2) % 3
-        // this.state.promotionalProducts.length;
-        this.setState({showSlideWithId: newSlideId});
+        this.setState((prevState, props) => {
+            return {showSlideWithId: ((prevState.showSlideWithId + 2) % this.props.carouselProducts.length)};
+        });
     };
 
     showSlideWithIdHandler = (id) => {
-        this.setState({showSlideWithId: id});
+        this.setState({showSlideWithId: id*1});
     };
 
     showImgHandler = (event) => {
@@ -35,7 +35,7 @@ class Carousel extends Component {
     };
 
     showProductHandler = (id) => {
-        this.props.showProductPage(id);
+        this.props.showProductPage(id*1);
     };
 
 
@@ -61,9 +61,9 @@ class Carousel extends Component {
                         <CarouselButton 
                         left 
                         clicked={this.showPreviousSlideHandler}
-                        disabled={this.state.showSlideWithId === 0}/>
+                        />
                         <CarouselButton clicked={this.showNextSlideHandler}
-                        disabled={this.state.showSlideWithId === 2}/>
+                        />
                         <CarouselRadioButtons 
                         shownProductId={this.state.showSlideWithId}
                         clickOnButton={this.showSlideWithIdHandler}/>

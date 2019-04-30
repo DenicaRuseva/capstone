@@ -4,12 +4,11 @@ import Controls from '../../components/Shop/Controls/Controls';
 import ShopSideBar from '../../components/Shop/ShopSideBar/ShopSideBar';
 import ItemsGallery from '../../components/Shop/ItemsGallery/ItemsGallery';
 import PropsRoute from '../../hoc/Routes/PropsRoute'; 
-// import Product from '../../components/Shop/Product/Product';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
-import {flattenArray, deepCopy} from '../utility';
+import {flattenArray} from '../utility';
 import * as action from '../../store/actions/index';
-import { timingSafeEqual } from 'crypto';
 
 
 
@@ -29,14 +28,14 @@ class Shop extends Component {
         numberOfProductsInCategory: null,
         shownCategoryMenu: false,
         clickedCategories: [],
-        selectValue: 'none_none'
+        selectValue: 'none_none',
+        selectedProduct: ''
     };
 
 
     componentDidMount(){
         console.log('in CDM Shop');
         if(this.props.shopMounted){
-            console.log(this.props.productSelected);
             this.setState({
                 loading: false,
                 sort: {
@@ -351,8 +350,8 @@ class Shop extends Component {
 
     render(){
         console.log('in render shop');
-        let shop = <div>spinner</div>;
-        if(!this.props.loading && !this.props.error){
+        let shop = <Spinner/>;
+        if(!this.state.loading && !this.props.error){
             shop = (
                 <div className='shop'>
                         {/* rubric19 */}
@@ -377,7 +376,7 @@ class Shop extends Component {
                         <PropsRoute path='/shopping' component={ItemsGallery}
                             productsToShow={this.state.productsToShow}
                             clickOnAddBtn={this.props.addProductToCart}
-                            clickOnImg={this.props.showProductPage}/> 
+                            clickOnImg={this.props.showProductPage}/>
                 </div>
             );
         };
