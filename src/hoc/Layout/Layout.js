@@ -13,6 +13,8 @@ import Footer from '../../components/Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
+import WithErrorHandler from '../WithErrorHandler/WithErrorHandler';
+import axios from 'axios';
 
 
 class Layout extends Component {
@@ -172,4 +174,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(WithErrorHandler(Layout, axios));

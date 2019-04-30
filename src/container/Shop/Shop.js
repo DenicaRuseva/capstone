@@ -9,6 +9,7 @@ import './Shop.css';
 import WithoutRootDiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import {flattenArray, deepCopy} from '../utility';
 import * as action from '../../store/actions/index';
+import { timingSafeEqual } from 'crypto';
 
 
 
@@ -350,34 +351,66 @@ class Shop extends Component {
 
     render(){
         console.log('in render shop');
-        const shop = this.state.loading ? <div>spinner</div> :
-        (
-            <div className='shop'>
-                    {/* rubric19 */}
-                    <PropsRoute path='/shopping' 
-                        component={ShopSideBar} 
-                        clickOnCategory={this.sideBarCategoryClickHandler}
-                        clickOnSubcategory={this.sideBarSubcategoryClickHandler}
-                        toggleCategoryMenu={this.toggleCategoryMenuHandler}
-                        shownCategoryMenu={this.state.shownCategoryMenu}
-                        currentCategory={this.state.currentCategory}
-                        clickedCategories={this.state.clickedCategories}/>
-                    {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
-                    <PropsRoute path='/shopping' component={Controls} 
-                        onSort={this.sortItemsHandler} 
-                        category={this.state.currentCategory}
-                        onInStockClick={this.inStockClickHandler}
-                        numberOfProductsInCategory={this.state.numberOfProductsInCategory}
-                        numberOnShownProducts={this.state.productsToShow.length}
-                        selectValue={this.state.selectValue}
-                    />
-                {/* rubric20  */}
-                    <PropsRoute path='/shopping' component={ItemsGallery}
-                        productsToShow={this.state.productsToShow}
-                        clickOnAddBtn={this.props.addProductToCart}
-                        clickOnImg={this.props.showProductPage}/> 
-            </div>
-        );
+        let shop = <div>spinner</div>;
+        if(!this.props.loading && !this.props.error){
+            shop = (
+                <div className='shop'>
+                        {/* rubric19 */}
+                        <PropsRoute path='/shopping' 
+                            component={ShopSideBar} 
+                            clickOnCategory={this.sideBarCategoryClickHandler}
+                            clickOnSubcategory={this.sideBarSubcategoryClickHandler}
+                            toggleCategoryMenu={this.toggleCategoryMenuHandler}
+                            shownCategoryMenu={this.state.shownCategoryMenu}
+                            currentCategory={this.state.currentCategory}
+                            clickedCategories={this.state.clickedCategories}/>
+                        {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
+                        <PropsRoute path='/shopping' component={Controls} 
+                            onSort={this.sortItemsHandler} 
+                            category={this.state.currentCategory}
+                            onInStockClick={this.inStockClickHandler}
+                            numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                            numberOnShownProducts={this.state.productsToShow.length}
+                            selectValue={this.state.selectValue}
+                        />
+                    {/* rubric20  */}
+                        <PropsRoute path='/shopping' component={ItemsGallery}
+                            productsToShow={this.state.productsToShow}
+                            clickOnAddBtn={this.props.addProductToCart}
+                            clickOnImg={this.props.showProductPage}/> 
+                </div>
+            );
+        };
+        if(this.props.error){
+            shop = (
+                <div className='shop'>
+                        {/* rubric19 */}
+                        <PropsRoute path='/shopping' 
+                            component={ShopSideBar} 
+                            clickOnCategory={() => null}
+                            clickOnSubcategory={() => null}
+                            toggleCategoryMenu={() => null}
+                            shownCategoryMenu={() => null}
+                            currentCategory={this.state.currentCategory}
+                            clickedCategories={this.state.clickedCategories}/>
+                        {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
+                        <PropsRoute path='/shopping' component={Controls} 
+                            onSort={() => null} 
+                            category={this.state.currentCategory}
+                            onInStockClick={() => null}
+                            numberOfProductsInCategory={this.state.numberOfProductsInCategory}
+                            numberOnShownProducts={this.state.productsToShow.length}
+                            selectValue={this.state.selectValue}
+                        />
+                    {/* rubric20  */}
+                        <PropsRoute path='/shopping' component={ItemsGallery}
+                            productsToShow={this.state.productsToShow}
+                            clickOnAddBtn={() => null}
+                            clickOnImg={() => null}/> 
+                </div>
+            );
+        }
+        
         return <WithoutRootDiv>{shop}</WithoutRootDiv>
     };
 };
@@ -399,7 +432,8 @@ const mapStateToProps = state => {
         clickedCategories: state.clickedCategories,
         selectValue: state.selectValue,
         loading: state.loading,
-        shopMounted: state.shopMounted
+        shopMounted: state.shopMounted,
+        error: state.error
     };
 };
 

@@ -194,7 +194,7 @@ const setCarouselProducts = (carouselProducts) => {
 export const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchProductsStart());
-        const products = axios.get('https://webmppcapstone.blob.core.windows.net/data/itemsdata.json')
+        const products = axios.get('https://webmppcapstone.blob.core.windows.net/data/itemsdata')
         .then(res => dispatch(fetchProductsSuccess(res.data)))
         .catch( error => dispatch(fetchProductsFaill(error)));
     };
