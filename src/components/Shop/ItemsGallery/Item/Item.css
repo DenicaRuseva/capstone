@@ -49,6 +49,8 @@
 }
 
 .item *:not(img) {
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
     transition: all 0.4s;
 }
 
@@ -69,14 +71,16 @@
     overflow: hidden;
     background-color: #e6e600;
     border: 1px solid #4d4d00;
-    box-shadow: inset 0 0 10px #999900;
+    -webkit-box-shadow: inset 0 0 10px #999900;
+            box-shadow: inset 0 0 10px #999900;
 }
 
 .info-wrapper {
     width: 100%;
     height: 100%;
     background-color: white;
-    box-shadow: inset 0 0 10px #999900;
+    -webkit-box-shadow: inset 0 0 10px #999900;
+            box-shadow: inset 0 0 10px #999900;
 }
 
 .info-name, .info-price, .info-rating, .button-container {
@@ -92,7 +96,8 @@
     color: #006600;
     font-weight: bold;
     overflow: hidden;
-    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
 }
@@ -110,4 +115,3 @@
 .item:hover .add-button {
     opacity: 1;
 }
-

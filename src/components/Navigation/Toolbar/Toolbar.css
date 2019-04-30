@@ -1,7 +1,13 @@
 .toolbar {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -10,6 +16,9 @@
     /* background-color: #2f4c7a; */
     /* background-image: linear-gradient(to right, #2f4c7a,  #3c7993, #2f4c7a); */
     /* background-image: linear-gradient(#2f4c7a, #4e90ad, #2f4c7a); */
+    background-image: -webkit-gradient(linear, left top, right top, from(#264d00),  color-stop(#408000), to(#264d00));
+    background-image: -webkit-linear-gradient(left, #264d00,  #408000, #264d00);
+    background-image: -o-linear-gradient(left, #264d00,  #408000, #264d00);
     background-image: linear-gradient(to right, #264d00,  #408000, #264d00);
 
     padding: 0 20px;
@@ -31,4 +40,3 @@
         display: block;
     }
 }
-

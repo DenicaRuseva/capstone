@@ -4,7 +4,6 @@
     position: relative;
     width: 100%;
     background-color: white;
-    /* padding: 10px; */
 }
 
 @media only screen and (min-width: 768px) {
@@ -13,8 +12,3 @@
     }
 }
 
-/* @media only screen and (min-width: 900px) {
-    .shop {
-        padding-left: 0px;
-    }
-} */

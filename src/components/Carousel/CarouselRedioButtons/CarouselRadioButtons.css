@@ -3,7 +3,9 @@
     width: auto;
     left: 50%;
     bottom: 225px;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
     /* text-align: center; */
 }
 
@@ -47,8 +49,8 @@
     height: 100%;
     border-radius: 50%;
     background-color: #737373;
-    box-shadow: 0 0 4px black;
+    -webkit-box-shadow: 0 0 4px black;
+            box-shadow: 0 0 4px black;
     /* border: 1px solid white; */
 
 }
-

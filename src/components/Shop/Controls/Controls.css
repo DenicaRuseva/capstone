@@ -50,7 +50,8 @@
 }
 
 .category-name span, .number-of-products {
-    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
 }
 
 .content-wrapper, .number-of-products span {
@@ -58,7 +59,9 @@
     position: relative;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
 }
 
 .category-name > .content-wrapper span,

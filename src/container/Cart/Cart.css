@@ -10,7 +10,9 @@
     position: relative;
     display: inline-block;
     left: 50%;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
     margin-top: 30px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
@@ -21,4 +23,3 @@
         padding: 5px;
     }
 }
-

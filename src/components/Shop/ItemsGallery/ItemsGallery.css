@@ -19,9 +19,14 @@
 @media only screen and (min-width: 900px) {
 
     .items-gallery {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         width: 75%;
     }
 }
@@ -37,6 +42,5 @@
         width: 75%;
     }
 } */
-
 
 

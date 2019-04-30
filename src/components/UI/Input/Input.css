@@ -1,7 +1,8 @@
 .input {
     width: 100%;
     padding: 10px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     color: inherit;
 }
 
@@ -39,7 +40,8 @@
     display: block;
     width: 100%;
     margin: 10px 0px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 .inputElement::-webkit-input-placeholder {

@@ -24,6 +24,8 @@
 }
 
 .side-bar-wrapper.show-categories .side-bar-container {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
   
 }
@@ -41,6 +43,8 @@
 
 @media only screen and (min-width: 900px) {
     .side-bar-wrapper .side-bar-container {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
         display: inline-flex; 
     }
     .side-bar-wrapper {
@@ -120,8 +124,13 @@ div.text:hover {
 
 .side-bar-container {
     left: 20px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin: auto 0px;
     float: left;
     width: 100%;
