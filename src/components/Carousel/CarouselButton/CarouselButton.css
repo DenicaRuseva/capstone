@@ -4,10 +4,24 @@
     transform: translateY(-50%);
     color:#d0d7e2;
     opacity: 0.5;
+    zoom: 1;
+    transition: all ease-in-out 1s;
+}
+
+.leftBtn svg.svg-inline--fa.fa-w-8, .rightBtn svg.svg-inline--fa.fa-w-8 {
+    width: 0.3em;
 }
 
 .leftBtn:hover, .rightBtn:hover {
     opacity: 0.7;
+    zoom: 1.2;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 500px){
+    .leftBtn svg.svg-inline--fa.fa-w-8, .rightBtn svg.svg-inline--fa.fa-w-8 {
+        width: 0.4em;
+    }
 }
 
 .leftBtn::before, .rightBtn::before {

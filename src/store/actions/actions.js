@@ -28,7 +28,7 @@ export const flattenArray = (arr) => arr.reduce(
 const makeArrayToArraysWithNElements = (array) => {
     let arr = [];
     while(array.length) {
-        arr.push(array.splice(0, 4));
+        arr.push(array.splice(0, 6));
     };
     return arr;
 };
@@ -127,7 +127,7 @@ const mekeClickedCategories = (length) => {
 
 const makeCarouselProducts = () => {
     let carouselProducts = [];
-    for(let i = 0; i < 12; i++){
+    for(let i = 0; i < 18; i++){
         carouselProducts.push(85-i)
         // carouselProducts.push(i)
 
