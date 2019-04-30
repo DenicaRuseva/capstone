@@ -9,6 +9,7 @@ import PropsRoute from '../Routes/PropsRoute';
 import Cart from '../../container/Cart/Cart';
 import ContactPage from '../../container/ContactPage/ContactPage';
 import Product from '../../components/Product/Product';
+import Footer from '../../components/Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import './Layout.css';
 import WithoutRootDiv from '../WithoutRootDiv/WithoutRootDiv';
@@ -135,6 +136,7 @@ class Layout extends Component {
                     {/* rubric56 */}
                     <PropsRoute 
                         path='/cart' 
+                        exact
                         component={Cart} 
                         products={this.state.productsInCart} 
                         productsQuantities={this.state.quantityOfEachProduct}
@@ -144,13 +146,13 @@ class Layout extends Component {
                         totalPrice={this.state.totalPrice}
                         makeOrder={this.makeOrderHandler}
                         cleanState={this.resetProductsInCatrHandler}/>
-                    <Route path="/contact" component={ContactPage}/>
+                    <Route path="/contact" exact component={ContactPage}/>
                     {carouselRoute}
                     {shopRoute}
                     <Route render={() => this.props.history.replace('/')}/> 
                     </Switch>
                 </main>
-                <div style={{height: '56px', backgroundColor: 'blue'}}>footer</div>
+                <Footer/>
             </div>
         )
     };

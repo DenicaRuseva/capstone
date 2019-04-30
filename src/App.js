@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { 
-  faShoppingCart, faStar, faChevronDown, faMinusCircle, faMapMarkerAlt,faPhone, faAt, faArrowAltCircleLeft, faImage, faAngleLeft, faAngleRight
+  faShoppingCart, faStar, faChevronDown, faMinusCircle, faMapMarkerAlt,faPhone, faAt, faArrowAltCircleLeft, faImage, faAngleLeft, faAngleRight, faHome, faAddressBook, faInfo
 } from '@fortawesome/free-solid-svg-icons';
 import { Route } from 'react-router-dom';
 
@@ -18,6 +18,9 @@ library.add(faArrowAltCircleLeft);
 library.add(faImage);
 library.add(faAngleLeft);
 library.add(faAngleRight);
+library.add(faHome);
+library.add(faInfo);
+library.add(faAddressBook);
 
 
 

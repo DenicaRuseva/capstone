@@ -72,4 +72,11 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+   margin-bottom: 0px;
+}
+
+@media only screen and (min-width: 500px){
+    .shop-all-btn {
+        margin-bottom: 100px;
+    }
 }

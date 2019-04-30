@@ -14,8 +14,9 @@ class CarouselSlide extends Component {
                 src: '',
                 style: {
                     // filter: 'blour(100px)'
-                    // width: '20px',
-                    filter: 'blur(100px)'
+                    maxWidth: '20px',
+                    height: '20px',
+                    // filter: 'blur(100px)'
                     // height: '20px'
                 },
                 id: id
@@ -32,15 +33,16 @@ class CarouselSlide extends Component {
         images[i].src = src
         images[i].style = {
             // filter: "blour(1px)"
-            // width: "100%",
-            filter: 'blur(0px)'
-            // height: '50%'
+            maxWidth: "100%",
+            // filter: 'blur(0px)',
+            height: 'auto',
+            maxHeight: '100%'
         };
             this.setState({
               images
             })
-          }
-     
+        }
+        
           primaryImage.src = src
         });
     };
