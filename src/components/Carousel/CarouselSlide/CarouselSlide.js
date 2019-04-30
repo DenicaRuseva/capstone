@@ -1,19 +1,17 @@
-import React, {Component } from 'react';
+import React from 'react';
 import './CarouselSlide.css';
 import { connect } from 'react-redux';
 
 
 
-class CarouselSlide extends Component {
+const carouselSlide = (props) => {
 
-    render(){
-        const attachedClassess = this.props.id === this.props.currentSlideId ? 'carousel-slide shown' : 'carousel-slide';
-        const images = this.props.imagesIds.map((id, i) => {
+        const attachedClassess = props.id === props.currentSlideId ? 'carousel-slide shown' : 'carousel-slide';
+        const images = props.imagesIds.map((id, i) => {
             return (
-                <div key={i} className='img-container-carousel' onClick={() => this.props.showProduct(id)}>
+                <div key={i} className='img-container-carousel' onClick={() => props.showProduct(id)}>
                     <img 
-                        src={this.props.allProducts[id].imagelink}
-                        height='200px'
+                        src={props.allProducts[id].imagelink}
                     />
                 </div>
             )
@@ -25,16 +23,14 @@ class CarouselSlide extends Component {
             {images}
         </div>
     );
-    }
 };
 
    
 
 const mapStateToProps = state => {
     return {
-        allProducts: state.allProducts,
-        carouselProducts: state.carouselProducts
+        allProducts: state.allProducts
     };
 };
 
-export default connect(mapStateToProps)(CarouselSlide);
+export default connect(mapStateToProps)(carouselSlide);

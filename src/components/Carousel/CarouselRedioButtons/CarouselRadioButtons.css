@@ -2,6 +2,7 @@
     position: relative;
     width: auto;
     left: 50%;
+    bottom: 225px;
     transform: translateX(-50%);
     /* text-align: center; */
 }
@@ -9,6 +10,7 @@
 @media only screen and (min-width: 500px) {
     .radio-buttons {
         width: 200px;
+        top: 500px;
     }
 }
 
@@ -17,7 +19,7 @@
     position: absolute;
     margin: 0px;
     padding: 0px;
-    top: -22px;
+    /* bottom: -522px; */
     text-align: center;
 }
 

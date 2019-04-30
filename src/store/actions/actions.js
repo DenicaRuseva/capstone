@@ -128,7 +128,7 @@ const mekeClickedCategories = (length) => {
 const makeCarouselProducts = () => {
     let carouselProducts = [];
     for(let i = 0; i < 18; i++){
-        carouselProducts.push(85-i)
+        carouselProducts.push(99-i)
         // carouselProducts.push(i)
 
     }

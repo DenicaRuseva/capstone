@@ -12,7 +12,6 @@ class Carousel extends Component {
     
     state = {
         showSlideWithId: 0
-        // selectedProduct: ''
     };
 
     showNextSlideHandler = () => {
@@ -44,6 +43,7 @@ class Carousel extends Component {
         const slides = this.props.carouselProducts.map((slide, id) => {
             return (
                 <CarouselSlide 
+                    key={id+this.props.allProducts[id].name}
                     id={id}
                     currentSlideId={this.state.showSlideWithId}
                     showProduct={this.props.showProductPage}
@@ -54,21 +54,20 @@ class Carousel extends Component {
         return (
             <WithoutRootdiv>
                 <div className="wellcome">Wellcome</div>
+                
                 <div className="carousel">
-                    {/* <CarouselSlide 
-                    currentSlideId={this.state.showSlideWithId}
-                    showProduct={this.props.showProductPage}
-                    /> */}
-                    {slides}
-                    <CarouselButton 
-                    left 
-                    clicked={this.showPreviousSlideHandler}
-                    disabled={this.state.showSlideWithId === 0}/>
-                    <CarouselButton clicked={this.showNextSlideHandler}
-                    disabled={this.state.showSlideWithId === 2}/>
-                    <CarouselRadioButtons 
-                    shownProductId={this.state.showSlideWithId}
-                    clickOnButton={this.showSlideWithIdHandler}/>
+                    <div className='carousel-wrapp'>
+                        {slides}
+                        <CarouselButton 
+                        left 
+                        clicked={this.showPreviousSlideHandler}
+                        disabled={this.state.showSlideWithId === 0}/>
+                        <CarouselButton clicked={this.showNextSlideHandler}
+                        disabled={this.state.showSlideWithId === 2}/>
+                        <CarouselRadioButtons 
+                        shownProductId={this.state.showSlideWithId}
+                        clickOnButton={this.showSlideWithIdHandler}/>
+                    </div>
                 </div>
                 <Link to='/shopping'><Button class='add-button shop-all-btn'>Shop All</Button></Link>
             </WithoutRootdiv>

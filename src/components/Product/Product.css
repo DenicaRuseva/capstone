@@ -35,10 +35,11 @@
     margin: 0px;
     border-left: double rgb(38, 77, 0) 3px;
     border-right: double rgb(38, 77, 0) 3px;
+    word-wrap: break-word;
 }
 
 .product-info-container h3 {
-    margin-bottom: -15px;
+    /* margin-bottom: -15px; */
     border: none;
     color: rgb(38, 77, 0);
 }
