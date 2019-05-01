@@ -112,14 +112,14 @@ class Layout extends Component {
     render(){
         console.log('in render layout');
         console.log(!this.props.allProducts.length);
-        const carouselRoute = this.props.loadingCarousel ? 
+        const carouselRoute = this.props.loadingCarousel ? //rubric13
         <Route path="/" exact render={() => <Spinner/>}/> : 
         <PropsRoute path="/" exact 
         component={ Carousel } 
         showProductPage={(id) => this.showProductPageHandler(id)}
         addProductToCart={this.addProductToCartHandler}
         />
-        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <Spinner/>}/> : (
+        const shopRoute = this.props.loadingShop ? <Route path='/shopping' render={() => <Spinner/>}/> : ( //rubric34
             <WithoutRootDiv>
                 {/* rubric34 */}
                 <Switch>
@@ -129,6 +129,7 @@ class Layout extends Component {
                 </Switch>
             </WithoutRootDiv>
         );
+        //rubric46
         const productsRoute = this.props.allProducts.length ?  
             <PropsRoute path='/product' 
             component={Product}
@@ -137,7 +138,7 @@ class Layout extends Component {
             /> : <Spinner/>
         return(
             <div className='layout'>
-                <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
+                <Toolbar toggleSideDrawer={this.toggleSideDrawerHandler}/> {/*rubric68 */}
                 <SideDrawer showSideDrawer={this.state.showSideDrawer} hideSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className='main'>
                     <Switch>
@@ -156,14 +157,16 @@ class Layout extends Component {
                         totalPrice={this.state.totalPrice}
                         makeOrder={this.makeOrderHandler}
                         cleanState={this.resetProductsInCatrHandler}/>
+                    {/*rubric62 */}
                     <Route path="/contact" exact component={ContactPage}/>
+                    {/*rubric63 rubric64 */}
                     <Route path='/about' exact component={About}/>
                     {carouselRoute} 
                     {shopRoute}
                     <Route render={() => this.props.history.replace('/')}/> 
                     </Switch>
                 </main>
-                <Footer/>
+                <Footer/> {/*rubric72 */}
             </div>
         )
     };

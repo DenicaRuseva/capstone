@@ -8,7 +8,7 @@ import './Spinner.css';
 class Spinner extends PureComponent {
     render(){
         return (
-            <div class="loader">Loading...</div>
+            <div className="loader">Loading...</div>
         );
     };
 };

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 const carouselSlide = (props) => {
 
-        const attachedClassess = props.id === props.currentSlideId ? 'carousel-slide shown' : 'carousel-slide';
+        const attachedClassess = props.id === props.currentSlideId ? 'carousel-slide shown' : 'carousel-slide'; //rubric11
         const images = props.imagesIds.map((id, i) => {
             return (
                 <div key={i} className='img-container-carousel' onClick={() => props.showProduct(id)}>

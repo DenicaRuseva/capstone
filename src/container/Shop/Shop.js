@@ -180,6 +180,7 @@ class Shop extends Component {
     return number;
     };
 
+    //rubric25
     sideBarCategoryClickHandler = (categoryId, categoryClicked) => {
         if(this.state.currentCategory === categoryClicked){
             let productsToShow = [...this.props.allProductsByIds];
@@ -213,7 +214,7 @@ class Shop extends Component {
     };
 
 
-    // rubric26, rubric28
+    // rubric26, rubric27 rubric28
     sideBarSubcategoryClickHandler = (category, subcategoryClicked) => {
         if(this.state.currentSubcategory === subcategoryClicked){
             return;
@@ -372,18 +373,17 @@ class Shop extends Component {
                             numberOnShownProducts={this.state.productsToShow.length}
                             selectValue={this.state.selectValue}
                         />
-                    {/* rubric20  */}
-                        <PropsRoute path='/shopping' component={ItemsGallery}
+                    {/* rubric20 rubric21 rubric22 rubric23 rubric24 rubric30 rubric31 rubric32 */}
+                        <PropsRoute path='/shopping' component={ItemsGallery} 
                             productsToShow={this.state.productsToShow}
-                            clickOnAddBtn={this.props.addProductToCart}
-                            clickOnImg={this.props.showProductPage}/>
+                            clickOnAddBtn={this.props.addProductToCart} //rubric30
+                            clickOnImg={this.props.showProductPage}/> {/*rubric31*/}
                 </div>
             );
         };
         if(this.props.error){
             shop = (
                 <div className='shop'>
-                        {/* rubric19 */}
                         <PropsRoute path='/shopping' 
                             component={ShopSideBar} 
                             clickOnCategory={() => null}
@@ -392,7 +392,6 @@ class Shop extends Component {
                             shownCategoryMenu={() => null}
                             currentCategory={this.state.currentCategory}
                             clickedCategories={this.state.clickedCategories}/>
-                        {/*  rubric14, rubric15, rubric16, rubric17, rubric18  */}
                         <PropsRoute path='/shopping' component={Controls} 
                             onSort={() => null} 
                             category={this.state.currentCategory}
@@ -401,7 +400,6 @@ class Shop extends Component {
                             numberOnShownProducts={this.state.productsToShow.length}
                             selectValue={this.state.selectValue}
                         />
-                    {/* rubric20  */}
                         <PropsRoute path='/shopping' component={ItemsGallery}
                             productsToShow={this.state.productsToShow}
                             clickOnAddBtn={() => null}

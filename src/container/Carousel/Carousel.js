@@ -16,13 +16,14 @@ class Carousel extends Component {
         toggleSlides: false,
         interval: () => null
     }
-
+// rubric07
     showNextSlideHandler = () => {
         this.setState((prevState, props) => {
             return {showSlideWithId: ((prevState.showSlideWithId + 1) % this.props.carouselProducts.length)};
         });
     };
 
+//rubric08
     showPreviousSlideHandler = () => {
         this.setState((prevState, props) => {
             return {showSlideWithId: ((prevState.showSlideWithId + 2) % this.props.carouselProducts.length)};
@@ -41,6 +42,7 @@ class Carousel extends Component {
         this.props.showProductPage(id*1);
     };
 
+//rubric10
     toggleSllidesHandler = () => {
         if(!this.state.toggleSlides){
             this.setState({interval: setInterval(() => {
@@ -48,7 +50,7 @@ class Carousel extends Component {
                   showSlideWithId: (prevState.showSlideWithId + 1) % 3,
                 })
             );
-            }, 2000)})
+            }, 3000)})
         }
         else {
             clearInterval(this.state.interval);
@@ -66,31 +68,31 @@ class Carousel extends Component {
                     key={id+this.props.allProducts[id].name}
                     id={id}
                     currentSlideId={this.state.showSlideWithId}
-                    showProduct={this.props.showProductPage}
+                    showProduct={this.props.showProductPage} //rubric09
                     imagesIds={this.props.carouselProducts[id]}
                 />
             );
         })
         return (
             <WithoutRootdiv>
-                <div className="wellcome">Wellcome</div>
-                <CarouselCheckbox changed={this.toggleSllidesHandler}/>
-                
+                <div className="wellcome">Wellcome</div> {/*rubric04*/}  
+                <CarouselCheckbox changed={this.toggleSllidesHandler}/> {/*rubric06*/}
+                {/* rubric01 */}
                 <div className="carousel">
                     <div className='carousel-wrapp'>
                         {slides}
-                        <CarouselButton 
+                        <CarouselButton //rubric02 rubric07
                         left 
                         clicked={this.showPreviousSlideHandler}
                         />
-                        <CarouselButton clicked={this.showNextSlideHandler}
+                        <CarouselButton clicked={this.showNextSlideHandler} //rubric03 rubric08
                         />
                         <CarouselRadioButtons 
                         shownProductId={this.state.showSlideWithId}
                         clickOnButton={this.showSlideWithIdHandler}/>
                     </div>
                 </div>
-                <Link to='/shopping'><Button class='add-button shop-all-btn'>Shop All</Button></Link>
+                <Link to='/shopping'><Button class='add-button shop-all-btn'>Shop All</Button></Link> {/*rubric12*/}
             </WithoutRootdiv>
         )
     };

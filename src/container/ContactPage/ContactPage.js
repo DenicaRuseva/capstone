@@ -123,6 +123,7 @@ class ContactPage extends Component {
         this.setState({contactForm: updatedFormData[0], formIsValid: updatedFormData[1]});
     };
 
+    //rubric60
     formSubmitHandler = () => {
         const message = this.state.contactForm.textarea.value;
         window.alert("Your message: " + JSON.stringify({message}).split(':')[1].slice(0, -1));
@@ -155,7 +156,8 @@ class ContactPage extends Component {
     render(){
         return(
             <div className='contact-page'>
-                <div className="form-container">
+            {/*rubric57 rubric59 rubric61*/}
+                <div className="form-container"> 
                     <Form 
                     formClass="contact-form"
                     form={this.state.contactForm}
@@ -166,6 +168,7 @@ class ContactPage extends Component {
                     btnClass='contacts-button'
                     onSubcetegoryChoosen={this.handleSubcategoryChoosen}/>
                 </div>
+                {/*rubric58 */}
                     <Contacts/>
             </div>
         );
