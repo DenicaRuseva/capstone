@@ -6,13 +6,16 @@ import CarouselButton from '../../components/Carousel/CarouselButton/CarouselBut
 import CarouselRadioButtons from '../../components/Carousel/CarouselRedioButtons/CarouselRadioButtons';
 import WithoutRootdiv from '../../hoc/WithoutRootDiv/WithoutRootDiv';
 import Button from '../../components/UI/Button/Button';
+import CarouselCheckbox from '../../components/Carousel/CarouselCheckbox/CarouselCheckbox';
 import './Carousel.css';
 
 class Carousel extends Component {
     
     state = {
-        showSlideWithId: 0
-    };
+        showSlideWithId: 0,
+        toggleSlides: false,
+        interval: () => null
+    }
 
     showNextSlideHandler = () => {
         this.setState((prevState, props) => {
@@ -38,6 +41,23 @@ class Carousel extends Component {
         this.props.showProductPage(id*1);
     };
 
+    toggleSllidesHandler = () => {
+        if(!this.state.toggleSlides){
+            this.setState({interval: setInterval(() => {
+                this.setState(prevState => ({
+                  showSlideWithId: (prevState.showSlideWithId + 1) % 3,
+                })
+            );
+            }, 2000)})
+        }
+        else {
+            clearInterval(this.state.interval);
+        }
+        this.setState((prevState, props) => {
+            return {toggleSlides: !prevState.toggleSlides};
+        });
+    };
+
 
     render(){
         const slides = this.props.carouselProducts.map((slide, id) => {
@@ -54,6 +74,7 @@ class Carousel extends Component {
         return (
             <WithoutRootdiv>
                 <div className="wellcome">Wellcome</div>
+                <CarouselCheckbox changed={this.toggleSllidesHandler}/>
                 
                 <div className="carousel">
                     <div className='carousel-wrapp'>
